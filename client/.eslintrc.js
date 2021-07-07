@@ -91,6 +91,7 @@ module.exports = {
     'import/no-named-as-default': 0,
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
+    'react/prop-types': 0,
     radix: 0,
     quotes: [
       2,
@@ -101,7 +102,7 @@ module.exports = {
       },
     ],
     'prettier/prettier': [
-      'error',
+      'warn',
       {
         // trailingComma: "es5",
         singleQuote: true,
@@ -122,6 +123,11 @@ module.exports = {
       2,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
+    'implicit-arrow-linebreak': 0,
+    'import/no-extraneous-dependencies': 0,
+    'object-curly-newline': 0,
+    'no-multi-spaces': 0,
+    'operator-linebreak': 0,
   },
   parser: '@typescript-eslint/parser',
 };

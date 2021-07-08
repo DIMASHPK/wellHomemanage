@@ -12,7 +12,7 @@ export interface FlatType {
   pricePerMeter: string | number;
   commission: number | string;
   number: string;
-  whoGive: string;
+  whoGave: string;
   stateOfLid: string;
   descriptionOfClient: string;
   managerOfObject: string;
@@ -21,7 +21,8 @@ export interface FlatType {
   soldPrice?: number | string;
 }
 
-export interface CounterState {
+export interface FlatsState {
   flats: FlatType[];
   selectedCells: number[];
+  selectedAll: boolean;
 }

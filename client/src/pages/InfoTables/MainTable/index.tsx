@@ -2,8 +2,8 @@ import React, { memo, useCallback, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import TabsPanel from '../../../components/TabsPanel';
-import { tabItemType } from '../../../components/TabsPanel/types';
+import TabsPanel from 'components/TabsPanel';
+import { tabItemType } from 'components/TabsPanel/types';
 import { useStyles } from './styles';
 import Tables from './Tables';
 

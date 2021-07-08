@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { CounterState } from './types';
+import type { FlatsState } from './types';
 
-const initialState: CounterState = {
+const initialState: FlatsState = {
   flats: [
     {
       id: 1,
@@ -16,7 +16,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -38,7 +38,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -60,7 +60,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -82,7 +82,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -104,7 +104,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -126,7 +126,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -148,7 +148,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -170,7 +170,7 @@ const initialState: CounterState = {
       pricePerMeter: 574,
       commission: 500,
       number: '063-8745202',
-      whoGive: 'ан благострой',
+      whoGave: 'ан благострой',
       stateOfLid: 'срочная продажа',
       descriptionOfClient: 'с ан не работает',
       managerOfObject: 'Татьяна',
@@ -181,6 +181,7 @@ const initialState: CounterState = {
     },
   ],
   selectedCells: [],
+  selectedAll: false,
 };
 
 export const flatsSlice = createSlice({
@@ -204,10 +205,19 @@ export const flatsSlice = createSlice({
 
       state.selectedCells = payload;
     },
+    handleSelectedAll: (state, action: PayloadAction<boolean>) => {
+      const { payload } = action;
+
+      state.selectedAll = payload;
+    },
   },
 });
 
-export const { handleRemoveCell, handleAllCells, handleAddCell } =
-  flatsSlice.actions;
+export const {
+  handleRemoveCell,
+  handleAllCells,
+  handleAddCell,
+  handleSelectedAll,
+} = flatsSlice.actions;
 
 export default flatsSlice.reducer;

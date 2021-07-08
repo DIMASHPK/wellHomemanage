@@ -1,7 +1,6 @@
 import { CheckboxProps } from '@material-ui/core/Checkbox/Checkbox';
+import React from 'react';
 
 export interface CheckboxTypes extends CheckboxProps {
-  cellId?: number;
-  onChange?: () => void;
-  getCheck?: () => boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

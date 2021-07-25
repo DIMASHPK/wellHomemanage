@@ -1,24 +1,24 @@
 import React, { memo } from 'react';
 import Checkbox from 'components/Checkbox';
 import MuiTableRow from '@material-ui/core/TableRow';
-import { FlatType } from 'redux/flats/types';
-import { useTableRow } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRow';
+import { HouseType } from 'redux/houses/types';
+import { useAppSelector } from 'redux/hooks';
 import {
   handleAddCell,
   handleRemoveCell,
   handleSelectedAll,
-} from 'redux/flats/reducer';
-import { useAppSelector } from 'redux/hooks';
+} from 'redux/houses/reducer';
+import { useTableRow } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRow';
 import { TableRowTypes } from './types';
 import { useStyles } from './styles';
 
 const TableRow: React.FC<TableRowTypes> = memo(props => {
   const { tableRow, hiddenColumns, pathForHiddenColumnsState } = props;
 
-  const { selectedCells } = useAppSelector(({ flats }) => flats);
+  const { selectedCells } = useAppSelector(({ houses }) => houses);
 
   const { reformatedRowData, renderCell, handleClick, isCheck } =
-    useTableRow<FlatType>({
+    useTableRow<HouseType>({
       tableRow,
       id: tableRow.id,
       hiddenColumns,
@@ -32,11 +32,8 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
   const {
     id,
     address,
-    floor,
-    numberOfStoreys,
     quantityOfRooms,
     buildingMaterial,
-    typeOfHouse,
     area,
     description,
     price,
@@ -50,12 +47,12 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     dateOfStartAd,
     dateOfSold,
     soldPrice,
+    landArea,
   } = reformatedRowData;
 
   const {
     tableRow: tableRowClassName,
     addressCell,
-    typeCell,
     descriptionCell,
     phoneCell,
     perMeterCell,
@@ -66,7 +63,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
 
   return (
     <MuiTableRow
-      key={id.value as number}
+      key={id.value}
       className={tableRowClassName}
       onClick={handleClick}
     >
@@ -78,29 +75,20 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         className: addressCell,
       })}
       {renderCell({
-        value: floor.value,
-        keyName: floor.keyMap,
-      })}
-      {renderCell({
-        value: numberOfStoreys.value,
-        keyName: numberOfStoreys.keyMap,
-      })}
-      {renderCell({
-        value: quantityOfRooms.value,
-        keyName: quantityOfRooms.keyMap,
-      })}
-      {renderCell({
         value: buildingMaterial.value,
         keyName: buildingMaterial.keyMap,
       })}
       {renderCell({
-        value: typeOfHouse.value,
-        keyName: typeOfHouse.keyMap,
-        className: typeCell,
-      })}
-      {renderCell({
         value: area.value,
         keyName: area.keyMap,
+      })}
+      {renderCell({
+        value: landArea.value,
+        keyName: landArea.keyMap,
+      })}
+      {renderCell({
+        value: quantityOfRooms.value,
+        keyName: quantityOfRooms.keyMap,
       })}
       {renderCell({
         value: description.value,

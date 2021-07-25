@@ -87,6 +87,9 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'react/prop-types': 0,
+    'no-confusing-arrow': 0,
+    'function-paren-newline': 0,
+    indent: 0,
     radix: 0,
     quotes: [
       2,

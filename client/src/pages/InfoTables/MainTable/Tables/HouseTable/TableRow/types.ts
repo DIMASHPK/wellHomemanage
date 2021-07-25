@@ -1,4 +1,4 @@
-import type { FlatType } from 'redux/flats/types';
+import type { HouseType } from 'redux/houses/types';
 import { TableRowProps } from '@material-ui/core';
 import {
   ColumnPathNamesType,
@@ -6,7 +6,7 @@ import {
 } from 'pages/InfoTables/MainTable/Tables/types';
 
 export interface TableRowTypes extends TableRowProps {
-  tableRow: FlatType;
+  tableRow: HouseType;
   hiddenColumns: HideColumnsLogicType['hiddenColumns'];
   pathForHiddenColumnsState:
     | ColumnPathNamesType['FLATS']

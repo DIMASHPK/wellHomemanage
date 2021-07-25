@@ -5,7 +5,7 @@ export const useStyles = makeStyles(() => ({
     height: '100vh',
     width: '100%',
     position: 'relative',
-    backgroundColor: 'rgba(0,0,0,0.4)',
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -15,6 +15,13 @@ export const useStyles = makeStyles(() => ({
     backgroundAttachment: 'fixed',
     willChange: 'background-attachment',
     backgroundSize: 'cover',
+    '& > div': {
+      backgroundColor: 'rgba(0,0,0,0.4)',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+    },
   },
   title: {
     margin: '0 auto',

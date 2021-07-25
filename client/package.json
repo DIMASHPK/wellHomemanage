@@ -1,5 +1,6 @@
 {
   "name": "well_home_manage",
+  "homepage": "http://dimashpk.github.io/wellHomemanage",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -89,6 +89,7 @@ module.exports = {
     'react/prop-types': 0,
     'no-confusing-arrow': 0,
     'function-paren-newline': 0,
+    'linebreak-style': 0,
     indent: 0,
     radix: 0,
     quotes: [
@@ -105,6 +106,7 @@ module.exports = {
         // trailingComma: "es5",
         singleQuote: true,
         printWidth: 80,
+        endOfLine: 'auto',
       },
     ],
     'jsx-a11y/href-no-hash': 'off',

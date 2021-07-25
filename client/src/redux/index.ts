@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import flats from './flats/reducer';
+import houses from './houses/reducer';
 
 export const store = configureStore({
-  reducer: { flats },
+  reducer: { flats, houses },
   preloadedState: {},
 });
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

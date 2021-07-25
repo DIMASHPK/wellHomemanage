@@ -3,12 +3,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import MuiTable from '@material-ui/core/Table';
 import clsx from 'clsx';
 import { useStyles } from './styles';
 import { TablePropsType } from './types';
+import SortCell from './SortCell';
 
 const Table: React.FC<TablePropsType> = memo(props => {
   const { headColumns, children, stickyHeader, classes } = props;
@@ -24,10 +24,8 @@ const Table: React.FC<TablePropsType> = memo(props => {
         <MuiTable className={styles.table} stickyHeader={stickyHeader}>
           <TableHead>
             <TableRow>
-              {headColumns.map(({ id, title, className }) => (
-                <TableCell key={id} className={className}>
-                  {title}
-                </TableCell>
+              {headColumns.map(({ id, ...rest }) => (
+                <SortCell key={id} {...rest} />
               ))}
             </TableRow>
           </TableHead>

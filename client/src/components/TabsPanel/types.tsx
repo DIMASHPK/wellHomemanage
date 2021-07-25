@@ -1,27 +1,16 @@
-import React from 'react';
+import { TabProps, TabsProps } from '@material-ui/core';
 
-type tabsClasses = {
-  root?: string;
-  selected?: string;
-  disabled?: string;
-  wrapper?: string;
-  tabsRoot?: string;
-};
-
-export interface tabItemType {
+export interface tabItemType extends TabProps {
   value: number;
   label: string;
-  classes?: tabsClasses;
+  name: string;
 }
 
-export interface TabsPanelType {
+export interface TabsPanelType extends TabsProps {
   value: number | string;
-  // eslint-disable-next-line
-  onChange?: (event: React.ChangeEvent<{}>, value: any) => void;
   tabs: tabItemType[];
-  textColor?: 'primary' | 'inherit' | 'secondary' | undefined;
-  indicatorColor?: 'secondary' | 'primary';
-  classes?: tabsClasses & {
-    indicator?: string;
-  };
+  classes?: {
+    tabsRoot?: string;
+    wrapper?: string;
+  } & TabsProps['classes'];
 }

@@ -20,5 +20,7 @@ export const useStyles = makeStyles(() => ({
   },
   sideContainer: {
     padding: 24,
+    display: 'flex',
+    height: '100%',
   },
 }));

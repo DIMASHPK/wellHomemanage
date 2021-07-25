@@ -1,10 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import Checkbox from 'components/Checkbox';
 import { useAppDispatch } from 'redux/hooks';
-import { handleAllCells, handleSelectedAll } from 'redux/flats/reducer';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
+import type { RemoveAllCheckboxType } from './types';
 
-const RemoveAllCheckbox = memo(props => {
+const RemoveAllCheckbox: React.FC<RemoveAllCheckboxType> = memo(props => {
+  const { handleAllCells, handleSelectedAll } = props;
+
   const dispatch = useAppDispatch();
 
   const checkedIcon = <IndeterminateCheckBoxIcon />;
@@ -12,7 +14,7 @@ const RemoveAllCheckbox = memo(props => {
   const handleChange = useCallback(() => {
     dispatch(handleAllCells([]));
     dispatch(handleSelectedAll(false));
-  }, [dispatch]);
+  }, [dispatch, handleAllCells, handleSelectedAll]);
 
   return (
     <Checkbox

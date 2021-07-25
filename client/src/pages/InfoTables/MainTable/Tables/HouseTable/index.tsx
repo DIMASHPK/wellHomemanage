@@ -1,46 +1,46 @@
 import React, { memo } from 'react';
 import TableCommonWrap from 'pages/InfoTables/MainTable/common/TableCommoWrap';
 import { useAppSelector } from 'redux/hooks';
-import type { FlatType } from 'redux/flats/types';
-import { handleAllCells, handleSelectedAll } from 'redux/flats/reducer';
+import { handleAllCells, handleSelectedAll } from 'redux/houses/reducer';
+import type { HouseType } from 'redux/houses/types';
 import TableRow from './TableRow';
-import type { FlatTablePropsType } from './types';
+import type { HouseTablePropsType } from './types';
 import { COLUMN_PATH_NAMES } from '../constants';
 import { TABLE_COLUMNS } from './constants';
 
-const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
+const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn } = props;
 
-  const { flats, selectedAll, selectedCells } = useAppSelector(
-    ({ flats }) => flats
+  const { houses, selectedAll, selectedCells } = useAppSelector(
+    ({ houses }) => houses
   );
 
-  const renderRow = (tableRow: FlatType) => (
+  const renderRow = (tableRow: HouseType) => (
     <TableRow
       key={tableRow.id}
       tableRow={tableRow}
       hiddenColumns={hiddenColumns}
-      pathForHiddenColumnsState={COLUMN_PATH_NAMES.FLATS}
+      pathForHiddenColumnsState={COLUMN_PATH_NAMES.HOUSES}
     />
   );
 
   return (
     <TableCommonWrap
       tableColumns={TABLE_COLUMNS}
-      data={flats}
+      data={houses}
       selectedAll={selectedAll}
       selectedCells={selectedCells}
       handleAllCells={handleAllCells}
       handleSelectedAll={handleSelectedAll}
-      onHideColumn={onHideColumn}
       hiddenColumns={hiddenColumns}
-      pathForHiddenColumnsState={COLUMN_PATH_NAMES.FLATS}
+      onHideColumn={onHideColumn}
+      pathForHiddenColumnsState={COLUMN_PATH_NAMES.HOUSES}
     >
-      {flats.map(renderRow)}
+      {houses.map(renderRow)}
     </TableCommonWrap>
   );
 });
 
-FlatTable.displayName = 'FlatTable';
+HouseTable.displayName = 'HouseTable';
 
-export default FlatTable;
+export default HouseTable;

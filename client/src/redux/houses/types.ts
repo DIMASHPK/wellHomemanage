@@ -1,12 +1,10 @@
-export interface FlatType {
+export interface HouseType {
   id: number;
   address: string;
-  floor: number;
-  numberOfStoreys: number;
-  quantityOfRooms: number;
   buildingMaterial: string;
-  typeOfHouse: string;
   area: number | string;
+  landArea: number | string;
+  quantityOfRooms: number;
   description: string;
   price: string | number;
   pricePerMeter: string | number;
@@ -21,8 +19,8 @@ export interface FlatType {
   soldPrice?: number | string;
 }
 
-export interface FlatsState {
-  flats: FlatType[];
+export interface HousesStateType {
+  houses: HouseType[];
   selectedCells: number[];
   selectedAll: boolean;
 }

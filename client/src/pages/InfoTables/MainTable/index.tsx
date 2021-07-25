@@ -3,20 +3,15 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TabsPanel from 'components/TabsPanel';
-import { tabItemType } from 'components/TabsPanel/types';
+import { TabsProps } from '@material-ui/core';
 import { useStyles } from './styles';
 import Tables from './Tables';
+import { tabs } from './constants';
 
 const MainTable: React.FC = memo(() => {
-  const tabs: tabItemType[] = [
-    { label: 'Квартиры', value: 0 },
-    { label: 'Дома', value: 1 },
-    { label: 'Эксклюзив', value: 2 },
-  ];
+  const [value, setValue] = useState({ ...tabs[0] });
 
-  const [value, setValue] = useState(tabs[0].value);
-
-  const handleChange = useCallback((e, value) => setValue(value), []);
+  const handleChange = useCallback((e, value) => setValue(tabs[value]), []);
 
   const {
     mainTable,
@@ -38,9 +33,9 @@ const MainTable: React.FC = memo(() => {
         <div className={contentContainer}>
           <div className={tabsContainer}>
             <TabsPanel
-              value={value}
+              value={value.value}
               tabs={tabs}
-              onChange={handleChange}
+              onChange={handleChange as TabsProps['onChange']}
               classes={{
                 wrapper,
                 root,
@@ -49,7 +44,7 @@ const MainTable: React.FC = memo(() => {
             />
             <Button className={addButton}>+ Добавить</Button>
           </div>
-          <Tables value={value} />
+          <Tables value={value.value} />
         </div>
       </Container>
     </section>

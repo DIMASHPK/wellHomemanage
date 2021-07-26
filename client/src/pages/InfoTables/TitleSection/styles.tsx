@@ -11,7 +11,7 @@ export const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     overflow: 'hidden',
     background:
-      'url("/assets/infoTables/infoTablesMain.jpg") no-repeat center center',
+      'url("/wellHomemanage/assets/infoTables/infoTablesMain.jpg") no-repeat center center',
     backgroundAttachment: 'fixed',
     willChange: 'background-attachment',
     backgroundSize: 'cover',

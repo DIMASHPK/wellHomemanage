@@ -9,5 +9,6 @@ export interface OptionType extends HideColumnsLogicType {
   value: string;
   pathForHiddenColumnsState:
     | ColumnPathNamesType['FLATS']
-    | ColumnPathNamesType['HOUSES'];
+    | ColumnPathNamesType['HOUSES']
+    | ColumnPathNamesType['EXCLUSIVES'];
 }

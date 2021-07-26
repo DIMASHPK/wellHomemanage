@@ -12,6 +12,7 @@ export interface OptionsDropDownType
   onClose: UsePopoverType['handleClose'];
   pathForHiddenColumnsState:
     | ColumnPathNamesType['FLATS']
-    | ColumnPathNamesType['HOUSES'];
+    | ColumnPathNamesType['HOUSES']
+    | ColumnPathNamesType['EXCLUSIVES'];
   anchorReference?: 'anchorEl' | 'anchorPosition' | 'none';
 }

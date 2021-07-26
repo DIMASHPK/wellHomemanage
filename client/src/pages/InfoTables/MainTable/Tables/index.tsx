@@ -6,14 +6,18 @@ import FlatTable from './FlatTable';
 import HouseTable from './HouseTable';
 import { useStyles } from './styles';
 import { getHiddenFields } from './helpers';
+import ExclusiveTable from './ExclusiveTable';
 
 const Tables: React.FC<TablesPropsType> = memo(props => {
   const { value = 0 } = props;
 
-  const state = useAppSelector(({ flats: { flats }, houses: { houses } }) => ({
-    flats,
-    houses,
-  }));
+  const state = useAppSelector(
+    ({ flats: { flats }, houses: { houses }, exclusives: { exclusives } }) => ({
+      flats,
+      houses,
+      exclusives,
+    })
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hiddenColumns, setHiddenColumns] = useState(getHiddenFields(state));
@@ -56,7 +60,7 @@ const Tables: React.FC<TablesPropsType> = memo(props => {
         hiddenColumns={hiddenColumns}
         onHideColumn={handleHideColumn}
       />
-      <FlatTable
+      <ExclusiveTable
         hiddenColumns={hiddenColumns}
         onHideColumn={handleHideColumn}
       />

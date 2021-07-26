@@ -17,7 +17,8 @@ export interface UseTableRowArgsType<T> {
   hiddenColumns: HideColumnsLogicType['hiddenColumns'];
   pathForHiddenColumnsState:
     | ColumnPathNamesType['FLATS']
-    | ColumnPathNamesType['HOUSES'];
+    | ColumnPathNamesType['HOUSES']
+    | ColumnPathNamesType['EXCLUSIVES'];
   handleAddCell: ActionCreatorWithPayload<any, string>;
   handleRemoveCell: ActionCreatorWithPayload<any, string>;
   handleSelectedAll: ActionCreatorWithPayload<any, string>;

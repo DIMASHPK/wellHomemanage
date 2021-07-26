@@ -1,0 +1,30 @@
+import { HeadColumnType } from 'pages/InfoTables/common/Table/types';
+
+export const TABLE_COLUMNS: Omit<HeadColumnType, 'onClick'>[] = [
+  { id: 1, value: 'id', title: '№' },
+  { id: 2, value: 'address', title: 'адрес' },
+  { id: 3, value: 'typeOfHouse', title: 'тип' },
+  { id: 4, value: 'floor', title: 'этаж' },
+  { id: 5, value: 'area', title: 'площадь' },
+  { id: 6, value: 'description', title: 'описание объекта' },
+  { id: 7, value: 'reservePrice', title: 'цена резервная' },
+  { id: 8, value: 'startPrice', title: 'цена стартовая' },
+  { id: 9, value: 'endPrice', title: 'цена конечная' },
+  { id: 10, value: 'preSalePrepare', title: 'предпродажная подготовка' },
+  { id: 11, value: 'adStart', title: 'старт рекламы' },
+  { id: 12, value: 'incomingCalls', title: 'входящие звонки' },
+  { id: 13, value: 'incomingSocial', title: 'входящие соцсети' },
+  {
+    id: 14,
+    value: 'crmNumberAndClientOfClient',
+    title: '№ в срм анкета клиента',
+  },
+  { id: 15, value: 'watchingDays', title: 'дни показов' },
+  { id: 16, value: 'signUpForView', title: 'записались на просмотр' },
+  { id: 17, value: 'visited', title: 'пришли' },
+  { id: 18, value: 'offers', title: 'оферты к-во' },
+  { id: 19, value: 'deposit', title: 'задаток' },
+  { id: 20, value: 'deal', title: 'сделка' },
+  { id: 21, value: 'commission', title: 'комиссия' },
+  { id: 22, value: 'adCost', title: 'расход рекламы(грн.)' },
+];

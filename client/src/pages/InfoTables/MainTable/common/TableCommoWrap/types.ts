@@ -14,5 +14,6 @@ export interface TableCommonWrapType extends HideColumnsLogicType {
   handleSelectedAll: (value: boolean) => AnyAction;
   pathForHiddenColumnsState:
     | ColumnPathNamesType['FLATS']
-    | ColumnPathNamesType['HOUSES'];
+    | ColumnPathNamesType['HOUSES']
+    | ColumnPathNamesType['EXCLUSIVES'];
 }

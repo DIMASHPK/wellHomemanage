@@ -23,4 +23,5 @@ export interface HideColumnsLogicType {
 export interface ColumnPathNamesType {
   FLATS: 'flats';
   HOUSES: 'houses';
+  EXCLUSIVES: 'exclusives';
 }

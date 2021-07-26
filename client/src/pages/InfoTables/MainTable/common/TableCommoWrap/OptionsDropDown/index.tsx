@@ -26,15 +26,14 @@ const OptionsDropDown: React.FC<OptionsDropDownType> = memo(props => {
       open={open}
       anchorEl={anchorEl}
       onClose={onClose}
-      anchorPosition={{ top: 0, left: 0 }}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
+        vertical: 'center',
+        horizontal: 'left',
       }}
       anchorReference={anchorReference}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
+        horizontal: 'left',
+        vertical: 'center',
       }}
     >
       <List>

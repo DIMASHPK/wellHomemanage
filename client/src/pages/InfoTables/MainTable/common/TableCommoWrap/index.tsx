@@ -69,7 +69,6 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
         onHideColumn={onHideColumn}
         hiddenColumns={hiddenColumns}
         pathForHiddenColumnsState={pathForHiddenColumnsState}
-        anchorReference="anchorPosition"
       />
     </>
   );

@@ -10,7 +10,8 @@ export interface TableRowTypes extends TableRowProps {
   hiddenColumns: HideColumnsLogicType['hiddenColumns'];
   pathForHiddenColumnsState:
     | ColumnPathNamesType['FLATS']
-    | ColumnPathNamesType['HOUSES'];
+    | ColumnPathNamesType['HOUSES']
+    | ColumnPathNamesType['EXCLUSIVES'];
 }
 
 export interface stylesTypes {

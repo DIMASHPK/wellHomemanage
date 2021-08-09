@@ -1,15 +1,24 @@
 import React, { memo, useCallback, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import TabsPanel from 'components/TabsPanel';
 import { TabsProps } from '@material-ui/core';
+import { getOptionalType } from 'constants/types';
+import { TAB_NAMES } from 'constants/tabs';
+import Dialog from './Dialog';
 import { useStyles } from './styles';
 import Tables from './Tables';
 import { tabs } from './constants';
+import AddButton from './AddButton';
 
 const MainTable: React.FC = memo(() => {
   const [value, setValue] = useState({ ...tabs[0] });
+
+  const [dialogData, setDialogData] = useState({
+    open: false,
+    title: '',
+    type: '' as getOptionalType<typeof TAB_NAMES>,
+  });
 
   const handleChange = useCallback((e, value) => setValue(tabs[value]), []);
 
@@ -20,9 +29,16 @@ const MainTable: React.FC = memo(() => {
     root,
     tabsRoot,
     tabsContainer,
-    addButton,
     contentContainer,
   } = useStyles();
+
+  const handleDialogData = useCallback(({ title, type }) => {
+    setDialogData({ open: true, title, type });
+  }, []);
+
+  const handleCloseDialog = useCallback(() => {
+    setDialogData(prevState => ({ ...prevState, open: false }));
+  }, []);
 
   return (
     <section>
@@ -42,11 +58,14 @@ const MainTable: React.FC = memo(() => {
                 tabsRoot,
               }}
             />
-            <Button className={addButton}>+ Добавить</Button>
+            <AddButton onDialogData={handleDialogData} />
           </div>
           <Tables value={value.value} />
         </div>
       </Container>
+      {dialogData.open && (
+        <Dialog {...dialogData} onClose={handleCloseDialog} />
+      )}
     </section>
   );
 });

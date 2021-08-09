@@ -16,7 +16,7 @@ export const TABLE_COLUMNS: Omit<HeadColumnType, 'onClick'>[] = [
   { id: 13, value: 'incomingSocial', title: 'входящие соцсети' },
   {
     id: 14,
-    value: 'crmNumberAndClientOfClient',
+    value: 'crmNumberAndDescriptionOfClient',
     title: '№ в срм анкета клиента',
   },
   { id: 15, value: 'watchingDays', title: 'дни показов' },

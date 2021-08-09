@@ -1,14 +1,10 @@
 import { HeadColumnType } from 'pages/InfoTables/common/Table/types';
-import {
-  ColumnPathNamesType,
-  HideColumnsLogicType,
-} from 'pages/InfoTables/MainTable/Tables/types';
+import { HideColumnsLogicType } from 'pages/InfoTables/MainTable/Tables/types';
+import { getOptionalType } from 'constants/types';
+import { TAB_NAMES } from 'constants/tabs';
 
 export interface OptionType extends HideColumnsLogicType {
   title: HeadColumnType['title'];
   value: string;
-  pathForHiddenColumnsState:
-    | ColumnPathNamesType['FLATS']
-    | ColumnPathNamesType['HOUSES']
-    | ColumnPathNamesType['EXCLUSIVES'];
+  pathForHiddenColumnsState: getOptionalType<typeof TAB_NAMES>;
 }

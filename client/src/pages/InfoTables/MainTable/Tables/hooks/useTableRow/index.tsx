@@ -10,7 +10,7 @@ import type {
   RenderCellArgsType,
 } from './types';
 
-export const useTableRow = <T extends { [key: string]: any }>({
+export const useTableRow = <T extends { [Property in keyof T]: T[Property] }>({
   tableRow,
   id,
   hiddenColumns,

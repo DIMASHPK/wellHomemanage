@@ -1,11 +1,5 @@
-interface tabsNamesType {
-  FLATS: 'flats';
-  HOUSES: 'houses';
-  EXCLUSIVE: 'exclusives';
-}
-
-export const TAB_NAMES: tabsNamesType = {
+export const TAB_NAMES = {
   FLATS: 'flats',
   HOUSES: 'houses',
-  EXCLUSIVE: 'exclusives',
-};
+  EXCLUSIVES: 'exclusives',
+} as const;

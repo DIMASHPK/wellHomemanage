@@ -44,9 +44,4 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  addButton: {
-    borderRadius: 0,
-    minWidth: 160,
-    padding: 5,
-  },
 }));

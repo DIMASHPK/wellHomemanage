@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/wellHomemanage/static/js/main.deadb645.chunk.js",
-    "main.js.map": "/wellHomemanage/static/js/main.deadb645.chunk.js.map",
+    "main.js": "/wellHomemanage/static/js/main.49d1cecb.chunk.js",
+    "main.js.map": "/wellHomemanage/static/js/main.49d1cecb.chunk.js.map",
     "runtime-main.js": "/wellHomemanage/static/js/runtime-main.a2772ce0.js",
     "runtime-main.js.map": "/wellHomemanage/static/js/runtime-main.a2772ce0.js.map",
-    "static/js/2.ce08e607.chunk.js": "/wellHomemanage/static/js/2.ce08e607.chunk.js",
-    "static/js/2.ce08e607.chunk.js.map": "/wellHomemanage/static/js/2.ce08e607.chunk.js.map",
+    "static/js/2.ad518250.chunk.js": "/wellHomemanage/static/js/2.ad518250.chunk.js",
+    "static/js/2.ad518250.chunk.js.map": "/wellHomemanage/static/js/2.ad518250.chunk.js.map",
     "index.html": "/wellHomemanage/index.html",
-    "static/js/2.ce08e607.chunk.js.LICENSE.txt": "/wellHomemanage/static/js/2.ce08e607.chunk.js.LICENSE.txt"
+    "static/js/2.ad518250.chunk.js.LICENSE.txt": "/wellHomemanage/static/js/2.ad518250.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a2772ce0.js",
-    "static/js/2.ce08e607.chunk.js",
-    "static/js/main.deadb645.chunk.js"
+    "static/js/2.ad518250.chunk.js",
+    "static/js/main.49d1cecb.chunk.js"
   ]
 }

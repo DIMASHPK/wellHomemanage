@@ -19,9 +19,3 @@ export interface HideColumnsLogicType {
   hiddenColumns: HiddenColumnsStateType['hiddenColumns'];
   onHideColumn: (data: HandleHideColumnArgsType) => void;
 }
-
-export interface ColumnPathNamesType {
-  FLATS: 'flats';
-  HOUSES: 'houses';
-  EXCLUSIVES: 'exclusives';
-}

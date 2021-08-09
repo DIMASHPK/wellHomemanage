@@ -12,7 +12,7 @@ export interface ExclusiveType {
   adStart: string;
   incomingCalls: number;
   incomingSocial: number;
-  crmNumberAndClientOfClient: string;
+  crmNumberAndDescriptionOfClient: string;
   watchingDays: string;
   signUpForView: number;
   visited: number;

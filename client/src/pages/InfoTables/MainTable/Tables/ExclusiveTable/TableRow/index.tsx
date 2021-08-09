@@ -43,7 +43,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     adStart,
     incomingCalls,
     incomingSocial,
-    crmNumberAndClientOfClient,
+    crmNumberAndDescriptionOfClient,
     watchingDays,
     signUpForView,
     visited,
@@ -99,8 +99,8 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: incomingSocial.keyMap,
       })}
       {renderCell({
-        value: crmNumberAndClientOfClient.value,
-        keyName: crmNumberAndClientOfClient.keyMap,
+        value: crmNumberAndDescriptionOfClient.value,
+        keyName: crmNumberAndDescriptionOfClient.keyMap,
         className: descriptionOfClientCell,
       })}
       {renderCell({

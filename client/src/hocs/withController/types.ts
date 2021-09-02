@@ -1,7 +1,14 @@
-import { TextFieldProps } from '@material-ui/core/TextField/TextField';
-import { ControllerType } from 'components/Controller/types';
 import { TextFieldPropsType } from 'components/fields/Input/types';
+import { SelectPropsType } from 'components/fields/Select/types';
+import { ControllerProps, FieldError } from 'react-hook-form';
 
-export type WithControllerType = ControllerType & Omit<TextFieldProps, 'error'>;
+export type ComponentPropsType = {
+  onChange?: (...args: any[]) => void;
+  value?: SelectPropsType['value'] | TextFieldPropsType['value'];
+  error?: FieldError;
+  classes?: SelectPropsType['classes'] | TextFieldPropsType['classes'];
+};
 
-export type ComponentPropsType = TextFieldPropsType;
+export type WithControllerType<
+  T extends { [Property in keyof T]: T[Property] }
+> = ControllerProps<T> & ComponentPropsType;

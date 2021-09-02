@@ -19,7 +19,6 @@ const Tables: React.FC<TablesPropsType> = memo(props => {
     })
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hiddenColumns, setHiddenColumns] = useState(getHiddenFields(state));
 
   const handleHideColumn = useCallback(

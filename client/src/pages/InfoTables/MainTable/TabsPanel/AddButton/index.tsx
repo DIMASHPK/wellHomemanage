@@ -22,7 +22,7 @@ const AddButton: React.FC<AddButtonType> = memo(props => {
   };
 
   const handleMenuItemClick = useCallback(
-    ({ type }) => onDialogData({ title: 'Добавить запись', type }),
+    ({ type }) => onDialogData({ title: 'Добавить запись', type, edit: false }),
     [onDialogData]
   );
 

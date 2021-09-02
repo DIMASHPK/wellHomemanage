@@ -1,5 +1,5 @@
 import WithController from 'hocs/withController';
 import { FormInput } from 'pages/InfoTables/MainTable/Dialog/types';
-import Input from './index';
+import Select from './index';
 
-export default WithController<FormInput>(Input);
+export default WithController<FormInput>(Select);

@@ -13,3 +13,11 @@ export interface TableCommonWrapType extends HideColumnsLogicType {
   handleSelectedAll: (value: boolean) => AnyAction;
   pathForHiddenColumnsState: getOptionalType<typeof TAB_NAMES>;
 }
+
+export interface UsePopoverType {
+  id: undefined | string;
+  handleClose: () => void;
+  anchorEl: HTMLDivElement | null;
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  open: boolean;
+}

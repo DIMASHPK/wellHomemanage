@@ -4,6 +4,7 @@ import { TAB_NAMES } from 'constants/tabs';
 export interface onButtonClickArgs {
   title: string;
   type: getOptionalType<typeof TAB_NAMES>;
+  edit: boolean;
 }
 
 export interface CreatingPopoverType<T = HTMLButtonElement | null> {

@@ -3,7 +3,7 @@ import commonReducer from 'utils/commonReducer';
 import { TAB_NAMES } from 'constants/tabs';
 import type { HousesStateType } from './types';
 
-const initialState: HousesStateType = {
+export const initialState: HousesStateType = {
   [TAB_NAMES.HOUSES]: [
     {
       id: 1,

@@ -35,6 +35,7 @@ const CommonForm: React.FC<CommonFormTypes> = memo(props => {
       {formInputs.map(({ name: inputName, component: Component, ...rest }) => (
         <Component
           variant="outlined"
+          key={`${name}.${inputName}`}
           classes={{ root: inputRoot }}
           control={control}
           name={`${name}.${inputName}`}

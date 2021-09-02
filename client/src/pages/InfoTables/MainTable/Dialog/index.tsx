@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 import { TAB_NAMES } from 'constants/tabs';
+import { useAppSelector } from 'redux/hooks';
 import { DialogType, FormInput } from './types';
 import { INITIAL_VALUES_MAPPING, VALUES_ARRAY_NAME } from './constants';
 import FlatForm from './FlatForm';
@@ -15,9 +16,10 @@ import HouseForm from './HouseForm';
 import ExclusiveForm from './ExclusiveForm';
 import { useStyles } from './styles';
 import AddButton from './AddButton';
+import { getDefaultValues } from './helpers';
 
 const Dialog: React.FC<DialogType> = memo(props => {
-  const { open, title, onClose, type } = props;
+  const { open, title, onClose, type, edit } = props;
 
   const {
     formItemsContainer,
@@ -27,12 +29,18 @@ const Dialog: React.FC<DialogType> = memo(props => {
     formAction,
   } = useStyles();
 
+  const state = useAppSelector(state => state);
+
   const formDataFromHook = useForm<FormInput>({
-    defaultValues: {
-      [VALUES_ARRAY_NAME]: [{ ...INITIAL_VALUES_MAPPING[type], type }],
-    },
+    defaultValues: !edit
+      ? {
+          [VALUES_ARRAY_NAME]: [{ ...INITIAL_VALUES_MAPPING[type], type }],
+        }
+      : (getDefaultValues({ state, type }) as FormInput),
   });
-  const { handleSubmit, control } = formDataFromHook;
+  const { handleSubmit, control, getValues } = formDataFromHook;
+
+  console.log(getValues());
 
   const onSubmit: SubmitHandler<FormInput> = data => console.log(data);
   const { fields, append, remove } = useFieldArray({
@@ -57,7 +65,7 @@ const Dialog: React.FC<DialogType> = memo(props => {
               const Component = componentsMappings[type];
 
               return (
-                <div className={formItemWrapperMain}>
+                <div className={formItemWrapperMain} key={i}>
                   <Component
                     control={control}
                     name={`${VALUES_ARRAY_NAME}.${i}`}
@@ -75,9 +83,9 @@ const Dialog: React.FC<DialogType> = memo(props => {
               color="primary"
               className={formAction}
             >
-              Сохранить
+              {edit ? 'Изменить' : 'Сохранить'}
             </Button>
-            <AddButton className={formAction} append={append} />
+            {!edit && <AddButton className={formAction} append={append} />}
           </div>
         </form>
       </CommonDialog>

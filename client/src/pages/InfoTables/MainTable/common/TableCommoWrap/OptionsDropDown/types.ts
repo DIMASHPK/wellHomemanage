@@ -1,4 +1,4 @@
-import { UsePopoverType } from 'pages/InfoTables/MainTable/common/TableCommoWrap/hooks/types';
+import { UsePopoverType } from 'pages/InfoTables/MainTable/common/TableCommoWrap/types';
 import { HeadColumnType } from 'pages/InfoTables/common/Table/types';
 import { HideColumnsLogicType } from 'pages/InfoTables/MainTable/Tables/types';
 import { getOptionalType } from 'constants/types';

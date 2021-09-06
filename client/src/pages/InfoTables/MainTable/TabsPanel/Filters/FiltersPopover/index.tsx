@@ -15,7 +15,7 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
     selectedTabName,
     onAddFilter,
     onRemoveFilter,
-    setFilters,
+    control,
   } = props;
 
   const isDisableAdding = useMemo(
@@ -39,7 +39,7 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
       index={index}
       key={filter.name}
       onRemoveFilter={onRemoveFilter}
-      setFilters={setFilters}
+      control={control}
     />
   );
 

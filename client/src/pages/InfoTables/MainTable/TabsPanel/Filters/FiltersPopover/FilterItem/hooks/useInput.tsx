@@ -1,49 +1,47 @@
 import { useCallback, useMemo } from 'react';
-import Input from 'components/fields/Input';
-import DateMultiPicker from 'components/fields/DateMultiPicker';
-import { INPUT_MAPPINGS, INPUT_MAPPINGS_KEYS } from '../../../constants';
-import { UseInputArgsType } from '../types';
+import { FilterInput as Input } from 'components/fields/Input/Form';
+import { INPUT_FILTERS_MAPPING, VALUES_ARRAY_NAME } from '../../../constants';
+import { UseInputArgsType, UseInputReturnType } from '../types';
 
 export const useInput = ({
-  type,
-  value,
-  onValueChange,
-  onValueRangeChange,
+  selectedTabName,
   className,
-}: UseInputArgsType) => {
+  index,
+  control,
+  name,
+}: UseInputArgsType): UseInputReturnType => {
+  const currentTableData = INPUT_FILTERS_MAPPING[selectedTabName];
+
+  const predicateFunc = useCallback(
+    (name: UseInputArgsType['name']): name is keyof typeof currentTableData =>
+      !!INPUT_FILTERS_MAPPING[selectedTabName],
+    [selectedTabName]
+  );
+
   const matchData = useMemo(
     () =>
       ({
-        ...INPUT_MAPPINGS[type],
+        ...(predicateFunc(name) ? currentTableData[name] : {}),
         variant: 'outlined',
         className,
+        control,
       } as const),
-    [className, type]
+    [className, control, currentTableData, name, predicateFunc]
   );
 
   const renderInput = useCallback(() => {
-    switch (type) {
-      case INPUT_MAPPINGS_KEYS.INPUT:
-        return (
-          <Input
-            {...matchData}
-            value={value as string}
-            onChange={onValueChange}
-          />
-        );
-      case INPUT_MAPPINGS_KEYS.DATE:
-        return (
-          <DateMultiPicker
-            {...matchData}
-            value={value as Date[] | undefined}
-            onChange={onValueRangeChange}
-          />
-        );
+    const { component: Component, ...inputProps } = matchData;
 
-      default:
-        return null;
-    }
-  }, [matchData, onValueChange, onValueRangeChange, type, value]);
+    const CurrentInput = Component || Input;
+
+    return (
+      <CurrentInput
+        {...inputProps}
+        label={inputProps?.label || 'Введите значение'}
+        name={`${VALUES_ARRAY_NAME}.${index}.value`}
+      />
+    );
+  }, [index, matchData]);
 
   return { renderInput };
 };

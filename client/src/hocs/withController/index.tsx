@@ -2,11 +2,11 @@ import React, { memo } from 'react';
 import { Controller, ControllerProps } from 'react-hook-form';
 import { ComponentPropsType, WithControllerType } from './types';
 
-const WithController = <F extends { [Property in keyof F]: F[Property] }>(
-  Component: React.FC<ComponentPropsType>
-): React.FC<Omit<WithControllerType<F>, 'render'>> => {
+const WithController = <F extends { [Property in keyof F]: F[Property] }, V>(
+  Component: React.FC<ComponentPropsType<V>>
+): React.FC<Omit<WithControllerType<F, V>, 'render'>> => {
   const WithControllerComponent: React.FC<
-    Omit<WithControllerType<F>, 'render'>
+    Omit<WithControllerType<F, V>, 'render'>
   > = memo(props => {
     const { name, control, rules, ...rest } = props;
 

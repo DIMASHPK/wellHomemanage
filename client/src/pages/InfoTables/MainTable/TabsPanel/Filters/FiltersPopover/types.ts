@@ -1,6 +1,7 @@
 import { FiltersPropsType } from '../types';
 
-export interface FiltersPopoverPropsType extends FiltersPropsType {
+export interface FiltersPopoverPropsType
+  extends Omit<FiltersPropsType, 'reactHookFormData'> {
   anchorEl: HTMLButtonElement | null;
   onClose: () => void;
 }

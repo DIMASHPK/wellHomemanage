@@ -1,4 +1,4 @@
-import Input from 'components/fields/Input/Form';
+import { DialogInput as Input } from 'components/fields/Input/Form';
 import DatePicker from 'components/fields/DatePicker/Form';
 
 export const INPUT_FIELDS = [

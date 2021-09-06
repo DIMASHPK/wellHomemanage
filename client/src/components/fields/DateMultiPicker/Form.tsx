@@ -1,26 +1,13 @@
-import React, { memo } from 'react';
-import Controller from 'components/Controller';
-import { DateMultiPickerFormPropType } from './types';
+import WithController from 'hocs/withController';
+import { FormInput } from 'pages/InfoTables/MainTable/Dialog/types';
+import { UseFormValuesType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 import DatePicker from './index';
 
-const PickerWithForm: React.FC<DateMultiPickerFormPropType> = memo(props => {
-  const { name, control, ...rest } = props;
+export const DialogRangePicker = WithController<FormInput, Date[] | undefined>(
+  DatePicker
+);
 
-  return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <DatePicker
-          onChange={date => field.onChange(date)}
-          value={field.value as unknown as Date[]}
-          {...rest}
-        />
-      )}
-    />
-  );
-});
-
-PickerWithForm.displayName = 'PickerWithForm';
-
-export default PickerWithForm;
+export const FilterRangePicker = WithController<
+  UseFormValuesType,
+  Date[] | undefined
+>(DatePicker);

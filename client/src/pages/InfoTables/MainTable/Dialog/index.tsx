@@ -38,9 +38,7 @@ const Dialog: React.FC<DialogType> = memo(props => {
         }
       : (getDefaultValues({ state, type }) as FormInput),
   });
-  const { handleSubmit, control, getValues } = formDataFromHook;
-
-  console.log(getValues());
+  const { handleSubmit, control } = formDataFromHook;
 
   const onSubmit: SubmitHandler<FormInput> = data => console.log(data);
   const { fields, append, remove } = useFieldArray({

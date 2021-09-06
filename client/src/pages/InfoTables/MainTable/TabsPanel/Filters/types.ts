@@ -1,21 +1,29 @@
 import { getOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
-import { FILTER_COND_ITEMS } from 'pages/InfoTables/MainTable/constants';
-import { INPUTS_MAPPING } from 'pages/InfoTables/MainTable/Dialog/constants';
 import { tabItemType } from 'components/TabsPanel/types';
-import React from 'react';
-import { INPUT_MAPPINGS_KEYS } from './constants';
+import { Control, UseFormReturn } from 'react-hook-form';
+import { RootState } from 'redux/types';
+import { FILTER_COND_ITEMS } from './constants';
 
-const nameValues = Object.values(INPUTS_MAPPING)
-  .map(item => item.map(({ name }) => name))
-  .flat();
+const getNameValues = ({
+  exclusives: { exclusives },
+  houses: { houses },
+  flats: { flats },
+}: RootState) => ({
+  ...exclusives?.[0],
+  ...houses?.[0],
+  ...flats?.[0],
+});
 
 export type FiltersType = {
   value: string | Date[];
-  name: typeof nameValues[number] | '';
+  name: keyof ReturnType<typeof getNameValues> | '';
   cond?: getOptionalType<typeof FILTER_COND_ITEMS> | '';
-  type: getOptionalType<typeof INPUT_MAPPINGS_KEYS>;
 }[];
+
+export interface UseFormValuesType {
+  filters: FiltersType;
+}
 
 export interface UseFilterArgsType {
   selectedTab: tabItemType;
@@ -25,7 +33,8 @@ export interface UseFilterReturnType {
   filters: FiltersType;
   onAddFilter: () => void;
   onRemoveFilter: (index: number) => void;
-  setFilters: React.Dispatch<React.SetStateAction<FiltersType>>;
+  control: Control<UseFormValuesType>;
+  reactHookFormData: UseFormReturn<UseFormValuesType>;
 }
 
 export interface FiltersPropsType extends UseFilterReturnType {

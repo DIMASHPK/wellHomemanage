@@ -1,6 +1,6 @@
-import Input from 'components/fields/Input/Form';
+import { DialogInput as Input } from 'components/fields/Input/Form';
 import DatePicker from 'components/fields/DatePicker/Form';
-import PickerWithForm from 'components/fields/DateMultiPicker/Form';
+import { DialogRangePicker as PickerWithForm } from 'components/fields/DateMultiPicker/Form';
 
 export const INPUT_FIELDS = [
   {

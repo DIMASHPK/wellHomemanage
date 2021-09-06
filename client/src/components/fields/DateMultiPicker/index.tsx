@@ -2,8 +2,13 @@ import React, { useState, useContext } from 'react';
 import { OutterCalendarProps } from '@material-ui/pickers/views/Calendar/Calendar';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { MuiPickersContext, DatePicker } from '@material-ui/pickers';
-import moment, { Moment, MomentInput } from 'moment/moment';
-import { DateMultiPickerPropType } from './types';
+import moment from 'moment/moment';
+import {
+  DateMultiPickerPropType,
+  DatesUseStateType,
+  HandleClickDayType,
+} from './types';
+import { labelFunc } from './helpers';
 
 /* eslint-disable @typescript-eslint/no-empty-function */
 const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
@@ -18,10 +23,32 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
     ...rest
   } = props;
 
-  const [dates, setDates] = useState<(Moment | MaterialUiPickersDate)[]>(
-    value.map(item => moment(item))
+  const [dates, setDates] = useState<DatesUseStateType>(
+    (Array.isArray(value) ? value : [new Date()]).map(item => moment(item))
   );
   const utils = useContext(MuiPickersContext);
+
+  const handleClickDay: HandleClickDayType = day => e => {
+    e.stopPropagation();
+    const i = dates.findIndex(d =>
+      utils?.isSameDay(d as MaterialUiPickersDate, day)
+    );
+
+    if (
+      dates.length === 1 &&
+      utils?.isSameDay(dates[0] as MaterialUiPickersDate, day)
+    ) {
+      return;
+    }
+
+    if (i >= 0) {
+      const nextDates = [...dates];
+      nextDates.splice(i, 1);
+      setDates(nextDates);
+    } else {
+      setDates([...dates, day]);
+    }
+  };
 
   const renderDay: OutterCalendarProps['renderDay'] = (
     day,
@@ -30,51 +57,25 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
     dayComponent
   ) =>
     React.cloneElement(dayComponent, {
-      onClick: (e: React.MouseEvent<HTMLElement>) => {
-        e.stopPropagation();
-        const i = dates.findIndex(d =>
-          utils?.isSameDay(d as MaterialUiPickersDate, day)
-        );
-
-        if (
-          dates.length === 1 &&
-          utils?.isSameDay(dates[0] as MaterialUiPickersDate, day)
-        ) {
-          return;
-        }
-
-        if (i >= 0) {
-          const nextDates = [...dates];
-          nextDates.splice(i, 1);
-          setDates(nextDates);
-        } else {
-          setDates([...dates, day]);
-        }
-      },
+      onClick: handleClickDay(day),
       selected: !!dates.find(d =>
         utils?.isSameDay(d as MaterialUiPickersDate, day)
       ),
     });
 
-  const formatDate = (date: MaterialUiPickersDate | Moment) =>
-    moment(date as MomentInput).format('DD/MM/YY');
-
-  const labelFunc = (date: MaterialUiPickersDate | Moment) =>
-    date && dates.length > 0 && formatDate
-      ? dates.map(formatDate).join(', ')
-      : emptyLabel || '';
+  const handleClose = () => {
+    onChange(dates);
+    if (onClose) onClose();
+  };
 
   return (
     <DatePicker
       {...rest}
       value={dates[0]}
       renderDay={renderDay}
-      onClose={() => {
-        onChange(dates);
-        if (onClose) onClose();
-      }}
+      onClose={handleClose}
       onChange={() => {}}
-      labelFunc={labelFunc}
+      labelFunc={labelFunc({ dates, emptyLabel })}
       inputVariant={variant}
       variant={pickerVariant}
       error={!!error}

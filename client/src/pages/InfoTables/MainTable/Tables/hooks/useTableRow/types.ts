@@ -9,6 +9,11 @@ export interface RenderCellArgsType {
   className?: string;
 }
 
+export interface RenderDateRangeCellArgsType
+  extends Omit<RenderCellArgsType, 'value'> {
+  value: Date[];
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface UseTableRowArgsType<T> {
   tableRow: T;
@@ -30,4 +35,5 @@ export interface UseTableRowReturnType<T> {
   handleClick: () => void;
   isCheck: boolean;
   renderCell: (data: RenderCellArgsType) => JSX.Element;
+  renderDatesRangeCell: (data: RenderDateRangeCellArgsType) => JSX.Element;
 }

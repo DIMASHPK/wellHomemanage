@@ -17,17 +17,22 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
 
   const { selectedCells } = useAppSelector(({ flats }) => flats);
 
-  const { reformatedRowData, renderCell, handleClick, isCheck } =
-    useTableRow<ExclusiveType>({
-      tableRow,
-      id: tableRow.id,
-      hiddenColumns,
-      pathForHiddenColumnsState,
-      handleAddCell,
-      handleRemoveCell,
-      handleSelectedAll,
-      selectedCells,
-    });
+  const {
+    reformatedRowData,
+    renderCell,
+    renderDatesRangeCell,
+    handleClick,
+    isCheck,
+  } = useTableRow<ExclusiveType>({
+    tableRow,
+    id: tableRow.id,
+    hiddenColumns,
+    pathForHiddenColumnsState,
+    handleAddCell,
+    handleRemoveCell,
+    handleSelectedAll,
+    selectedCells,
+  });
 
   const {
     id,
@@ -59,6 +64,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     addressCell,
     descriptionCell,
     descriptionOfClientCell,
+    watchingDayCell,
   } = useStyles({ isCheck });
 
   return (
@@ -85,7 +91,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
       {renderCell({ value: reservePrice.value, keyName: reservePrice.keyMap })}
       {renderCell({ value: startPrice.value, keyName: startPrice.keyMap })}
       {renderCell({ value: endPrice.value, keyName: endPrice.keyMap })}
-      {renderCell({
+      {renderDatesRangeCell({
         value: preSalePrepare.value,
         keyName: preSalePrepare.keyMap,
       })}
@@ -103,9 +109,10 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: crmNumberAndDescriptionOfClient.keyMap,
         className: descriptionOfClientCell,
       })}
-      {renderCell({
+      {renderDatesRangeCell({
         value: watchingDays.value,
         keyName: watchingDays.keyMap,
+        className: watchingDayCell,
       })}
       {renderCell({
         value: signUpForView.value,

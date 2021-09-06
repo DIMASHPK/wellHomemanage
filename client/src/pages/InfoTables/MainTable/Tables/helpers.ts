@@ -4,10 +4,12 @@ export interface getHiddenFieldsReturnType {
   [x: string]: { [x: string]: boolean };
 }
 
-const getHiddenFieldsStateType = ({
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getHiddenFieldsStateType = ({
   flats: { flats },
   houses: { houses },
-}: RootState) => ({ flats, houses });
+  exclusives: { exclusives },
+}: RootState) => ({ flats, houses, exclusives });
 
 export const getHiddenFields = (
   state: ReturnType<typeof getHiddenFieldsStateType>

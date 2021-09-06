@@ -1,4 +1,7 @@
 import { TAB_NAMES } from 'constants/tabs';
+import { INPUT_FIELDS as EXCLUSIVE_INPUT_FIELDS } from './ExclusiveForm/constants';
+import { INPUT_FIELDS as HOUSES_INPUT_FIELDS } from './FlatForm/constants';
+import { INPUT_FIELDS as FLATS_INPUT_FIELDS } from './HouseForm/constants';
 
 const initValueForMultiplyDate = [new Date()];
 
@@ -75,3 +78,9 @@ export const INITIAL_VALUES_MAPPING = {
 } as const;
 
 export const VALUES_ARRAY_NAME = 'tableForm';
+
+export const INPUTS_MAPPING = {
+  [TAB_NAMES.FLATS]: FLATS_INPUT_FIELDS,
+  [TAB_NAMES.HOUSES]: HOUSES_INPUT_FIELDS,
+  [TAB_NAMES.EXCLUSIVES]: EXCLUSIVE_INPUT_FIELDS,
+} as const;

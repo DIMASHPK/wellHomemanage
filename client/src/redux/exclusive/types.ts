@@ -8,12 +8,12 @@ export interface ExclusiveType {
   reservePrice: string | number;
   startPrice: string | number;
   endPrice: string | number;
-  preSalePrepare: string;
+  preSalePrepare: Date[];
   adStart: string;
   incomingCalls: number;
   incomingSocial: number;
   crmNumberAndDescriptionOfClient: string;
-  watchingDays: string;
+  watchingDays: Date[];
   signUpForView: number;
   visited: number;
   offers: number;

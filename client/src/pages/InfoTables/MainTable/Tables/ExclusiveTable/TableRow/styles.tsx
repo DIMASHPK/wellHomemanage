@@ -35,4 +35,7 @@ export const useStyles = makeStyles<Theme, stylesTypes>(() => ({
   descriptionOfClientCell: {
     minWidth: 166,
   },
+  watchingDayCell: {
+    minWidth: 205,
+  },
 }));

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { UsePopoverType } from './types';
+import type { UsePopoverType } from '../types';
 
 export const usePopover = (): UsePopoverType => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);

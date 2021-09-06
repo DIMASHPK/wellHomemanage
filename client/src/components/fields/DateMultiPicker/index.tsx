@@ -23,8 +23,6 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
     ...rest
   } = props;
 
-  console.log({ value });
-
   const [dates, setDates] = useState<DatesUseStateType>(
     (Array.isArray(value) ? value : [new Date()]).map(item => moment(item))
   );

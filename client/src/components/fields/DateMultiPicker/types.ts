@@ -21,6 +21,10 @@ export type LabelFuncType = (args: {
   dates: (moment.Moment | MaterialUiPickersDate)[];
 }) => (date: MaterialUiPickersDate | Moment) => string;
 
+export type GetLastDateType = (
+  dates: (moment.Moment | MaterialUiPickersDate)[]
+) => moment.Moment | MaterialUiPickersDate;
+
 export type HandleClickDayType = (
   day: MaterialUiPickersDate
 ) => (e: React.MouseEvent<HTMLElement>) => void;

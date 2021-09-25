@@ -36,9 +36,9 @@ export default class Flat extends Model {
 
   public managerOfObject!: string;
 
-  public dateOfStartAd!: string;
+  public dateOfStartAd!: Date;
 
-  public dateOfSold!: string;
+  public dateOfSold!: Date;
 
   public soldPrice!: number;
 
@@ -73,10 +73,11 @@ Flat.init(
     dateOfStartAd: { type: DataTypes.DATE },
     dateOfSold: { type: DataTypes.DATE },
     soldPrice: { type: DataTypes.INTEGER },
+    createdAt: { type: DataTypes.DATE, allowNull: true },
+    updatedAt: { type: DataTypes.DATE, allowNull: true },
   },
   {
     tableName: 'flats',
-    timestamps: false,
     sequelize,
   }
 );

@@ -1,5 +1,5 @@
 import { Express } from 'express';
-import FlatController from '../../controllers/flats';
+import FlatController from 'controllers/flats';
 
 /* eslint-disable no-unused-expressions */
 export default class Flats {

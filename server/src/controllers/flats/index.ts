@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Flat from '../../models/Flats';
+import Flat from 'models/Flats';
 
 export default class FlatController {
   public getAllFlats = (req: Request, res: Response) => {

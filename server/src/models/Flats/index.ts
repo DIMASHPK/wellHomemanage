@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../../configs/db';
+import { sequelize } from 'configs/db';
 
 export default class Flat extends Model {
   public id!: number;

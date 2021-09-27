@@ -6,41 +6,41 @@ export default class House extends Model {
 
   public address!: string;
 
-  public buildingMaterial!: string;
+  public building_material!: string;
 
   public area!: number;
 
-  public landArea!: number;
+  public land_area!: number;
 
-  public quantityOfRooms!: number;
+  public quantity_of_rooms!: number;
 
   public description!: string;
 
   public price!: string;
 
-  public pricePerMeter!: string;
+  public price_per_meter!: string;
 
   public commission!: number;
 
   public number!: string;
 
-  public whoGave!: string;
+  public who_gave!: string;
 
-  public stateOfLid!: string;
+  public state_of_lid!: string;
 
-  public descriptionOfClient!: string;
+  public description_of_client!: string;
 
-  public managerOfObject!: string;
+  public manager_of_object!: string;
 
-  public dateOfStartAd!: Date;
+  public date_of_start_ad!: Date;
 
-  public dateOfSold!: Date;
+  public date_of_sold!: Date;
 
-  public soldPrice!: number;
+  public sold_price!: number;
 
-  public readonly createdAt!: Date;
+  public readonly created_at!: Date;
 
-  public readonly updatedAt!: Date;
+  public readonly updated_at!: Date;
 }
 
 House.init(

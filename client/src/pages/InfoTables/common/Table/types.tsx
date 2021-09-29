@@ -10,6 +10,11 @@ export interface HeadColumnType {
   value?: string;
 }
 
+export type OnPageChangeType = (
+  event: React.MouseEvent<HTMLButtonElement> | null,
+  page: number
+) => void;
+
 export interface TablePropsType {
   headColumns: HeadColumnType[];
   stickyHeader: boolean;
@@ -18,4 +23,16 @@ export interface TablePropsType {
   };
   children?: (data: { ref: Ref<HTMLDivElement> | undefined }) => ReactNode;
   loading?: boolean;
+  withPagination?: boolean;
+  count?: number;
+  rowsPerPage?: number;
+  page?: number;
+  onPageChange?: OnPageChangeType;
+  onRowsPerPageChange?: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
+}
+
+export interface WithPaginationPaddingHandlerArgs {
+  withPagination: boolean;
 }

@@ -7,16 +7,31 @@ import TableBody from '@material-ui/core/TableBody';
 import MuiTable from '@material-ui/core/Table';
 import clsx from 'clsx';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TablePagination from '@material-ui/core/TablePagination';
 import { useStyles } from './styles';
-import { TablePropsType } from './types';
+import { OnPageChangeType, TablePropsType } from './types';
 import SortCell from './SortCell';
+import { ROWS_PER_PAGE_OPTIONS } from './constants';
+import TablePaginationActions from './PaginationActions';
 
 const Table: React.FC<TablePropsType> = memo(props => {
-  const { headColumns, children, stickyHeader, classes, loading } = props;
+  const {
+    headColumns,
+    children,
+    stickyHeader,
+    classes,
+    loading = false,
+    count = 0,
+    rowsPerPage = 0,
+    page = 0,
+    onPageChange = () => null,
+    onRowsPerPageChange = () => null,
+    withPagination = false,
+  } = props;
 
   const ref = useRef<HTMLDivElement>();
 
-  const styles = useStyles();
+  const styles = useStyles({ withPagination });
 
   const renderLoader = () => {
     if (!loading) return null;
@@ -49,6 +64,20 @@ const Table: React.FC<TablePropsType> = memo(props => {
         </MuiTable>
         {renderLoader()}
       </TableContainer>
+      {withPagination && (
+        <TablePagination
+          rowsPerPageOptions={ROWS_PER_PAGE_OPTIONS}
+          labelRowsPerPage="Рядов на странице"
+          component="div"
+          className={styles.pagination}
+          count={count}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={onPageChange as OnPageChangeType}
+          onRowsPerPageChange={onRowsPerPageChange}
+          ActionsComponent={TablePaginationActions}
+        />
+      )}
     </div>
   );
 });

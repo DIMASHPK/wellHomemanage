@@ -28,6 +28,8 @@ export interface FlatsState {
   selectedCells: number[];
   selectedAll: boolean;
   count: number;
+  page: number;
+  rowsPerPage: number;
 }
 
 export interface FlatResponseInterface {

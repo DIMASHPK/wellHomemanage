@@ -2,7 +2,12 @@ import React, { memo } from 'react';
 import TableCommonWrap from 'pages/InfoTables/MainTable/common/TableCommoWrap';
 import { useAppSelector } from 'redux/hooks';
 import type { FlatType } from 'redux/flats/types';
-import { handleAllCells, handleSelectedAll } from 'redux/flats/reducer';
+import {
+  handleAllCells,
+  handleSelectedAll,
+  handleRowsPerPageChange,
+  handlePageChange,
+} from 'redux/flats/reducer';
 import { getFlats } from 'redux/flats/thunks';
 import EmptyRow from 'pages/InfoTables/MainTable/common/EmptyRow';
 import TableRow from './TableRow';
@@ -14,11 +19,16 @@ import { useGetData } from '../hooks/useGetData';
 const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn } = props;
 
-  const { flats, selectedAll, selectedCells } = useAppSelector(
-    ({ flats }) => flats
-  );
+  const { flats, selectedAll, selectedCells, count, page, rowsPerPage } =
+    useAppSelector(({ flats }) => flats);
 
-  const { error, loading } = useGetData({ thunk: getFlats });
+  const { error, ...restGetData } = useGetData({
+    thunk: getFlats,
+    handleRowsPerPageChange,
+    handlePageChange,
+    page,
+    rowsPerPage,
+  });
 
   const renderRow = (tableRow: FlatType) => (
     <TableRow
@@ -40,7 +50,11 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
       onHideColumn={onHideColumn}
       hiddenColumns={hiddenColumns}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.FLATS}
-      loading={loading}
+      withPagination
+      count={count}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      {...restGetData}
     >
       {({ ref }) =>
         flats.length || !error?.length ? (

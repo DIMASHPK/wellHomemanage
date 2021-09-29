@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TAB_NAMES } from 'constants/tabs';
+import { ROWS_PER_PAGE_OPTIONS } from 'pages/InfoTables/common/Table/constants';
 import type { FlatsState } from './types';
 
 export const initialState: FlatsState = {
@@ -7,6 +8,8 @@ export const initialState: FlatsState = {
   selectedCells: [],
   selectedAll: false,
   count: 0,
+  page: 0,
+  rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
 };
 
 export const flatsSlice = createSlice({
@@ -39,6 +42,12 @@ export const flatsSlice = createSlice({
       state[TAB_NAMES.FLATS] = payload.data;
       state.count = payload.count;
     },
+    handleRowsPerPageChange: (state, { payload }) => {
+      state.rowsPerPage = payload;
+    },
+    handlePageChange: (state, { payload }) => {
+      state.page = payload;
+    },
   },
 });
 
@@ -48,6 +57,8 @@ export const {
   handleAddCell,
   handleSelectedAll,
   setData,
+  handleRowsPerPageChange,
+  handlePageChange,
 } = flatsSlice.actions;
 
 export default flatsSlice.reducer;

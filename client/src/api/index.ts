@@ -17,10 +17,24 @@ class Api implements ApiType {
     });
   }
 
-  getAll = <T>(data: GetAllArgs): Promise<AxiosResponse<T>> => {
-    const { path } = data;
+  getPathnameWithParameters = (data: GetAllArgs): string => {
+    const { path, ...restData } = data;
 
-    return this.axios.get(path);
+    const url = new URL(`${this.baseUrl}/${path}`);
+
+    Object.entries(restData).forEach(([key, value]) =>
+      url.searchParams.append(key, value)
+    );
+
+    const { search, pathname } = url;
+
+    return `${pathname}${search}`;
+  };
+
+  getAll = <T>(data: GetAllArgs): Promise<AxiosResponse<T>> => {
+    const pathnameWithParameters = this.getPathnameWithParameters(data);
+
+    return this.axios.get(pathnameWithParameters);
   };
 }
 

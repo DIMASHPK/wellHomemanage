@@ -1,9 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
+import { TablePropsType } from 'pages/InfoTables/common/Table/types';
 import { UseGetDataHookArgsType, UseGetDataHookReturnType } from './types';
 
 export const useGetData = ({
   thunk,
+  handleRowsPerPageChange,
+  handlePageChange,
+  page = 0,
+  rowsPerPage = 0,
 }: UseGetDataHookArgsType): UseGetDataHookReturnType => {
   const [state, setState] = useState({ error: '', loading: false });
 
@@ -33,9 +38,28 @@ export const useGetData = ({
     (async () => {
       await handleLoad();
     })();
-  }, [handleLoad]);
+  }, [handleLoad, page, rowsPerPage]);
+
+  const onPageChange: TablePropsType['onPageChange'] = useCallback(
+    (_, page) => {
+      dispatch(handlePageChange(page));
+    },
+    [dispatch, handlePageChange]
+  );
+
+  const onRowsPerPageChange: TablePropsType['onRowsPerPageChange'] =
+    useCallback(
+      event => {
+        const { value } = event.target;
+
+        dispatch(handleRowsPerPageChange(parseInt(value)));
+      },
+      [dispatch, handleRowsPerPageChange]
+    );
 
   return {
     ...state,
+    onPageChange,
+    onRowsPerPageChange,
   };
 };

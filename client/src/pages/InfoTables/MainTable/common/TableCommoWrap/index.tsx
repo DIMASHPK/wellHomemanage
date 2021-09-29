@@ -20,7 +20,8 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
     onHideColumn,
     hiddenColumns,
     pathForHiddenColumnsState,
-    loading,
+    stickyHeader,
+    ...rest
   } = props;
 
   const { id, handleClose, anchorEl, handleClick, open } = usePopover();
@@ -59,7 +60,11 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
 
   return (
     <>
-      <Table stickyHeader headColumns={tableColumnsCanHide} loading={loading}>
+      <Table
+        headColumns={tableColumnsCanHide}
+        stickyHeader={stickyHeader || true}
+        {...rest}
+      >
         {props => children?.(props)}
       </Table>
       <OptionsDropDown

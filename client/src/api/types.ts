@@ -8,9 +8,11 @@ export interface GetAllArgs {
   page?: number;
   orderByName?: string;
   orderDirection?: OrderDirectionType;
+  rowsPerPage?: number;
   path: possiblePaths;
 }
 
 export interface ApiType {
   getAll: <T>(args: GetAllArgs) => Promise<AxiosResponse<T>>;
+  getPathnameWithParameters: (args: GetAllArgs) => string;
 }

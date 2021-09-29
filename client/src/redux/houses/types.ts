@@ -23,4 +23,12 @@ export interface HousesStateType {
   houses: HouseType[];
   selectedCells: number[];
   selectedAll: boolean;
+  count: number;
+  page: number;
+  rowsPerPage: number;
+}
+
+export interface HouseResponseInterface {
+  count: number;
+  data: HouseType[];
 }

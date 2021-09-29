@@ -27,4 +27,12 @@ export interface ExclusiveState {
   exclusives: ExclusiveType[];
   selectedCells: number[];
   selectedAll: boolean;
+  count: number;
+  page: number;
+  rowsPerPage: number;
+}
+
+export interface ExclusiveResponseInterface {
+  count: number;
+  data: ExclusiveType[];
 }

@@ -2,10 +2,11 @@ import { HideColumnsLogicType } from 'pages/InfoTables/MainTable/Tables/types';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { getOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
+import { Moment } from 'moment';
 
 export interface RenderCellArgsType {
   keyName?: string;
-  value?: JSX.Element | string | number;
+  value?: JSX.Element | string | number | Moment;
   className?: string;
 }
 

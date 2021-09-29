@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TAB_NAMES } from 'constants/tabs';
+import { ROWS_PER_PAGE_OPTIONS } from 'pages/InfoTables/common/Table/constants';
 import type { ExclusiveState } from './types';
 
 export const initialState: ExclusiveState = {
   [TAB_NAMES.EXCLUSIVES]: [],
   selectedCells: [],
   selectedAll: false,
+  count: 0,
+  page: 0,
+  rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
 };
 
 export const exclusiveSlice = createSlice({
@@ -34,6 +38,16 @@ export const exclusiveSlice = createSlice({
 
       state.selectedAll = payload;
     },
+    setData: (state, { payload }) => {
+      state[TAB_NAMES.EXCLUSIVES] = payload.data;
+      state.count = payload.count;
+    },
+    handleRowsPerPageChange: (state, { payload }) => {
+      state.rowsPerPage = payload;
+    },
+    handlePageChange: (state, { payload }) => {
+      state.page = payload;
+    },
   },
 });
 
@@ -42,6 +56,9 @@ export const {
   handleAllCells,
   handleAddCell,
   handleSelectedAll,
+  setData,
+  handleRowsPerPageChange,
+  handlePageChange,
 } = exclusiveSlice.actions;
 
 export default exclusiveSlice.reducer;

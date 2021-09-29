@@ -17,7 +17,10 @@ const HeadCheckbox: React.FC<HeadCheckboxTypes> = memo(props => {
 
   const dispatch = useAppDispatch();
 
-  const reformattedCellsIds = useMemo(() => data.map(({ id }) => id), [data]);
+  const reformattedCellsIds = useMemo(
+    () => data?.map?.(({ id }) => id) || [],
+    [data]
+  );
 
   const getCheck = useMemo(
     () => isEqual(selectedCells, reformattedCellsIds),

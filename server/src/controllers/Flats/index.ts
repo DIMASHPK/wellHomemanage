@@ -15,7 +15,11 @@ export default class FlatController {
 
     try {
       const [data, count] = await Promise.allSettled([
-        Flat.findAll<Flat>({ limit, offset }),
+        Flat.findAll<Flat>({
+          limit,
+          offset,
+          order: [['id', 'ASC NULLS LAST']],
+        }),
         Flat.count(),
       ]);
 

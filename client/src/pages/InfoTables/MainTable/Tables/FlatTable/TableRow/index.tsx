@@ -9,6 +9,7 @@ import {
   handleSelectedAll,
 } from 'redux/flats/reducer';
 import { useAppSelector } from 'redux/hooks';
+import { formatDate } from 'utils/dates';
 import { TableRowTypes } from './types';
 import { useStyles } from './styles';
 
@@ -149,11 +150,11 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: managerOfObject.keyMap,
       })}
       {renderCell({
-        value: dateOfStartAd?.value,
+        value: formatDate(dateOfStartAd?.value),
         keyName: dateOfStartAd?.keyMap,
       })}
       {renderCell({
-        value: dateOfSold?.value,
+        value: formatDate(dateOfSold?.value),
         keyName: dateOfSold?.keyMap,
       })}
       {renderCell({

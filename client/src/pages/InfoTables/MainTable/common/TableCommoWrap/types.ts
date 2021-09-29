@@ -3,6 +3,7 @@ import { HeadColumnType } from 'pages/InfoTables/common/Table/types';
 import { HideColumnsLogicType } from 'pages/InfoTables/MainTable/Tables/types';
 import { getOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
+import React, { ReactNode, Ref } from 'react';
 
 export interface TableCommonWrapType extends HideColumnsLogicType {
   tableColumns: Omit<HeadColumnType, 'onClick'>[];
@@ -12,6 +13,8 @@ export interface TableCommonWrapType extends HideColumnsLogicType {
   handleAllCells: (action: number[]) => AnyAction;
   handleSelectedAll: (value: boolean) => AnyAction;
   pathForHiddenColumnsState: getOptionalType<typeof TAB_NAMES>;
+  children?: (data: { ref: Ref<HTMLDivElement> | undefined }) => ReactNode;
+  loading?: boolean;
 }
 
 export interface UsePopoverType {

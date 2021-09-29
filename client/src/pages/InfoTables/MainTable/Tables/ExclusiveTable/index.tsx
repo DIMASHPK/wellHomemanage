@@ -17,7 +17,7 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
 
   const renderRow = (tableRow: ExclusiveType) => (
     <TableRow
-      key={tableRow.id}
+      key={tableRow.id + tableRow.address + tableRow.floor}
       tableRow={tableRow}
       hiddenColumns={hiddenColumns}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.EXCLUSIVES}
@@ -36,7 +36,7 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
       hiddenColumns={hiddenColumns}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.EXCLUSIVES}
     >
-      {exclusives.map(renderRow)}
+      {() => exclusives.map(renderRow)}
     </TableCommonWrap>
   );
 });

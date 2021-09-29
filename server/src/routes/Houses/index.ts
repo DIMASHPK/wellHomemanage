@@ -1,15 +1,21 @@
-import { Express } from 'express';
+import { Router } from 'express';
 import HouseController from 'controllers/Houses';
 
 /* eslint-disable no-unused-expressions */
 export default class Houses {
   controller: HouseController;
 
+  router: Router;
+
   constructor() {
     this.controller = new HouseController();
+
+    this.router = Router();
+
+    this.routes();
   }
 
-  public routes = (app: Express): void => {
-    app.route('/houses').get(this.controller.getAllHouses);
+  public routes = (): void => {
+    this.router.get('/', this.controller.getAllHouses);
   };
 }

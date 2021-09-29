@@ -98,9 +98,9 @@ export const useTableRow = <T extends { [Property in keyof T]: T[Property] }>({
   }: RenderCellArgsType) => (
     <>
       {Boolean(
-        !keyName.length
+        !keyName?.length
           ? true
-          : !hiddenColumns[pathForHiddenColumnsState][keyName]
+          : !hiddenColumns?.[pathForHiddenColumnsState]?.[keyName]
       ) && (
         <TableCell className={clsx(tableCell, className)} align="center">
           {value}

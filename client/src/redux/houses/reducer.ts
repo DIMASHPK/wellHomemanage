@@ -1,181 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
-import commonReducer from 'utils/commonReducer';
 import { TAB_NAMES } from 'constants/tabs';
 import type { HousesStateType } from './types';
 
 export const initialState: HousesStateType = {
-  [TAB_NAMES.HOUSES]: [
-    {
-      id: 1,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 2,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 3,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 4,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 5,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 6,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 7,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-    {
-      id: 8,
-      address: 'летная 11',
-      buildingMaterial: 'панель',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: '20.06.2021',
-      dateOfStartAd: '20.06.2021',
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-      landArea: 6,
-    },
-  ],
+  [TAB_NAMES.HOUSES]: [],
   selectedCells: [],
   selectedAll: false,
 };
 
-const reducers = commonReducer();
-
 export const housesSlice = createSlice({
-  name: 'houses',
+  name: TAB_NAMES.HOUSES,
   initialState,
-  reducers,
+  reducers: {
+    handleAddCell: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells.push(payload);
+    },
+    handleRemoveCell: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells = state.selectedCells.filter(
+        item => item !== payload
+      );
+    },
+    handleAllCells: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells = payload;
+    },
+    handleSelectedAll: (state, action) => {
+      const { payload } = action;
+
+      state.selectedAll = payload;
+    },
+  },
 });
 
 export const {

@@ -17,7 +17,7 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
 
   const renderRow = (tableRow: HouseType) => (
     <TableRow
-      key={tableRow.id}
+      key={tableRow.id + tableRow.address + tableRow.quantityOfRooms}
       tableRow={tableRow}
       hiddenColumns={hiddenColumns}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.HOUSES}
@@ -36,7 +36,7 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
       onHideColumn={onHideColumn}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.HOUSES}
     >
-      {houses.map(renderRow)}
+      {() => houses.map(renderRow)}
     </TableCommonWrap>
   );
 });

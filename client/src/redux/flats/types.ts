@@ -1,3 +1,5 @@
+import { numberlike } from 'moment/moment';
+
 export interface FlatType {
   id: number;
   address: string;
@@ -6,11 +8,11 @@ export interface FlatType {
   quantityOfRooms: number;
   buildingMaterial: string;
   typeOfHouse: string;
-  area: number | string;
+  area: number;
   description: string;
-  price: string | number;
-  pricePerMeter: string | number;
-  commission: number | string;
+  price: number;
+  pricePerMeter: number;
+  commission: number;
   number: string;
   whoGave: string;
   stateOfLid: string;
@@ -18,11 +20,17 @@ export interface FlatType {
   managerOfObject: string;
   dateOfStartAd?: string;
   dateOfSold?: string;
-  soldPrice?: number | string;
+  soldPrice?: number;
 }
 
 export interface FlatsState {
   flats: FlatType[];
   selectedCells: number[];
   selectedAll: boolean;
+  count: number;
+}
+
+export interface FlatResponseInterface {
+  count: number;
+  data: FlatType[];
 }

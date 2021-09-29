@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode, Ref } from 'react';
 
 export interface HeadColumnType {
   title: string | JSX.Element;
@@ -16,4 +16,6 @@ export interface TablePropsType {
   classes?: {
     tableContainer?: string;
   };
+  children?: (data: { ref: Ref<HTMLDivElement> | undefined }) => ReactNode;
+  loading?: boolean;
 }

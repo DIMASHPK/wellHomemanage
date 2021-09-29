@@ -67,6 +67,10 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     watchingDayCell,
   } = useStyles({ isCheck });
 
+  if (!Object.values(reformatedRowData).length) {
+    return null;
+  }
+
   return (
     <MuiTableRow
       key={id.value as number}

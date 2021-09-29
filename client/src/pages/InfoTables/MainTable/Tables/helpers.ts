@@ -15,8 +15,8 @@ export const getHiddenFields = (
   state: ReturnType<typeof getHiddenFieldsStateType>
 ): getHiddenFieldsReturnType =>
   Object.entries(state)
-    .map(([key, [value]]) => ({
-      [key]: Object.keys(value)
+    .map(([key, [value] = [{}]]) => ({
+      [key]: (value ? Object.keys(value) : [])
         .map(item => ({ [item]: false }))
         .reduce((prev, item) => ({ ...prev, ...item }), {}),
     }))

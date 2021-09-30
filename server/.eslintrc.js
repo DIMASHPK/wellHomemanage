@@ -14,11 +14,11 @@ module.exports = {
   },
   plugins: ['prettier', '@typescript-eslint'],
   extends: [
-    'prettier',
     'airbnb/base',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -70,7 +70,6 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error'],
     'no-confusing-arrow': 0,
     'function-paren-newline': 0,
     'linebreak-style': 0,
@@ -99,6 +98,7 @@ module.exports = {
     'object-curly-newline': 0,
     'no-multi-spaces': 0,
     'operator-linebreak': 0,
+    '@typescript-eslint/no-unused-vars': ['warn'],
   },
   parser: '@typescript-eslint/parser',
 };

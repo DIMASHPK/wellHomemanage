@@ -1,13 +1,17 @@
 import { Dispatch, SetStateAction } from 'react';
-import { getHiddenFieldsReturnType } from './helpers';
+import { RootState } from 'redux/types';
+
+export interface GetHiddenFieldsTypeReturnType {
+  [x: string]: { [x: string]: boolean };
+}
 
 export interface TablesPropsType {
   value: number;
 }
 
 export interface HiddenColumnsStateType {
-  hiddenColumns: getHiddenFieldsReturnType;
-  setHiddenColumns: Dispatch<SetStateAction<getHiddenFieldsReturnType>>;
+  hiddenColumns: GetHiddenFieldsTypeReturnType;
+  setHiddenColumns: Dispatch<SetStateAction<GetHiddenFieldsTypeReturnType>>;
 }
 
 export interface HandleHideColumnArgsType {
@@ -19,3 +23,14 @@ export interface HideColumnsLogicType {
   hiddenColumns: HiddenColumnsStateType['hiddenColumns'];
   onHideColumn: (data: HandleHideColumnArgsType) => void;
 }
+
+export const getHiddenFieldsStateType = ({
+  flats: { flats },
+  houses: { houses },
+  exclusives: { exclusives },
+}: RootState) => ({ flats, houses, exclusives });
+
+export type GetHiddenFieldsType = (
+  state: ReturnType<typeof getHiddenFieldsStateType>,
+  prevState?: GetHiddenFieldsTypeReturnType
+) => GetHiddenFieldsTypeReturnType;

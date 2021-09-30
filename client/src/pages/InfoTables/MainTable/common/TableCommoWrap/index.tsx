@@ -20,6 +20,8 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
     onHideColumn,
     hiddenColumns,
     pathForHiddenColumnsState,
+    stickyHeader,
+    ...rest
   } = props;
 
   const { id, handleClose, anchorEl, handleClick, open } = usePopover();
@@ -52,13 +54,18 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
   }));
 
   const tableColumnsCanHide = tableColumns.filter(
-    ({ value }) => !hiddenColumns[pathForHiddenColumnsState][value as string]
+    ({ value }) =>
+      !hiddenColumns?.[pathForHiddenColumnsState]?.[value as string]
   );
 
   return (
     <>
-      <Table stickyHeader headColumns={tableColumnsCanHide}>
-        {children}
+      <Table
+        headColumns={tableColumnsCanHide}
+        stickyHeader={stickyHeader || true}
+        {...rest}
+      >
+        {props => children?.(props)}
       </Table>
       <OptionsDropDown
         id={id}

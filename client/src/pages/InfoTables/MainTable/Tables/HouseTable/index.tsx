@@ -1,23 +1,49 @@
 import React, { memo } from 'react';
 import TableCommonWrap from 'pages/InfoTables/MainTable/common/TableCommoWrap';
 import { useAppSelector } from 'redux/hooks';
-import { handleAllCells, handleSelectedAll } from 'redux/houses/reducer';
+import {
+  handleAllCells,
+  handleSelectedAll,
+  handlePageChange,
+  handleRowsPerPageChange,
+  handleOrderBy,
+} from 'redux/houses/reducer';
 import type { HouseType } from 'redux/houses/types';
+import { getHouses } from 'redux/houses/thunks';
+import EmptyRow from 'pages/InfoTables/MainTable/common/EmptyRow';
 import TableRow from './TableRow';
 import type { HouseTablePropsType } from './types';
 import { COLUMN_PATH_NAMES } from '../constants';
 import { TABLE_COLUMNS } from './constants';
+import { useGetData } from '../hooks/useGetData';
 
 const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn } = props;
 
-  const { houses, selectedAll, selectedCells } = useAppSelector(
-    ({ houses }) => houses
-  );
+  const {
+    houses,
+    selectedAll,
+    selectedCells,
+    count,
+    page,
+    rowsPerPage,
+    orderBy,
+    orderOption,
+  } = useAppSelector(({ houses }) => houses);
+
+  const { error, ...restGetData } = useGetData({
+    thunk: getHouses,
+    handleRowsPerPageChange,
+    handlePageChange,
+    page,
+    rowsPerPage,
+    orderBy,
+    orderOption,
+  });
 
   const renderRow = (tableRow: HouseType) => (
     <TableRow
-      key={tableRow.id}
+      key={tableRow.id + tableRow.address + tableRow.quantityOfRooms}
       tableRow={tableRow}
       hiddenColumns={hiddenColumns}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.HOUSES}
@@ -35,8 +61,26 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
       hiddenColumns={hiddenColumns}
       onHideColumn={onHideColumn}
       pathForHiddenColumnsState={COLUMN_PATH_NAMES.HOUSES}
+      withPagination
+      count={count}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      orderBy={orderBy}
+      orderDirection={orderOption}
+      onOrderBy={handleOrderBy}
+      {...restGetData}
     >
-      {houses.map(renderRow)}
+      {({ ref }) =>
+        houses?.length || !error?.length ? (
+          houses?.map(renderRow)
+        ) : (
+          <EmptyRow
+            ref={ref}
+            colSpan={TABLE_COLUMNS.length + 1}
+            title={error || 'Нету домов'}
+          />
+        )
+      }
     </TableCommonWrap>
   );
 });

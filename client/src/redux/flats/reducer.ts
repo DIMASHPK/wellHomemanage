@@ -1,197 +1,63 @@
 import { createSlice } from '@reduxjs/toolkit';
-import commonReducer from 'utils/commonReducer';
 import { TAB_NAMES } from 'constants/tabs';
+import { ROWS_PER_PAGE_OPTIONS } from 'pages/InfoTables/common/Table/constants';
+import { SORT_OPTIONS } from 'constants/apiFilters';
 import type { FlatsState } from './types';
 
 export const initialState: FlatsState = {
-  [TAB_NAMES.FLATS]: [
-    {
-      id: 1,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 3,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 2,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 4,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 5,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 6,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 7,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-    {
-      id: 8,
-      address: 'летная 11',
-      floor: 2,
-      numberOfStoreys: 5,
-      buildingMaterial: 'панель',
-      typeOfHouse: 'моск проэкт',
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      price: 27000,
-      pricePerMeter: 574,
-      commission: 500,
-      number: '063-8745202',
-      whoGave: 'ан благострой',
-      stateOfLid: 'срочная продажа',
-      descriptionOfClient: 'с ан не работает',
-      managerOfObject: 'Татьяна',
-      dateOfSold: new Date().toLocaleDateString(),
-      dateOfStartAd: new Date().toLocaleDateString(),
-      soldPrice: 27000,
-      quantityOfRooms: 4,
-    },
-  ],
+  [TAB_NAMES.FLATS]: [],
   selectedCells: [],
   selectedAll: false,
+  count: 0,
+  page: 0,
+  rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
+  orderBy: 'created_at',
+  orderOption: SORT_OPTIONS.DESC,
 };
-
-const reducers = commonReducer();
 
 export const flatsSlice = createSlice({
   name: 'flats',
   initialState,
-  reducers,
+  reducers: {
+    handleAddCell: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells.push(payload);
+    },
+    handleRemoveCell: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells = state.selectedCells.filter(
+        item => item !== payload
+      );
+    },
+    handleAllCells: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells = payload;
+    },
+    handleSelectedAll: (state, action) => {
+      const { payload } = action;
+
+      state.selectedAll = payload;
+    },
+    setData: (state, { payload }) => {
+      state[TAB_NAMES.FLATS] = payload.data;
+      state.count = payload.count;
+    },
+    handleRowsPerPageChange: (state, { payload }) => {
+      state.rowsPerPage = payload;
+    },
+    handlePageChange: (state, { payload }) => {
+      state.page = payload;
+    },
+    handleOrderBy: (state, { payload }) => {
+      const { orderBy, orderOption } = payload;
+
+      state.orderBy = orderBy;
+      state.orderOption = orderOption;
+    },
+  },
 });
 
 export const {
@@ -199,6 +65,10 @@ export const {
   handleAllCells,
   handleAddCell,
   handleSelectedAll,
+  setData,
+  handleRowsPerPageChange,
+  handlePageChange,
+  handleOrderBy,
 } = flatsSlice.actions;
 
 export default flatsSlice.reducer;

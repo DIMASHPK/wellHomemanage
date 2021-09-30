@@ -17,6 +17,7 @@ module.exports = {
     filename: 'index.js',
   },
   resolve: {
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.ts', '.js'],
   },
   module: {

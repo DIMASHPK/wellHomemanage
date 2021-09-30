@@ -1,6 +1,8 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { useAppSelector } from 'redux/hooks';
+import { usePrevious } from 'hooks/usePrevios';
+import { isEqual } from 'lodash';
 import type { HandleHideColumnArgsType, TablesPropsType } from './types';
 import FlatTable from './FlatTable';
 import HouseTable from './HouseTable';
@@ -20,6 +22,14 @@ const Tables: React.FC<TablesPropsType> = memo(props => {
   );
 
   const [hiddenColumns, setHiddenColumns] = useState(getHiddenFields(state));
+
+  const prevState = usePrevious(state);
+
+  useEffect(() => {
+    if (!isEqual(prevState, state)) {
+      setHiddenColumns(prevState => getHiddenFields(state, prevState));
+    }
+  }, [prevState, state]);
 
   const handleHideColumn = useCallback(
     ({ typeName, columnName }: HandleHideColumnArgsType) => {

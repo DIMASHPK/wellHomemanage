@@ -9,6 +9,7 @@ import {
   handleSelectedAll,
 } from 'redux/houses/reducer';
 import { useTableRow } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRow';
+import { formatDate } from 'utils/dates';
 import { TableRowTypes } from './types';
 import { useStyles } from './styles';
 
@@ -60,6 +61,10 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     stateOfLidCell,
     descriptionOfClientCell,
   } = useStyles({ isCheck });
+
+  if (!Object.values(reformatedRowData).length) {
+    return null;
+  }
 
   return (
     <MuiTableRow
@@ -133,11 +138,11 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: managerOfObject.keyMap,
       })}
       {renderCell({
-        value: dateOfStartAd?.value,
+        value: formatDate(dateOfSold?.value),
         keyName: dateOfStartAd?.keyMap,
       })}
       {renderCell({
-        value: dateOfSold?.value,
+        value: formatDate(dateOfSold?.value),
         keyName: dateOfSold?.keyMap,
       })}
       {renderCell({

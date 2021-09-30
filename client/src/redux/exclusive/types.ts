@@ -1,3 +1,5 @@
+import { OrderOptionType } from 'api/types';
+
 export interface ExclusiveType {
   id: number;
   address: string;
@@ -27,4 +29,9 @@ export interface ExclusiveState {
   exclusives: ExclusiveType[];
   selectedCells: number[];
   selectedAll: boolean;
+  count: number;
+  page: number;
+  rowsPerPage: number;
+  orderBy: string;
+  orderOption: OrderOptionType;
 }

@@ -14,12 +14,12 @@ module.exports = {
   },
   plugins: ['prettier', 'react-hooks', '@typescript-eslint'],
   extends: [
-    'prettier',
     'airbnb/hooks',
     'airbnb',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -85,7 +85,7 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-unused-vars': ['warn'],
     'react/prop-types': 0,
     'no-confusing-arrow': 0,
     'function-paren-newline': 0,

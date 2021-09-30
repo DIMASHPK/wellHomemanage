@@ -1,309 +1,63 @@
 import { createSlice } from '@reduxjs/toolkit';
-import commonReducer from 'utils/commonReducer';
 import { TAB_NAMES } from 'constants/tabs';
+import { ROWS_PER_PAGE_OPTIONS } from 'pages/InfoTables/common/Table/constants';
+import { SORT_OPTIONS } from 'constants/apiFilters';
 import type { ExclusiveState } from './types';
 
 export const initialState: ExclusiveState = {
-  [TAB_NAMES.EXCLUSIVES]: [
-    {
-      id: 1,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(new Date().getDate() + 1)),
-        new Date(new Date().setDate(new Date().getDate() + 2)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 2,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 3,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 4,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 5,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 6,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 7,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 8,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-    {
-      id: 9,
-      address: 'летная 11',
-      typeOfHouse: 'дом',
-      floor: 2,
-      area: 47,
-      description: 'м\\п окна, жилое сост. Аккуратная',
-      reservePrice: 27000,
-      startPrice: 27000,
-      endPrice: 27000,
-      preSalePrepare: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      adStart: '20.06.2021',
-      incomingCalls: 22,
-      incomingSocial: 21,
-      crmNumberAndDescriptionOfClient: 'какая-то информация',
-      watchingDays: [
-        new Date(),
-        new Date(new Date().setDate(24)),
-        new Date(new Date().setDate(24)),
-      ],
-      signUpForView: 15,
-      visited: 12,
-      offers: 10,
-      deposit: '20.06.2021',
-      deal: '10.06.2021',
-      commission: 2500,
-      adCost: 12564,
-    },
-  ],
+  [TAB_NAMES.EXCLUSIVES]: [],
   selectedCells: [],
   selectedAll: false,
+  count: 0,
+  page: 0,
+  rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
+  orderBy: 'created_at',
+  orderOption: SORT_OPTIONS.DESC,
 };
 
-const reducers = commonReducer();
-
 export const exclusiveSlice = createSlice({
-  name: 'flats',
+  name: TAB_NAMES.EXCLUSIVES,
   initialState,
-  reducers,
+  reducers: {
+    handleAddCell: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells.push(payload);
+    },
+    handleRemoveCell: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells = state.selectedCells.filter(
+        item => item !== payload
+      );
+    },
+    handleAllCells: (state, action) => {
+      const { payload } = action;
+
+      state.selectedCells = payload;
+    },
+    handleSelectedAll: (state, action) => {
+      const { payload } = action;
+
+      state.selectedAll = payload;
+    },
+    setData: (state, { payload }) => {
+      state[TAB_NAMES.EXCLUSIVES] = payload.data;
+      state.count = payload.count;
+    },
+    handleRowsPerPageChange: (state, { payload }) => {
+      state.rowsPerPage = payload;
+    },
+    handlePageChange: (state, { payload }) => {
+      state.page = payload;
+    },
+    handleOrderBy: (state, { payload }) => {
+      const { orderBy, orderOption } = payload;
+
+      state.orderBy = orderBy;
+      state.orderOption = orderOption;
+    },
+  },
 });
 
 export const {
@@ -311,6 +65,10 @@ export const {
   handleAllCells,
   handleAddCell,
   handleSelectedAll,
+  setData,
+  handleRowsPerPageChange,
+  handlePageChange,
+  handleOrderBy,
 } = exclusiveSlice.actions;
 
 export default exclusiveSlice.reducer;

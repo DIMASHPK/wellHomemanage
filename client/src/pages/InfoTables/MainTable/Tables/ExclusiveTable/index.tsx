@@ -64,7 +64,8 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
             colSpan={TABLE_COLUMNS.length + 1}
             title={error || 'Нету эксклюзивов'}
           />
-        )}
+        )
+      }
     </TableCommonWrap>
   );
 });

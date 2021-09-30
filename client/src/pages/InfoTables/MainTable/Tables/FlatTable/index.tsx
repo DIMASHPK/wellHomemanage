@@ -65,7 +65,8 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
             colSpan={TABLE_COLUMNS.length + 1}
             title={error || 'Нету квартир'}
           />
-        )}
+        )
+      }
     </TableCommonWrap>
   );
 });

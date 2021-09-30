@@ -1,23 +1,25 @@
-import type { RootState } from 'redux/types';
+import { GetHiddenFieldsType } from './types';
 
-export interface getHiddenFieldsReturnType {
-  [x: string]: { [x: string]: boolean };
-}
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const getHiddenFieldsStateType = ({
-  flats: { flats },
-  houses: { houses },
-  exclusives: { exclusives },
-}: RootState) => ({ flats, houses, exclusives });
-
-export const getHiddenFields = (
-  state: ReturnType<typeof getHiddenFieldsStateType>
-): getHiddenFieldsReturnType =>
-  Object.entries(state)
+export const getHiddenFields: GetHiddenFieldsType = (state, prevState) => {
+  let hiddenColumns = Object.entries(state)
     .map(([key, [value] = [{}]]) => ({
       [key]: (value ? Object.keys(value) : [])
-        .map(item => ({ [item]: false }))
+        .map(item => ({ [item]: false, isHiddenTransformed: true }))
         .reduce((prev, item) => ({ ...prev, ...item }), {}),
     }))
     .reduce((prev, item) => ({ ...prev, ...item }), {});
+
+  Object.keys(hiddenColumns).forEach(key => {
+    hiddenColumns = {
+      ...hiddenColumns,
+      [key]: {
+        ...hiddenColumns[key],
+        ...prevState?.[key],
+      },
+    };
+  });
+
+  return {
+    ...hiddenColumns,
+  };
+};

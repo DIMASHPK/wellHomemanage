@@ -65,7 +65,8 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
             colSpan={TABLE_COLUMNS.length + 1}
             title={error || 'Нету домов'}
           />
-        )}
+        )
+      }
     </TableCommonWrap>
   );
 });

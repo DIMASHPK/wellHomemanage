@@ -27,7 +27,7 @@ const Tables: React.FC<TablesPropsType> = memo(props => {
 
   useEffect(() => {
     if (!isEqual(prevState, state)) {
-      setHiddenColumns(getHiddenFields(state));
+      setHiddenColumns(prevState => getHiddenFields(state, prevState));
     }
   }, [prevState, state]);
 

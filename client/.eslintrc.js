@@ -14,12 +14,12 @@ module.exports = {
   },
   plugins: ['prettier', 'react-hooks', '@typescript-eslint'],
   extends: [
-    'prettier',
     'airbnb/hooks',
     'airbnb',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaVersion: 2020,

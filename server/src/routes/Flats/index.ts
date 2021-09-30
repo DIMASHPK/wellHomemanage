@@ -16,6 +16,6 @@ export default class Flats {
 
   public routes = (): void => {
     this.router.get('/', this.controller.getAllFlats);
-    this.router.post('/add', this.controller.getAllFlats);
+    this.router.post('/add', this.controller.addFlats);
   };
 }

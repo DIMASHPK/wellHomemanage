@@ -54,9 +54,10 @@ export default class Exclusive extends Model {
 Exclusive.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      unique: true,
     },
     address: { type: DataTypes.STRING },
     type_of_house: { type: DataTypes.STRING },

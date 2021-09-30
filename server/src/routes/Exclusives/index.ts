@@ -17,5 +17,6 @@ export default class Exclusives {
 
   public routes = (): void => {
     this.router.get('/', this.controller.getAllExclusives);
+    this.router.post('/add', this.controller.addExclusives);
   };
 }

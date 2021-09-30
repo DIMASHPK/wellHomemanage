@@ -37,3 +37,8 @@ export interface FormInput {
 export interface UseSubmitReturnType {
   handleSubmit: SubmitHandler<FormInput>;
 }
+
+export type UseSubmitFormArrayType<
+  O,
+  T extends getOptionalType<typeof TAB_NAMES>
+> = O & { type: T };

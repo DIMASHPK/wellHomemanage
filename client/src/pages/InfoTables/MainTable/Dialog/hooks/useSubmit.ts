@@ -1,15 +1,48 @@
 import { useCallback } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { TAB_NAMES } from 'constants/tabs';
-import { FormInput, UseSubmitReturnType } from '../types';
+import { formatToISOString } from 'utils/dates';
+import { FlatType } from 'redux/flats/types';
+import { HouseType } from 'redux/houses/types';
+import { ExclusiveType } from 'redux/exclusive/types';
+import {
+  FormInput,
+  UseSubmitFormArrayType,
+  UseSubmitReturnType,
+} from '../types';
 
 export const useSubmit = (): UseSubmitReturnType => {
   const handleSubmit: SubmitHandler<FormInput> = useCallback(values => {
     const { tableForm } = values;
 
-    const flats = tableForm.filter(({ type }) => type === TAB_NAMES.FLATS);
-    const houses = tableForm.filter(({ type }) => type === TAB_NAMES.HOUSES);
-    const exclusives = tableForm.filter(
+    const tableFormWithNewType = tableForm as (
+      | UseSubmitFormArrayType<FlatType, typeof TAB_NAMES.FLATS>
+      | UseSubmitFormArrayType<HouseType, typeof TAB_NAMES.HOUSES>
+      | UseSubmitFormArrayType<ExclusiveType, typeof TAB_NAMES.EXCLUSIVES>
+    )[];
+
+    const dataWithUpdatedDates = tableFormWithNewType.map(item => ({
+      ...item,
+      ...((item.type === TAB_NAMES.HOUSES || item.type === TAB_NAMES.FLATS) && {
+        dateOfStartAd: formatToISOString(item.dateOfStartAd),
+        dateOfSold: formatToISOString(item.dateOfSold),
+      }),
+      ...(item.type === TAB_NAMES.EXCLUSIVES && {
+        adStart: formatToISOString(item.adStart),
+        deal: formatToISOString(item.deal),
+        deposit: formatToISOString(item.deposit),
+        preSalePrepare: item.preSalePrepare.map(formatToISOString),
+        watchingDays: item.watchingDays.map(formatToISOString),
+      }),
+    }));
+
+    const flats = dataWithUpdatedDates.filter(
+      ({ type }) => type === TAB_NAMES.FLATS
+    );
+    const houses = dataWithUpdatedDates.filter(
+      ({ type }) => type === TAB_NAMES.HOUSES
+    );
+    const exclusives = dataWithUpdatedDates.filter(
       ({ type }) => type === TAB_NAMES.EXCLUSIVES
     );
 

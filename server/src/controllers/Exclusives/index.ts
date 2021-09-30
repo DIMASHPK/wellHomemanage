@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import Exclusive from 'models/Exclusives';
 import { handlePage } from 'utils/handlePage';
-import { handleError } from 'utils/handleError';
+import {
+  handleBadRequestError,
+  handleInternalServerError,
+} from 'utils/handleError';
 import { handleOrderBy } from 'utils/handleSort';
 import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
+import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 
 export default class ExclusiveController {
   public getAllExclusives = async (
@@ -41,7 +45,31 @@ export default class ExclusiveController {
       }
     } catch (err) {
       console.log(err);
-      handleError(res, err as Error);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public addExclusives = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { exclusives } = body;
+
+    if (!exclusives?.length) {
+      return handleBadRequestError(res);
+    }
+
+    const snakeCaseExclusives = camelToSnakeKeysOfArrayObject(exclusives);
+
+    try {
+      const newExclusives = await Exclusive.bulkCreate<Exclusive>(
+        snakeCaseExclusives
+      );
+
+      await res.send({
+        newExclusives,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
     }
   };
 }

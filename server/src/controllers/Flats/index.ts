@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import Flat from 'models/Flats';
-import { handleError } from 'utils/handleError';
+import {
+  handleInternalServerError,
+  handleBadRequestError,
+} from 'utils/handleError';
 import { handlePage } from 'utils/handlePage';
 import { handleOrderBy } from 'utils/handleSort';
 import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
+import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 
 export default class FlatController {
   public getAllFlats = async (req: Request, res: Response): Promise<void> => {
@@ -44,7 +48,29 @@ export default class FlatController {
       }
     } catch (err) {
       console.log(err);
-      handleError(res, err as Error);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public addFlats = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { flats } = body;
+
+    if (!flats?.length) {
+      return handleBadRequestError(res);
+    }
+
+    const snakeCaseFlats = camelToSnakeKeysOfArrayObject(flats);
+
+    try {
+      const newFlats = await Flat.bulkCreate<Flat>(snakeCaseFlats);
+
+      await res.send({
+        newFlats,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
     }
   };
 }

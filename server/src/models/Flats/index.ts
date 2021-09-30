@@ -50,9 +50,10 @@ export default class Flat extends Model {
 Flat.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      unique: true,
     },
     address: { type: DataTypes.STRING },
     floor: { type: DataTypes.INTEGER },

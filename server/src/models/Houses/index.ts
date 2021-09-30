@@ -46,9 +46,10 @@ export default class House extends Model {
 House.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      unique: true,
     },
     address: { type: DataTypes.STRING },
     building_material: { type: DataTypes.STRING },

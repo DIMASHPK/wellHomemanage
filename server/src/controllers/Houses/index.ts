@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
 import House from 'models/Houses';
 import { handlePage } from 'utils/handlePage';
-import { handleError } from 'utils/handleError';
+import {
+  handleInternalServerError,
+  handleBadRequestError,
+} from 'utils/handleError';
 import { handleOrderBy } from 'utils/handleSort';
 import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
+import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 
 export default class HouseController {
   public getAllHouses = async (req: Request, res: Response): Promise<void> => {
@@ -38,7 +42,29 @@ export default class HouseController {
       }
     } catch (err) {
       console.log(err);
-      handleError(res, err as Error);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public addHouses = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { houses } = body;
+
+    if (!houses?.length) {
+      return handleBadRequestError(res);
+    }
+
+    const snakeCaseHouses = camelToSnakeKeysOfArrayObject(houses);
+
+    try {
+      const newHouses = await House.bulkCreate<House>(snakeCaseHouses);
+
+      await res.send({
+        newHouses,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
     }
   };
 }

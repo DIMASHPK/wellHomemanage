@@ -5,6 +5,7 @@ import { RootState } from 'redux/types';
 import { FlatType } from 'redux/flats/types';
 import { HouseType } from 'redux/houses/types';
 import { ExclusiveType } from 'redux/exclusive/types';
+import { SubmitHandler } from 'react-hook-form';
 import { INITIAL_VALUES_MAPPING } from './constants';
 
 interface DialogProps {
@@ -31,4 +32,8 @@ export type TableFormType = getOptionalType<typeof INITIAL_VALUES_MAPPING> &
 
 export interface FormInput {
   tableForm: TableFormType[];
+}
+
+export interface UseSubmitReturnType {
+  handleSubmit: SubmitHandler<FormInput>;
 }

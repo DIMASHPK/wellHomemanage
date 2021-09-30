@@ -35,6 +35,7 @@ export const INPUT_FIELDS = [
   {
     label: 'Количество Комнат',
     name: 'quantityOfRooms',
+    type: 'number',
     component: Input,
     rules: {
       required: 'Заполните поле',
@@ -51,6 +52,7 @@ export const INPUT_FIELDS = [
   {
     label: 'Цена',
     name: 'price',
+    type: 'number',
     component: Input,
     rules: {
       required: 'Заполните поле',
@@ -59,6 +61,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Цена 1м',
+    type: 'number',
     name: 'pricePerMeter',
     component: Input,
     rules: {
@@ -68,6 +71,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Коммисия',
+    type: 'number',
     name: 'commission',
     component: Input,
     rules: {
@@ -108,5 +112,10 @@ export const INPUT_FIELDS = [
   },
   { label: 'Дата Продажи', name: 'dateOfSold', component: DatePicker },
   { label: 'Начало Рекламы', name: 'dateOfStartAd', component: DatePicker },
-  { label: 'цена продажи', name: 'soldPrice', component: Input },
+  {
+    label: 'цена продажи',
+    name: 'soldPrice',
+    component: Input,
+    type: 'number',
+  },
 ] as const;

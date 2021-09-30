@@ -17,6 +17,7 @@ import ExclusiveForm from './ExclusiveForm';
 import { useStyles } from './styles';
 import AddButton from './AddButton';
 import { getDefaultValues } from './helpers';
+import { useSubmit } from './hooks/useSubmit';
 
 const Dialog: React.FC<DialogType> = memo(props => {
   const { open, title, onClose, type, edit } = props;
@@ -40,7 +41,8 @@ const Dialog: React.FC<DialogType> = memo(props => {
   });
   const { handleSubmit, control } = formDataFromHook;
 
-  const onSubmit: SubmitHandler<FormInput> = data => console.log(data);
+  const { handleSubmit: onSubmit } = useSubmit();
+
   const { fields, append, remove } = useFieldArray({
     name: VALUES_ARRAY_NAME,
     control,

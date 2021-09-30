@@ -26,10 +26,16 @@ export const INPUT_FIELDS = [
     component: Input,
     rules: { required: 'Заполните поле' },
   },
-  { label: 'Цена Продажи', name: 'soldPrice', component: Input },
+  {
+    label: 'Цена Продажи',
+    type: 'number',
+    name: 'soldPrice',
+    component: Input,
+  },
   {
     label: 'Количество Комнат',
     name: 'quantityOfRooms',
+    type: 'number',
     component: Input,
     rules: {
       required: 'Заполните поле',
@@ -45,6 +51,7 @@ export const INPUT_FIELDS = [
   {
     label: 'Коммисия',
     name: 'commission',
+    type: 'number',
     component: Input,
     rules: {
       required: 'Заполните поле',
@@ -53,6 +60,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Цена 1м',
+    type: 'number',
     name: 'pricePerMeter',
     component: Input,
     rules: {
@@ -62,6 +70,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Цена',
+    type: 'number',
     name: 'price',
     component: Input,
     rules: {
@@ -84,6 +93,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Этажность',
+    type: 'number',
     name: 'numberOfStoreys',
     component: Input,
     rules: {
@@ -93,6 +103,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Этаж',
+    type: 'number',
     name: 'floor',
     component: Input,
     rules: {
@@ -102,6 +113,7 @@ export const INPUT_FIELDS = [
   },
   {
     label: 'Площадь',
+    type: 'number',
     name: 'area',
     component: Input,
     rules: {

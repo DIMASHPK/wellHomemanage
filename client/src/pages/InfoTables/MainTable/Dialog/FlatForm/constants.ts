@@ -19,7 +19,6 @@ export const INPUT_FIELDS = [
     name: 'descriptionOfClient',
     multiline: true,
     component: Input,
-    rules: { required: 'Заполните поле' },
   },
   {
     label: 'Куратор Объекта',
@@ -32,7 +31,10 @@ export const INPUT_FIELDS = [
     label: 'Количество Комнат',
     name: 'quantityOfRooms',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Контакт',
@@ -44,19 +46,28 @@ export const INPUT_FIELDS = [
     label: 'Коммисия',
     name: 'commission',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Цена 1м',
     name: 'pricePerMeter',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Цена',
     name: 'price',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Описание',
@@ -75,19 +86,28 @@ export const INPUT_FIELDS = [
     label: 'Этажность',
     name: 'numberOfStoreys',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Этаж',
     name: 'floor',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Площадь',
     name: 'area',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Материал Постройки',

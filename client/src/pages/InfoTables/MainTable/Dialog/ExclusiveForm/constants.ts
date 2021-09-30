@@ -19,13 +19,19 @@ export const INPUT_FIELDS = [
     name: 'floor',
     label: 'Этаж',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     name: 'area',
     label: 'Площадь',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     name: 'description',
@@ -38,13 +44,19 @@ export const INPUT_FIELDS = [
     name: 'reservePrice',
     label: 'Цена Резервная',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     name: 'startPrice',
     label: 'Цена Стартовая',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   { name: 'endPrice', label: 'Цена Конечная', component: Input },
   {
@@ -71,7 +83,10 @@ export const INPUT_FIELDS = [
     name: 'commission',
     label: 'Комиссия',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   { name: 'adCost', label: 'Расход Рекламы(грн.)', component: Input },
 ] as const;

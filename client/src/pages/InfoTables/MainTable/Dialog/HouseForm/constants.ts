@@ -18,19 +18,28 @@ export const INPUT_FIELDS = [
     label: 'Площадь',
     name: 'area',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Площадь Участка',
     name: 'landArea',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Количество Комнат',
     name: 'quantityOfRooms',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Описание',
@@ -43,19 +52,28 @@ export const INPUT_FIELDS = [
     label: 'Цена',
     name: 'price',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Цена 1м',
     name: 'pricePerMeter',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Коммисия',
     name: 'commission',
     component: Input,
-    rules: { required: 'Заполните поле' },
+    rules: {
+      required: 'Заполните поле',
+      min: { value: 1, message: 'введите число большое 0' },
+    },
   },
   {
     label: 'Контакт',

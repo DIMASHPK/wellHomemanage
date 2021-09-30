@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TAB_NAMES } from 'constants/tabs';
 import { ROWS_PER_PAGE_OPTIONS } from 'pages/InfoTables/common/Table/constants';
+import { SORT_OPTIONS } from 'constants/apiFilters';
 import type { ExclusiveState } from './types';
 
 export const initialState: ExclusiveState = {
@@ -10,6 +11,8 @@ export const initialState: ExclusiveState = {
   count: 0,
   page: 0,
   rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
+  orderBy: 'created_at',
+  orderOption: SORT_OPTIONS.DESC,
 };
 
 export const exclusiveSlice = createSlice({
@@ -48,6 +51,12 @@ export const exclusiveSlice = createSlice({
     handlePageChange: (state, { payload }) => {
       state.page = payload;
     },
+    handleOrderBy: (state, { payload }) => {
+      const { orderBy, orderOption } = payload;
+
+      state.orderBy = orderBy;
+      state.orderOption = orderOption;
+    },
   },
 });
 
@@ -59,6 +68,7 @@ export const {
   setData,
   handleRowsPerPageChange,
   handlePageChange,
+  handleOrderBy,
 } = exclusiveSlice.actions;
 
 export default exclusiveSlice.reducer;

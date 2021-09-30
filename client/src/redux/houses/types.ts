@@ -1,3 +1,5 @@
+import { OrderOptionType } from 'api/types';
+
 export interface HouseType {
   id: number;
   address: string;
@@ -26,9 +28,6 @@ export interface HousesStateType {
   count: number;
   page: number;
   rowsPerPage: number;
-}
-
-export interface HouseResponseInterface {
-  count: number;
-  data: HouseType[];
+  orderBy: string;
+  orderOption: OrderOptionType;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
-import { HeadColumnType } from '../types';
+import { HeadColumnType, TablePropsType } from '../types';
 
-export interface SortCellType extends Omit<HeadColumnType, 'id'> {
+export interface SortCellType
+  extends Omit<HeadColumnType, 'id'>,
+    Pick<TablePropsType, 'orderBy' | 'orderDirection' | 'onOrderBy'> {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

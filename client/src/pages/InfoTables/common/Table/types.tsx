@@ -1,4 +1,6 @@
 import React, { ReactNode, Ref } from 'react';
+import { OrderOptionType } from 'api/types';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 export interface HeadColumnType {
   title: string | JSX.Element;
@@ -31,6 +33,12 @@ export interface TablePropsType {
   onRowsPerPageChange?: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+  orderBy: string;
+  orderDirection: OrderOptionType;
+  onOrderBy: ActionCreatorWithPayload<
+    { orderBy: string; orderOption: OrderOptionType },
+    string
+  >;
 }
 
 export interface WithPaginationPaddingHandlerArgs {

@@ -7,6 +7,7 @@ import {
   handleSelectedAll,
   handleRowsPerPageChange,
   handlePageChange,
+  handleOrderBy,
 } from 'redux/flats/reducer';
 import { getFlats } from 'redux/flats/thunks';
 import EmptyRow from 'pages/InfoTables/MainTable/common/EmptyRow';
@@ -19,8 +20,16 @@ import { useGetData } from '../hooks/useGetData';
 const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn } = props;
 
-  const { flats, selectedAll, selectedCells, count, page, rowsPerPage } =
-    useAppSelector(({ flats }) => flats);
+  const {
+    flats,
+    selectedAll,
+    selectedCells,
+    count,
+    page,
+    rowsPerPage,
+    orderBy,
+    orderOption,
+  } = useAppSelector(({ flats }) => flats);
 
   const { error, ...restGetData } = useGetData({
     thunk: getFlats,
@@ -28,6 +37,8 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
     handlePageChange,
     page,
     rowsPerPage,
+    orderBy,
+    orderOption,
   });
 
   const renderRow = (tableRow: FlatType) => (
@@ -54,6 +65,9 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
       count={count}
       page={page}
       rowsPerPage={rowsPerPage}
+      orderBy={orderBy}
+      orderDirection={orderOption}
+      onOrderBy={handleOrderBy}
       {...restGetData}
     >
       {({ ref }) =>

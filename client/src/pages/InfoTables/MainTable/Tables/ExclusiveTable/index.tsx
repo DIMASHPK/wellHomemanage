@@ -1,12 +1,14 @@
 import React, { memo } from 'react';
 import TableCommonWrap from 'pages/InfoTables/MainTable/common/TableCommoWrap';
 import { useAppSelector } from 'redux/hooks';
-import { handleAllCells, handleSelectedAll } from 'redux/flats/reducer';
 import type { ExclusiveType } from 'redux/exclusive/types';
 import { getExclusives } from 'redux/exclusive/thunks';
 import {
-  handlePageChange,
+  handleAllCells,
+  handleSelectedAll,
   handleRowsPerPageChange,
+  handlePageChange,
+  handleOrderBy,
 } from 'redux/exclusive/reducer';
 import EmptyRow from 'pages/InfoTables/MainTable/common/EmptyRow';
 import TableRow from './TableRow';
@@ -18,8 +20,16 @@ import { useGetData } from '../hooks/useGetData';
 const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn } = props;
 
-  const { exclusives, selectedAll, selectedCells, count, page, rowsPerPage } =
-    useAppSelector(({ exclusives }) => exclusives);
+  const {
+    exclusives,
+    selectedAll,
+    selectedCells,
+    count,
+    page,
+    rowsPerPage,
+    orderBy,
+    orderOption,
+  } = useAppSelector(({ exclusives }) => exclusives);
 
   const { error, ...restGetData } = useGetData({
     thunk: getExclusives,
@@ -27,6 +37,8 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
     handlePageChange,
     page,
     rowsPerPage,
+    orderBy,
+    orderOption,
   });
 
   const renderRow = (tableRow: ExclusiveType) => (
@@ -53,6 +65,9 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
       count={count}
       page={page}
       rowsPerPage={rowsPerPage}
+      orderBy={orderBy}
+      orderDirection={orderOption}
+      onOrderBy={handleOrderBy}
       {...restGetData}
     >
       {({ ref }) =>

@@ -9,6 +9,8 @@ export const useGetData = ({
   handlePageChange,
   page = 0,
   rowsPerPage = 0,
+  orderBy,
+  orderOption,
 }: UseGetDataHookArgsType): UseGetDataHookReturnType => {
   const [state, setState] = useState({ error: '', loading: false });
 
@@ -38,7 +40,7 @@ export const useGetData = ({
     (async () => {
       await handleLoad();
     })();
-  }, [handleLoad, page, rowsPerPage]);
+  }, [handleLoad, page, rowsPerPage, orderBy, orderOption]);
 
   const onPageChange: TablePropsType['onPageChange'] = useCallback(
     (_, page) => {

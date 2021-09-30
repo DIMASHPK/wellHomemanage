@@ -6,6 +6,7 @@ import {
   handleSelectedAll,
   handlePageChange,
   handleRowsPerPageChange,
+  handleOrderBy,
 } from 'redux/houses/reducer';
 import type { HouseType } from 'redux/houses/types';
 import { getHouses } from 'redux/houses/thunks';
@@ -19,8 +20,16 @@ import { useGetData } from '../hooks/useGetData';
 const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn } = props;
 
-  const { houses, selectedAll, selectedCells, count, page, rowsPerPage } =
-    useAppSelector(({ houses }) => houses);
+  const {
+    houses,
+    selectedAll,
+    selectedCells,
+    count,
+    page,
+    rowsPerPage,
+    orderBy,
+    orderOption,
+  } = useAppSelector(({ houses }) => houses);
 
   const { error, ...restGetData } = useGetData({
     thunk: getHouses,
@@ -28,6 +37,8 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
     handlePageChange,
     page,
     rowsPerPage,
+    orderBy,
+    orderOption,
   });
 
   const renderRow = (tableRow: HouseType) => (
@@ -54,6 +65,9 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
       count={count}
       page={page}
       rowsPerPage={rowsPerPage}
+      orderBy={orderBy}
+      orderDirection={orderOption}
+      onOrderBy={handleOrderBy}
       {...restGetData}
     >
       {({ ref }) =>

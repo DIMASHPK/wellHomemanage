@@ -27,6 +27,9 @@ const Table: React.FC<TablePropsType> = memo(props => {
     onPageChange = () => null,
     onRowsPerPageChange = () => null,
     withPagination = false,
+    orderBy,
+    onOrderBy,
+    orderDirection,
   } = props;
 
   const ref = useRef<HTMLDivElement>();
@@ -54,7 +57,13 @@ const Table: React.FC<TablePropsType> = memo(props => {
           <TableHead>
             <TableRow>
               {headColumns.map(({ id, ...rest }) => (
-                <SortCell key={id} {...rest} />
+                <SortCell
+                  key={id}
+                  {...rest}
+                  orderBy={orderBy}
+                  onOrderBy={onOrderBy}
+                  orderDirection={orderDirection}
+                />
               ))}
             </TableRow>
           </TableHead>

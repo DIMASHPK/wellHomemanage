@@ -1,4 +1,4 @@
-import { numberlike } from 'moment/moment';
+import { OrderOptionType } from 'api/types';
 
 export interface FlatType {
   id: number;
@@ -30,9 +30,6 @@ export interface FlatsState {
   count: number;
   page: number;
   rowsPerPage: number;
-}
-
-export interface FlatResponseInterface {
-  count: number;
-  data: FlatType[];
+  orderBy: string;
+  orderOption: OrderOptionType;
 }

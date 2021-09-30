@@ -1,3 +1,5 @@
+import { OrderOptionType } from 'api/types';
+
 export interface ExclusiveType {
   id: number;
   address: string;
@@ -30,9 +32,6 @@ export interface ExclusiveState {
   count: number;
   page: number;
   rowsPerPage: number;
-}
-
-export interface ExclusiveResponseInterface {
-  count: number;
-  data: ExclusiveType[];
+  orderBy: string;
+  orderOption: OrderOptionType;
 }

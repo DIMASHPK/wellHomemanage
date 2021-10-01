@@ -15,13 +15,7 @@ export const useSubmit = (): UseSubmitReturnType => {
   const handleSubmit: SubmitHandler<FormInput> = useCallback(values => {
     const { tableForm } = values;
 
-    const tableFormWithNewType = tableForm as (
-      | UseSubmitFormArrayType<FlatType, typeof TAB_NAMES.FLATS>
-      | UseSubmitFormArrayType<HouseType, typeof TAB_NAMES.HOUSES>
-      | UseSubmitFormArrayType<ExclusiveType, typeof TAB_NAMES.EXCLUSIVES>
-    )[];
-
-    const dataWithUpdatedDates = tableFormWithNewType.map(item => ({
+    const dataWithUpdatedDates = tableForm.map(item => ({
       ...item,
       ...((item.type === TAB_NAMES.HOUSES || item.type === TAB_NAMES.FLATS) && {
         dateOfStartAd: formatToISOString(item.dateOfStartAd),

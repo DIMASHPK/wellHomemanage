@@ -1,11 +1,6 @@
 import React, { memo } from 'react';
 import CommonDialog from 'components/Dialog';
-import {
-  useForm,
-  SubmitHandler,
-  useFieldArray,
-  FormProvider,
-} from 'react-hook-form';
+import { useForm, useFieldArray, FormProvider } from 'react-hook-form';
 import Button from '@material-ui/core/Button';
 import { TAB_NAMES } from 'constants/tabs';
 import { useAppSelector } from 'redux/hooks';
@@ -35,9 +30,9 @@ const Dialog: React.FC<DialogType> = memo(props => {
   const formDataFromHook = useForm<FormInput>({
     defaultValues: !edit
       ? {
-          [VALUES_ARRAY_NAME]: [{ ...INITIAL_VALUES_MAPPING[type], type }],
+          [VALUES_ARRAY_NAME]: [{ ...INITIAL_VALUES_MAPPING[type] }],
         }
-      : (getDefaultValues({ state, type }) as FormInput),
+      : getDefaultValues({ state, type }),
   });
   const { handleSubmit, control } = formDataFromHook;
 

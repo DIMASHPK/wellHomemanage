@@ -23,7 +23,7 @@ const AddButton: React.FC<AddButtonTypes> = memo(props => {
 
   const handleMenuItemClick = useCallback(
     ({ type }: { type: getOptionalType<typeof TAB_NAMES> }) => {
-      append({ type, ...INITIAL_VALUES_MAPPING[type] });
+      append({ ...INITIAL_VALUES_MAPPING[type] });
     },
     [append]
   );

@@ -25,7 +25,7 @@ export const INITIAL_FLAT_VALUES = {
   area: '',
   buildingMaterial: '',
   whoGave: '',
-} as const;
+};
 
 export const INITIAL_HOUSE_VALUES = {
   landArea: 0,
@@ -45,7 +45,7 @@ export const INITIAL_HOUSE_VALUES = {
   soldPrice: 0,
   stateOfLid: '',
   whoGave: '',
-} as const;
+};
 
 export const INITIAL_EXCLUSIVE_VALUES = {
   adCost: 0,
@@ -69,13 +69,16 @@ export const INITIAL_EXCLUSIVE_VALUES = {
   typeOfHouse: '',
   visited: 0,
   watchingDays: initValueForMultiplyDate,
-} as const;
+};
 
 export const INITIAL_VALUES_MAPPING = {
-  [TAB_NAMES.FLATS]: INITIAL_FLAT_VALUES,
-  [TAB_NAMES.HOUSES]: INITIAL_HOUSE_VALUES,
-  [TAB_NAMES.EXCLUSIVES]: INITIAL_EXCLUSIVE_VALUES,
-} as const;
+  [TAB_NAMES.FLATS]: { ...INITIAL_FLAT_VALUES, type: TAB_NAMES.FLATS },
+  [TAB_NAMES.HOUSES]: { ...INITIAL_HOUSE_VALUES, type: TAB_NAMES.HOUSES },
+  [TAB_NAMES.EXCLUSIVES]: {
+    ...INITIAL_EXCLUSIVE_VALUES,
+    type: TAB_NAMES.EXCLUSIVES,
+  },
+};
 
 export const VALUES_ARRAY_NAME = 'tableForm';
 

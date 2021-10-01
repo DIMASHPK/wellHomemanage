@@ -15,7 +15,7 @@ export const useInput = ({
   const predicateFunc = useCallback(
     (name: UseInputArgsType['name']): name is keyof typeof currentTableData =>
       !!INPUT_FILTERS_MAPPING[selectedTabName],
-    [selectedTabName]
+    [currentTableData, selectedTabName]
   );
 
   const matchData = useMemo(

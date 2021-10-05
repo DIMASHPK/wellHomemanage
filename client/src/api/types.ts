@@ -1,10 +1,11 @@
 import { AxiosResponse } from 'axios';
 import { SORT_OPTIONS } from 'constants/apiFilters';
 import { getOptionalType } from '../constants/types';
+import { TAB_NAMES } from '../constants/tabs';
 
 export type OrderOptionType = getOptionalType<typeof SORT_OPTIONS>;
 
-export type possiblePaths = 'flats' | 'houses' | 'exclusives';
+export type possiblePaths = getOptionalType<typeof TAB_NAMES>;
 
 export interface GetAllArgs {
   page?: number;
@@ -12,6 +13,11 @@ export interface GetAllArgs {
   orderOption?: OrderOptionType;
   rowsPerPage?: number;
   path: possiblePaths;
+}
+
+export interface AddArgsType<T> {
+  path: `${possiblePaths}/add`;
+  data: T;
 }
 
 export interface ApiType {

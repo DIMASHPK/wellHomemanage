@@ -4,26 +4,49 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { setData } from './reducer';
-import { FlatType } from './types';
+import { AddDataType, FlatType } from './types';
 
 export const getFlats =
   (): AppThunk =>
   async (dispatch, getState): Promise<void> => {
-    const {
-      flats: { rowsPerPage, page, orderBy, orderOption },
-    } = getState();
+    try {
+      const {
+        flats: { rowsPerPage, page, orderBy, orderOption },
+      } = getState();
 
-    const { data } = await Api.getAll<GetAllDataType<FlatType[]>>({
-      path: PATHS.FLATS,
-      page,
-      rowsPerPage,
-      orderBy,
-      orderOption,
-    });
+      const { data } = await Api.getAll<GetAllDataType<FlatType[]>>({
+        path: PATHS.FLATS,
+        page,
+        rowsPerPage,
+        orderBy,
+        orderOption,
+      });
 
-    const reformattedData = data?.data?.map(item =>
-      objectKeysToCamelFromSnakeCase(item)
-    );
+      const reformattedData = data?.data?.map(item =>
+        objectKeysToCamelFromSnakeCase(item)
+      );
 
-    dispatch(setData({ count: data.count, data: reformattedData }));
+      dispatch(setData({ count: data.count, data: reformattedData }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+export const addFlats =
+  (data: AddDataType): AppThunk =>
+  async dispatch => {
+    try {
+      if (!data.flats.length) return;
+
+      const res = await Api.add<AddDataType>({
+        path: 'flats/add',
+        data,
+      });
+
+      console.log({ res });
+
+      dispatch(getFlats());
+    } catch (e) {
+      console.log(e);
+    }
   };

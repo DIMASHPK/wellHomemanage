@@ -1,47 +1,48 @@
 import { useCallback } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { TAB_NAMES } from 'constants/tabs';
-import { formatToISOString } from 'utils/dates';
-import { FlatType } from 'redux/flats/types';
-import { HouseType } from 'redux/houses/types';
-import { ExclusiveType } from 'redux/exclusive/types';
+import { useDispatch } from 'react-redux';
+import { addFlats } from 'redux/flats/thunks';
+import { addHouses } from 'redux/houses/thunks';
+import { addExclusives } from 'redux/exclusive/thunks';
+import { FormInput, UseSubmitReturnType, UseSubmitArgsType } from '../types';
 import {
-  FormInput,
-  UseSubmitFormArrayType,
-  UseSubmitReturnType,
-} from '../types';
+  exclusivePredicate,
+  flatPredicate,
+  housePredicate,
+  transformExclusivesData,
+  transformFlatsData,
+  transformHouseData,
+} from '../helpers';
 
-export const useSubmit = (): UseSubmitReturnType => {
-  const handleSubmit: SubmitHandler<FormInput> = useCallback(values => {
-    const { tableForm } = values;
+export const useSubmit = ({
+  onClose,
+}: UseSubmitArgsType): UseSubmitReturnType => {
+  const dispatch = useDispatch();
 
-    const dataWithUpdatedDates = tableForm.map(item => ({
-      ...item,
-      ...((item.type === TAB_NAMES.HOUSES || item.type === TAB_NAMES.FLATS) && {
-        dateOfStartAd: formatToISOString(item.dateOfStartAd),
-        dateOfSold: formatToISOString(item.dateOfSold),
-      }),
-      ...(item.type === TAB_NAMES.EXCLUSIVES && {
-        adStart: formatToISOString(item.adStart),
-        deal: formatToISOString(item.deal),
-        deposit: formatToISOString(item.deposit),
-        preSalePrepare: item.preSalePrepare.map(formatToISOString),
-        watchingDays: item.watchingDays.map(formatToISOString),
-      }),
-    }));
+  const handleSubmit: SubmitHandler<FormInput> = useCallback(
+    async values => {
+      const { tableForm } = values;
 
-    const flats = dataWithUpdatedDates.filter(
-      ({ type }) => type === TAB_NAMES.FLATS
-    );
-    const houses = dataWithUpdatedDates.filter(
-      ({ type }) => type === TAB_NAMES.HOUSES
-    );
-    const exclusives = dataWithUpdatedDates.filter(
-      ({ type }) => type === TAB_NAMES.EXCLUSIVES
-    );
+      const flats = tableForm.filter(flatPredicate).map(transformFlatsData);
+      const houses = tableForm.filter(housePredicate).map(transformHouseData);
+      const exclusives = tableForm
+        .filter(exclusivePredicate)
+        .map(transformExclusivesData);
 
-    console.log({ flats, houses, exclusives });
-  }, []);
+      try {
+        await Promise.allSettled([
+          dispatch(addFlats({ flats })),
+          dispatch(addHouses({ houses })),
+          dispatch(addExclusives({ exclusives })),
+        ]);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        onClose();
+      }
+    },
+    [dispatch, onClose]
+  );
 
   return { handleSubmit };
 };

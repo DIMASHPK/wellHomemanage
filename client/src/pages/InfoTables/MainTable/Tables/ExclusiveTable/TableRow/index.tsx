@@ -9,7 +9,7 @@ import {
   handleSelectedAll,
 } from 'redux/flats/reducer';
 import { useAppSelector } from 'redux/hooks';
-import { formatDate } from 'utils/dates';
+import { checkIsDataValid, formatDate } from 'utils/dates';
 import { TableRowTypes } from './types';
 import { useStyles } from './styles';
 
@@ -101,7 +101,10 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: preSalePrepare.keyMap,
       })}
       {renderCell({
-        value: formatDate(adStart.value),
+        value:
+          adStart.value && checkIsDataValid(adStart.value)
+            ? formatDate(adStart.value)
+            : '',
         keyName: adStart.keyMap,
       })}
       {renderCell({
@@ -135,11 +138,17 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: offers.keyMap,
       })}
       {renderCell({
-        value: formatDate(deposit.value),
+        value:
+          deposit.value && checkIsDataValid(deposit.value)
+            ? formatDate(deposit.value)
+            : '',
         keyName: deposit.keyMap,
       })}
       {renderCell({
-        value: formatDate(deal.value),
+        value:
+          deal.value && checkIsDataValid(deal.value)
+            ? formatDate(deal.value)
+            : '',
         keyName: deal.keyMap,
       })}
       {renderCell({

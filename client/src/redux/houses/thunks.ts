@@ -4,7 +4,7 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { setData } from './reducer';
-import { HouseType } from './types';
+import { AddDataType, HouseType } from './types';
 
 export const getHouses =
   (): AppThunk =>
@@ -26,4 +26,23 @@ export const getHouses =
     );
 
     dispatch(setData({ count: data.count, data: reformattedData }));
+  };
+
+export const addHouses =
+  (data: AddDataType): AppThunk =>
+  async dispatch => {
+    try {
+      if (!data.houses.length) return;
+
+      const res = await Api.add<AddDataType>({
+        path: 'houses/add',
+        data,
+      });
+
+      console.log({ res });
+
+      dispatch(getHouses());
+    } catch (e) {
+      console.log(e);
+    }
   };

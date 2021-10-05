@@ -19,6 +19,8 @@ export const useStyles = makeStyles(() => ({
   },
   formAction: {
     marginRight: 22,
+    display: 'flex',
+    alignItems: 'center',
     '&:last-of-type': {
       marginRight: 0,
     },

@@ -18,9 +18,9 @@ export interface FlatType {
   stateOfLid: string;
   descriptionOfClient: string;
   managerOfObject: string;
-  dateOfStartAd?: string;
-  dateOfSold?: string;
-  soldPrice?: number;
+  dateOfStartAd: string | null;
+  dateOfSold: string | null;
+  soldPrice: number | null;
 }
 
 export interface FlatsState {
@@ -32,4 +32,8 @@ export interface FlatsState {
   rowsPerPage: number;
   orderBy: string;
   orderOption: OrderOptionType;
+}
+
+export interface AddDataType {
+  [key: string]: Omit<FlatType, 'id'>[];
 }

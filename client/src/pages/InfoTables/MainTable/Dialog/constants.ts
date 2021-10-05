@@ -3,7 +3,7 @@ import { INPUT_FIELDS as EXCLUSIVE_INPUT_FIELDS } from './ExclusiveForm/constant
 import { INPUT_FIELDS as HOUSES_INPUT_FIELDS } from './FlatForm/constants';
 import { INPUT_FIELDS as FLATS_INPUT_FIELDS } from './HouseForm/constants';
 
-const initValueForMultiplyDate = [new Date()];
+const initValueForMultiplyDate: Date[] = [];
 
 export const INITIAL_FLAT_VALUES = {
   stateOfLid: '',

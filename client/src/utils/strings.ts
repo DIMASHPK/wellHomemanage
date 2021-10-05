@@ -1,4 +1,8 @@
-import { ObjectKeysToCamelFromSnakeCase, SnakeToCamelCaseType } from './types';
+import {
+  GetNullFromEmptyStringType,
+  ObjectKeysToCamelFromSnakeCase,
+  SnakeToCamelCaseType,
+} from './types';
 
 export const snakeToCamelCase: SnakeToCamelCaseType = (s: string): string =>
   s.replace(/([-_][a-z])/gi, $1 =>
@@ -12,3 +16,6 @@ export const objectKeysToCamelFromSnakeCase: ObjectKeysToCamelFromSnakeCase =
         [snakeToCamelCase(key)]: value,
       }))
       .reduce((acc, item) => ({ ...acc, ...item }), {});
+
+export const getNullFromEmptyString: GetNullFromEmptyStringType = str =>
+  str?.length ? str : null;

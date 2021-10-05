@@ -2,13 +2,17 @@ import React, { useCallback, useMemo } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import clsx from 'clsx';
 import TableCell from 'pages/InfoTables/common/TableCell';
-import moment from 'moment';
 import List from '@material-ui/core/List';
 import Tooltip from '@material-ui/core/Tooltip';
 import ListItem from '@material-ui/core/ListItem';
 import Zoom from '@material-ui/core/Zoom';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
+import {
+  checkIsDataValid,
+  formatDateWithoutTime,
+  formatWithCheck,
+} from 'utils/dates';
 import { useStyles } from './styles';
 import type {
   UseTableRowArgsType,
@@ -114,11 +118,14 @@ export const useTableRow = <T extends { [Property in keyof T]: T[Property] }>({
     value = [],
     className = '',
   }: RenderDateRangeCellArgsType) => {
-    const formattedDates = value.map(item => moment(item).format('DD.MM.YYYY'));
+    const handleMap = (item: string | Date) =>
+      formatWithCheck(item, formatDateWithoutTime);
 
-    const outPutValue = `${formattedDates[0]}-${
-      formattedDates[formattedDates.length - 1]
-    }`;
+    const formattedDates = value?.map(handleMap);
+
+    const outPutValue =
+      formattedDates?.length &&
+      `${formattedDates[0]}-${formattedDates[formattedDates.length - 1]}`;
 
     const renderListItem = (data: string) => (
       <ListItem className={tooltipListItem}>
@@ -130,7 +137,7 @@ export const useTableRow = <T extends { [Property in keyof T]: T[Property] }>({
     );
 
     const tooltipTitle = (
-      <List className={tooltipList}>{formattedDates.map(renderListItem)}</List>
+      <List className={tooltipList}>{formattedDates?.map(renderListItem)}</List>
     );
 
     return (

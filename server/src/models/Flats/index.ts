@@ -74,8 +74,16 @@ Flat.init(
     date_of_start_ad: { type: DataTypes.DATE },
     date_of_sold: { type: DataTypes.DATE },
     sold_price: { type: DataTypes.INTEGER },
-    created_at: { type: DataTypes.DATE, allowNull: true },
-    updated_at: { type: DataTypes.DATE, allowNull: true },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     tableName: 'flats',

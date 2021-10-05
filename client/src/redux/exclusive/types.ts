@@ -5,24 +5,24 @@ export interface ExclusiveType {
   address: string;
   typeOfHouse: string;
   floor: number;
-  area: number | string;
+  area: number;
   description: string;
-  reservePrice: string | number;
-  startPrice: string | number;
-  endPrice: string | number;
-  preSalePrepare: Date[];
-  adStart: string;
-  incomingCalls: number;
-  incomingSocial: number;
-  crmNumberAndDescriptionOfClient: string;
-  watchingDays: Date[];
-  signUpForView: number;
-  visited: number;
-  offers: number;
-  deposit: string;
-  deal: string;
-  commission: number | string;
-  adCost: number;
+  reservePrice: number;
+  startPrice: number;
+  endPrice: number | null;
+  preSalePrepare: string[] | null;
+  adStart: string | null;
+  incomingCalls: number | null;
+  incomingSocial: number | null;
+  crmNumberAndDescriptionOfClient: string | null;
+  watchingDays: string[] | null;
+  signUpForView: number | null;
+  visited: number | null;
+  offers: number | null;
+  deposit: string | null;
+  deal: string | null;
+  commission: number;
+  adCost: number | null;
 }
 
 export interface ExclusiveState {
@@ -34,4 +34,8 @@ export interface ExclusiveState {
   rowsPerPage: number;
   orderBy: string;
   orderOption: OrderOptionType;
+}
+
+export interface AddDataType {
+  [key: string]: Omit<ExclusiveType, 'id'>[];
 }

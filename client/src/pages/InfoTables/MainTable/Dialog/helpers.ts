@@ -1,49 +1,165 @@
 import { TAB_NAMES } from 'constants/tabs';
-import { FlatType } from 'redux/flats/types';
-import { HouseType } from 'redux/houses/types';
-import { ExclusiveType } from 'redux/exclusive/types';
-import { getOptionalType } from 'constants/types';
-import { VALUES_ARRAY_NAME } from './constants';
-import { GetDefaultValuesArgsType, GetDefaultValuesReturnType } from './types';
-
-export const getFilteredArray = <T extends getOptionalType<typeof TAB_NAMES>>(
-  data: (FlatType | HouseType | ExclusiveType)[],
-  selectedCells: number[],
-  type: T
-): GetDefaultValuesReturnType['tableForm'] =>
-  data
-    .map(item => ({ ...item, type }))
-    .filter(({ id }) =>
-      selectedCells.includes(id)
-    ) as GetDefaultValuesReturnType['tableForm'];
+import { UnionToIntersectionType } from 'constants/types';
+import { getNullFromEmptyArrray } from 'utils/arrays';
+import { formatToISOString, formatWithCheck } from 'utils/dates';
+import { getNumberFromString, getNullableNumbers } from 'utils/numbers';
+import { getNullFromEmptyString } from 'utils/strings';
+import { INITIAL_VALUES_MAPPING, VALUES_ARRAY_NAME } from './constants';
+import {
+  GetDefaultValuesArgsType,
+  GetDefaultValuesReturnType,
+  TransformFlatsDataType,
+  TransformHousesDataType,
+  TransformExclusivesDataType,
+  TableFormType,
+  GetFormatedDateType,
+  GetFormattedDatesArrayType,
+} from './types';
 
 export const getDefaultValues = ({
   state,
   type,
 }: GetDefaultValuesArgsType): GetDefaultValuesReturnType => {
-  const { selectedCells } = state[type];
+  const { selectedCells, ...restData } = state[type];
 
-  const mapping = {
-    [TAB_NAMES.FLATS]: getFilteredArray(
-      state.flats.flats,
-      selectedCells,
-      TAB_NAMES.FLATS
-    ),
-    [TAB_NAMES.HOUSES]: getFilteredArray(
-      state.houses.houses,
-      selectedCells,
-      TAB_NAMES.HOUSES
-    ),
-    [TAB_NAMES.EXCLUSIVES]: getFilteredArray(
-      state.exclusives.exclusives,
-      selectedCells,
-      TAB_NAMES.EXCLUSIVES
-    ),
-  };
+  const restDataIntersection = restData as UnionToIntersectionType<
+    typeof restData
+  >;
 
-  const t = mapping[type];
+  const filteredArray = restDataIntersection[type]
+    .map(item => ({
+      ...item,
+      type,
+    }))
+    .filter(({ id }) =>
+      selectedCells.includes(id)
+    ) as GetDefaultValuesReturnType['tableForm'];
 
   return {
-    [VALUES_ARRAY_NAME]: t,
+    [VALUES_ARRAY_NAME]: filteredArray,
+  };
+};
+
+export const flatPredicate = (
+  item: TableFormType
+): item is typeof INITIAL_VALUES_MAPPING.flats => item.type === TAB_NAMES.FLATS;
+
+export const housePredicate = (
+  item: TableFormType
+): item is typeof INITIAL_VALUES_MAPPING.houses =>
+  item.type === TAB_NAMES.HOUSES;
+
+export const exclusivePredicate = (
+  item: TableFormType
+): item is typeof INITIAL_VALUES_MAPPING.exclusives =>
+  item.type === TAB_NAMES.EXCLUSIVES;
+
+const getFormatedDate: GetFormatedDateType = date =>
+  getNullFromEmptyString(formatWithCheck(date, formatToISOString));
+
+const getFormattedDatesArray: GetFormattedDatesArrayType = arr =>
+  getNullFromEmptyArrray(
+    arr.map(item => formatWithCheck(item, formatToISOString))
+  );
+
+export const transformFlatsData: TransformFlatsDataType = item => {
+  const {
+    dateOfStartAd,
+    dateOfSold,
+    floor,
+    numberOfStoreys,
+    quantityOfRooms,
+    area,
+    price,
+    pricePerMeter,
+    commission,
+    soldPrice,
+    ...rest
+  } = item;
+
+  return {
+    ...rest,
+    floor: getNumberFromString(floor),
+    numberOfStoreys: getNumberFromString(numberOfStoreys),
+    quantityOfRooms: getNumberFromString(quantityOfRooms),
+    area: getNumberFromString(area),
+    price: getNumberFromString(price),
+    pricePerMeter: getNumberFromString(pricePerMeter),
+    commission: getNumberFromString(commission),
+    soldPrice: getNullableNumbers(soldPrice),
+    dateOfStartAd: getFormatedDate(dateOfStartAd),
+    dateOfSold: getFormatedDate(dateOfSold),
+  };
+};
+
+export const transformHouseData: TransformHousesDataType = item => {
+  const {
+    dateOfStartAd,
+    dateOfSold,
+    area,
+    landArea,
+    quantityOfRooms,
+    price,
+    pricePerMeter,
+    commission,
+    soldPrice,
+    ...rest
+  } = item;
+
+  return {
+    ...rest,
+    landArea: getNumberFromString(landArea),
+    area: getNumberFromString(area),
+    quantityOfRooms: getNumberFromString(quantityOfRooms),
+    price: getNumberFromString(price),
+    pricePerMeter: getNumberFromString(pricePerMeter),
+    commission: getNumberFromString(commission),
+    soldPrice: getNullableNumbers(soldPrice),
+    dateOfStartAd: getFormatedDate(dateOfStartAd),
+    dateOfSold: getFormatedDate(dateOfSold),
+  };
+};
+
+export const transformExclusivesData: TransformExclusivesDataType = item => {
+  const {
+    floor,
+    area,
+    reservePrice,
+    startPrice,
+    endPrice,
+    incomingCalls,
+    incomingSocial,
+    signUpForView,
+    visited,
+    offers,
+    commission,
+    adCost,
+    adStart,
+    deal,
+    deposit,
+    preSalePrepare,
+    watchingDays,
+    ...rest
+  } = item;
+
+  return {
+    ...rest,
+    floor: getNumberFromString(floor),
+    area: getNumberFromString(area),
+    reservePrice: getNumberFromString(reservePrice),
+    startPrice: getNumberFromString(startPrice),
+    endPrice: getNullableNumbers(endPrice),
+    incomingCalls: getNullableNumbers(incomingCalls),
+    incomingSocial: getNullableNumbers(incomingSocial),
+    signUpForView: getNullableNumbers(signUpForView),
+    visited: getNullableNumbers(visited),
+    offers: getNullableNumbers(offers),
+    commission: getNumberFromString(commission),
+    adCost: getNullableNumbers(adCost),
+    deal: getFormatedDate(deal),
+    adStart: getFormatedDate(adStart),
+    deposit: getFormatedDate(deposit),
+    preSalePrepare: getFormattedDatesArray(preSalePrepare),
+    watchingDays: getFormattedDatesArray(watchingDays),
   };
 };

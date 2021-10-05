@@ -80,8 +80,16 @@ Exclusive.init(
     deal: { type: DataTypes.DATE },
     commission: { type: DataTypes.INTEGER },
     ad_cost: { type: DataTypes.INTEGER },
-    created_at: { type: DataTypes.DATE, allowNull: true },
-    updated_at: { type: DataTypes.DATE, allowNull: true },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     tableName: 'exclusive',

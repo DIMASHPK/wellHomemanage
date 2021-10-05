@@ -6,13 +6,13 @@ import { Moment } from 'moment';
 
 export interface RenderCellArgsType {
   keyName?: string;
-  value?: JSX.Element | string | number | Moment;
+  value?: JSX.Element | string | number | Moment | null;
   className?: string;
 }
 
 export interface RenderDateRangeCellArgsType
   extends Omit<RenderCellArgsType, 'value'> {
-  value: Date[];
+  value: string[] | Date[] | null;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

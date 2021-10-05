@@ -4,21 +4,21 @@ export interface HouseType {
   id: number;
   address: string;
   buildingMaterial: string;
-  area: number | string;
-  landArea: number | string;
+  area: number;
+  landArea: number;
   quantityOfRooms: number;
   description: string;
-  price: string | number;
-  pricePerMeter: string | number;
-  commission: number | string;
+  price: number;
+  pricePerMeter: number;
+  commission: number;
   number: string;
   whoGave: string;
   stateOfLid: string;
   descriptionOfClient: string;
   managerOfObject: string;
-  dateOfStartAd?: string;
-  dateOfSold?: string;
-  soldPrice?: number | string;
+  dateOfStartAd: string | null;
+  dateOfSold: string | null;
+  soldPrice: number | null;
 }
 
 export interface HousesStateType {
@@ -30,4 +30,8 @@ export interface HousesStateType {
   rowsPerPage: number;
   orderBy: string;
   orderOption: OrderOptionType;
+}
+
+export interface AddDataType {
+  [key: string]: Omit<HouseType, 'id'>[];
 }

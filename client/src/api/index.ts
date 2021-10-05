@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { ApiType, GetAllArgs } from './types';
+import { AddArgsType, ApiType, GetAllArgs } from './types';
 
 class Api implements ApiType {
   private readonly baseUrl: string;
@@ -35,6 +35,12 @@ class Api implements ApiType {
     const pathnameWithParameters = this.getPathnameWithParameters(data);
 
     return this.axios.get(pathnameWithParameters);
+  };
+
+  add = <T, R = T>(config: AddArgsType<T>): Promise<AxiosResponse<R>> => {
+    const { path, data } = config;
+
+    return this.axios.post<R>(path, data);
   };
 }
 

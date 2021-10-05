@@ -9,7 +9,7 @@ import {
   handleSelectedAll,
 } from 'redux/houses/reducer';
 import { useTableRow } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRow';
-import { formatDate } from 'utils/dates';
+import { checkIsDataValid, formatDate } from 'utils/dates';
 import { TableRowTypes } from './types';
 import { useStyles } from './styles';
 
@@ -138,11 +138,17 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
         keyName: managerOfObject.keyMap,
       })}
       {renderCell({
-        value: formatDate(dateOfSold?.value),
+        value:
+          dateOfSold?.value && checkIsDataValid(dateOfSold?.value)
+            ? formatDate(dateOfSold?.value)
+            : '',
         keyName: dateOfStartAd?.keyMap,
       })}
       {renderCell({
-        value: formatDate(dateOfSold?.value),
+        value:
+          dateOfSold?.value && checkIsDataValid(dateOfSold?.value)
+            ? formatDate(dateOfSold?.value)
+            : '',
         keyName: dateOfSold?.keyMap,
       })}
       {renderCell({

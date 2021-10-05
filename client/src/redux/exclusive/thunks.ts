@@ -4,7 +4,7 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { setData } from './reducer';
-import { ExclusiveType } from './types';
+import { AddDataType, ExclusiveType } from './types';
 
 export const getExclusives =
   (): AppThunk =>
@@ -26,4 +26,23 @@ export const getExclusives =
     );
 
     dispatch(setData({ count: data.count, data: reformattedData }));
+  };
+
+export const addExclusives =
+  (data: AddDataType): AppThunk =>
+  async dispatch => {
+    try {
+      if (!data.exclusives.length) return;
+
+      const res = await Api.add<AddDataType>({
+        path: 'exclusives/add',
+        data,
+      });
+
+      console.log({ res });
+
+      dispatch(getExclusives());
+    } catch (e) {
+      console.log(e);
+    }
   };

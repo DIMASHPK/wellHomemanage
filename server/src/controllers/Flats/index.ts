@@ -9,6 +9,7 @@ import { handleOrderBy } from 'utils/handleSort';
 import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
+import { Op } from 'sequelize';
 
 export default class FlatController {
   public getAllFlats = async (req: Request, res: Response): Promise<void> => {
@@ -67,6 +68,28 @@ export default class FlatController {
 
       await res.send({
         newFlats,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public removeFlats = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { ids } = body;
+
+    if (!ids.length) {
+      return handleBadRequestError(res);
+    }
+
+    try {
+      await Flat.destroy<Flat>({
+        where: { id: { [Op.in]: ids } },
+      });
+
+      await res.send({
+        removedFlatsIds: ids,
       });
     } catch (err) {
       console.log(err);

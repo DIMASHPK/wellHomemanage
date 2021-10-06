@@ -9,6 +9,8 @@ import { handleOrderBy } from 'utils/handleSort';
 import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
+import { Op } from 'sequelize';
+import Flat from '../../models/Flats';
 
 export default class ExclusiveController {
   public getAllExclusives = async (
@@ -66,6 +68,31 @@ export default class ExclusiveController {
 
       await res.send({
         newExclusives,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public removeExclusives = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const { body } = req;
+    const { ids } = body;
+
+    if (!ids.length) {
+      return handleBadRequestError(res);
+    }
+
+    try {
+      await Exclusive.destroy<Exclusive>({
+        where: { id: { [Op.in]: ids } },
+      });
+
+      await res.send({
+        removedExclusivesIds: ids,
       });
     } catch (err) {
       console.log(err);

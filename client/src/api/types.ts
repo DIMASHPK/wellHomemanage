@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { SORT_OPTIONS } from 'constants/apiFilters';
 import { getOptionalType } from '../constants/types';
 import { TAB_NAMES } from '../constants/tabs';
@@ -20,9 +19,9 @@ export interface AddArgsType<T> {
   data: T;
 }
 
-export interface ApiType {
-  getAll: <T>(args: GetAllArgs) => Promise<AxiosResponse<T>>;
-  getPathnameWithParameters: (args: GetAllArgs) => string;
+export interface RemoveArgsType {
+  path: `${possiblePaths}/remove`;
+  data: { ids: number[] };
 }
 
 export interface GetAllDataType<T> {

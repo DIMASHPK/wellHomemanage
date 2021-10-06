@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { AddArgsType, ApiType, GetAllArgs } from './types';
+import { AddArgsType, GetAllArgs, RemoveArgsType } from './types';
 
-class Api implements ApiType {
+class Api {
   private readonly baseUrl: string;
 
   private readonly axios: AxiosInstance;
@@ -41,6 +41,14 @@ class Api implements ApiType {
     const { path, data } = config;
 
     return this.axios.post<R>(path, data);
+  };
+
+  remove = (
+    config: RemoveArgsType
+  ): Promise<AxiosResponse<RemoveArgsType['data']>> => {
+    const { data, path } = config;
+
+    return this.axios.delete<RemoveArgsType['data']>(path, { data });
   };
 }
 

@@ -1,4 +1,4 @@
-import type { ExclusiveType } from 'redux/exclusive/types';
+import type { ExclusiveType } from 'redux/exclusives/types';
 import { TableRowProps } from '@material-ui/core';
 import { HideColumnsLogicType } from 'pages/InfoTables/MainTable/Tables/types';
 import { TAB_NAMES } from 'constants/tabs';

@@ -3,7 +3,7 @@ import { PATHS } from 'api/constants';
 import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
-import { setData } from './reducer';
+import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, ExclusiveType } from './types';
 
 export const getExclusives =
@@ -34,15 +34,31 @@ export const addExclusives =
     try {
       if (!data.exclusives.length) return;
 
-      const res = await Api.add<AddDataType>({
+      await Api.add<AddDataType>({
         path: 'exclusives/add',
         data,
       });
-
-      console.log({ res });
 
       dispatch(getExclusives());
     } catch (e) {
       console.log(e);
     }
   };
+
+export const removeExclusives = (): AppThunk => async (dispatch, getState) => {
+  try {
+    const {
+      exclusives: { selectedCells },
+    } = getState();
+
+    await Api.remove({
+      path: 'exclusives/remove',
+      data: { ids: selectedCells },
+    });
+
+    dispatch(handleResetSelectedCells());
+    dispatch(getExclusives());
+  } catch (e) {
+    console.log(e);
+  }
+};

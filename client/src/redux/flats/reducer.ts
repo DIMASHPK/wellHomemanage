@@ -57,6 +57,10 @@ export const flatsSlice = createSlice({
       state.orderBy = orderBy;
       state.orderOption = orderOption;
     },
+    handleResetSelectedCells: state => {
+      state.selectedCells = [];
+      state.selectedAll = false;
+    },
   },
 });
 
@@ -69,6 +73,7 @@ export const {
   handleRowsPerPageChange,
   handlePageChange,
   handleOrderBy,
+  handleResetSelectedCells,
 } = flatsSlice.actions;
 
 export default flatsSlice.reducer;

@@ -5,7 +5,7 @@ import { RootState } from 'redux/types';
 import { SubmitHandler } from 'react-hook-form';
 import { FlatType } from 'redux/flats/types';
 import { HouseType } from 'redux/houses/types';
-import { ExclusiveType } from 'redux/exclusive/types';
+import { ExclusiveType } from 'redux/exclusives/types';
 import { INITIAL_VALUES_MAPPING } from './constants';
 
 interface DialogProps {

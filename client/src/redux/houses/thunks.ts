@@ -4,7 +4,7 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { handleResetSelectedCells, setData } from './reducer';
-import { AddDataType, HouseType } from './types';
+import { AddDataType, HouseType, UpdateDataType } from './types';
 
 export const getHouses =
   (): AppThunk =>
@@ -62,3 +62,21 @@ export const removeHouses = (): AppThunk => async (dispatch, getState) => {
     console.log(e);
   }
 };
+
+export const updateHouses =
+  (data: UpdateDataType): AppThunk =>
+  async dispatch => {
+    try {
+      if (!data.houses.length) return;
+
+      await Api.update<UpdateDataType>({
+        path: 'houses/update',
+        data,
+      });
+
+      dispatch(handleResetSelectedCells());
+      dispatch(getHouses());
+    } catch (e) {
+      console.log(e);
+    }
+  };

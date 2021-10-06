@@ -24,6 +24,11 @@ export interface RemoveArgsType {
   data: { ids: number[] };
 }
 
+export interface UpdateArgsType<T> {
+  path: `${possiblePaths}/update`;
+  data: T;
+}
+
 export interface GetAllDataType<T> {
   data: T;
   count: number;

@@ -4,7 +4,7 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { handleResetSelectedCells, setData } from './reducer';
-import { AddDataType, ExclusiveType } from './types';
+import { AddDataType, ExclusiveType, UpdateDataType } from './types';
 
 export const getExclusives =
   (): AppThunk =>
@@ -62,3 +62,21 @@ export const removeExclusives = (): AppThunk => async (dispatch, getState) => {
     console.log(e);
   }
 };
+
+export const updateExclusives =
+  (data: UpdateDataType): AppThunk =>
+  async dispatch => {
+    try {
+      if (!data.exclusives.length) return;
+
+      await Api.update<UpdateDataType>({
+        path: 'exclusives/update',
+        data,
+      });
+
+      dispatch(handleResetSelectedCells());
+      dispatch(getExclusives());
+    } catch (e) {
+      console.log(e);
+    }
+  };

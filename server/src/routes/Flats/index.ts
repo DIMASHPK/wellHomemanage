@@ -18,5 +18,6 @@ export default class Flats {
     this.router.get('/', this.controller.getAllFlats);
     this.router.post('/add', this.controller.addFlats);
     this.router.delete('/remove', this.controller.removeFlats);
+    this.router.put('/update', this.controller.updateFlats);
   };
 }

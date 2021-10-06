@@ -19,5 +19,6 @@ export default class Exclusives {
     this.router.get('/', this.controller.getAllExclusives);
     this.router.post('/add', this.controller.addExclusives);
     this.router.delete('/remove', this.controller.removeExclusives);
+    this.router.put('/update', this.controller.updateExclusives);
   };
 }

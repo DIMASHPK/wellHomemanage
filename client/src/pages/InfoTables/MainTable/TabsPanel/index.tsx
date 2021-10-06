@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { TabsProps, Typography } from '@material-ui/core';
 import TabsPanelCommon from 'components/TabsPanel';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,7 @@ import { TabsPanelTypes } from './types';
 import { EDIT_DATA_MAPPING } from './constants';
 import Filters from './Filters';
 import { useFilters } from './Filters/hooks/useFilters';
+import RemoveConfirm from './RemoveConfirm';
 
 const TabsPanel: React.FC<TabsPanelTypes> = memo(props => {
   const { selectedTab, onChange, onDialogData } = props;
@@ -22,6 +23,8 @@ const TabsPanel: React.FC<TabsPanelTypes> = memo(props => {
   const filtersData = useFilters({ selectedTab });
 
   const state = useAppSelector(state => state);
+
+  const [openRemove, setOpenRemove] = useState(false);
 
   const currentCount = getCount(state);
 
@@ -46,56 +49,68 @@ const TabsPanel: React.FC<TabsPanelTypes> = memo(props => {
     });
   }, [onDialogData, selectedTab.name]);
 
+  const handleOpen = () => setOpenRemove(true);
+
+  const handleClose = useCallback(() => setOpenRemove(false), []);
+
   return (
-    <div className={tabsContainer}>
-      <div
-        className={clsx({
-          [selectedContainer]: true,
-          [opened]: Boolean(currentCount),
-        })}
-      >
-        <Typography component="h3" className={selectedContainerTitle}>
-          {title}
-          {`(${currentCount})`}
-        </Typography>
-        <div className={selectedContainerActionContainer}>
-          <Button
-            variant="contained"
-            startIcon={<EditIcon />}
-            className={button}
-            size="small"
-            onClick={handleEdit}
-          >
-            Редактировать
-          </Button>
-          <Button
-            variant="contained"
-            className={button}
-            color="secondary"
-            startIcon={<DeleteIcon />}
-            size="small"
-          >
-            Удалить
-          </Button>
+    <>
+      <div className={tabsContainer}>
+        <div
+          className={clsx({
+            [selectedContainer]: true,
+            [opened]: Boolean(currentCount),
+          })}
+        >
+          <Typography component="h3" className={selectedContainerTitle}>
+            {title}
+            {`(${currentCount})`}
+          </Typography>
+          <div className={selectedContainerActionContainer}>
+            <Button
+              variant="contained"
+              startIcon={<EditIcon />}
+              className={button}
+              size="small"
+              onClick={handleEdit}
+            >
+              Редактировать
+            </Button>
+            <Button
+              variant="contained"
+              className={button}
+              color="secondary"
+              startIcon={<DeleteIcon />}
+              size="small"
+              onClick={handleOpen}
+            >
+              Удалить
+            </Button>
+          </div>
+        </div>
+        <div className={leftTabsContainer}>
+          <TabsPanelCommon
+            value={selectedTab.value}
+            tabs={tabs}
+            onChange={onChange as TabsProps['onChange']}
+            classes={{
+              wrapper,
+              root,
+              tabsRoot,
+            }}
+          />
+          <AddButton onDialogData={onDialogData} />
+        </div>
+        <div>
+          <Filters selectedTabName={selectedTab.name} {...filtersData} />
         </div>
       </div>
-      <div className={leftTabsContainer}>
-        <TabsPanelCommon
-          value={selectedTab.value}
-          tabs={tabs}
-          onChange={onChange as TabsProps['onChange']}
-          classes={{
-            wrapper,
-            root,
-            tabsRoot,
-          }}
-        />
-        <AddButton onDialogData={onDialogData} />
-      </div>
-      <div>
-        <Filters selectedTabName={selectedTab.name} {...filtersData} />
-      </div>
-    </div>
+      <RemoveConfirm
+        open={openRemove}
+        onClose={handleClose}
+        selectedTabName={selectedTab.name}
+      />
+    </>
   );
 });
 

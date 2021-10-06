@@ -1,15 +1,15 @@
 import React, { memo } from 'react';
 import TableCommonWrap from 'pages/InfoTables/MainTable/common/TableCommoWrap';
 import { useAppSelector } from 'redux/hooks';
-import type { ExclusiveType } from 'redux/exclusive/types';
-import { getExclusives } from 'redux/exclusive/thunks';
+import type { ExclusiveType } from 'redux/exclusives/types';
+import { getExclusives } from 'redux/exclusives/thunks';
 import {
   handleAllCells,
   handleSelectedAll,
   handleRowsPerPageChange,
   handlePageChange,
   handleOrderBy,
-} from 'redux/exclusive/reducer';
+} from 'redux/exclusives/reducer';
 import EmptyRow from 'pages/InfoTables/MainTable/common/EmptyRow';
 import TableRow from './TableRow';
 import type { ExclusiveTablePropsType } from './types';

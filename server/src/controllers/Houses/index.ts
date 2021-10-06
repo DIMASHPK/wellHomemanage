@@ -9,6 +9,7 @@ import { handleOrderBy } from 'utils/handleSort';
 import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
+import { Op } from 'sequelize';
 
 export default class HouseController {
   public getAllHouses = async (req: Request, res: Response): Promise<void> => {
@@ -61,6 +62,28 @@ export default class HouseController {
 
       await res.send({
         newHouses,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public removeHouses = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { ids } = body;
+
+    if (!ids.length) {
+      return handleBadRequestError(res);
+    }
+
+    try {
+      await House.destroy<House>({
+        where: { id: { [Op.in]: ids } },
+      });
+
+      await res.send({
+        removedHousesIds: ids,
       });
     } catch (err) {
       console.log(err);

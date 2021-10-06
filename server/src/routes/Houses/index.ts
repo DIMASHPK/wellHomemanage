@@ -18,5 +18,6 @@ export default class Houses {
   public routes = (): void => {
     this.router.get('/', this.controller.getAllHouses);
     this.router.post('/add', this.controller.addHouses);
+    this.router.delete('/remove', this.controller.removeHouses);
   };
 }

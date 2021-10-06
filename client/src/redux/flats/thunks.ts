@@ -3,7 +3,7 @@ import { PATHS } from 'api/constants';
 import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
-import { setData } from './reducer';
+import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, FlatType } from './types';
 
 export const getFlats =
@@ -38,15 +38,31 @@ export const addFlats =
     try {
       if (!data.flats.length) return;
 
-      const res = await Api.add<AddDataType>({
+      await Api.add<AddDataType>({
         path: 'flats/add',
         data,
       });
-
-      console.log({ res });
 
       dispatch(getFlats());
     } catch (e) {
       console.log(e);
     }
   };
+
+export const removeFlats = (): AppThunk => async (dispatch, getState) => {
+  try {
+    const {
+      flats: { selectedCells },
+    } = getState();
+
+    await Api.remove({
+      path: 'flats/remove',
+      data: { ids: selectedCells },
+    });
+
+    dispatch(handleResetSelectedCells());
+    dispatch(getFlats());
+  } catch (e) {
+    console.log(e);
+  }
+};

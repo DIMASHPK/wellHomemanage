@@ -3,7 +3,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addFlats } from 'redux/flats/thunks';
 import { addHouses } from 'redux/houses/thunks';
-import { addExclusives } from 'redux/exclusive/thunks';
+import { addExclusives } from 'redux/exclusives/thunks';
 import { FormInput, UseSubmitReturnType, UseSubmitArgsType } from '../types';
 import {
   exclusivePredicate,

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import Checkbox from 'components/Checkbox';
 import MuiTableRow from '@material-ui/core/TableRow';
-import { ExclusiveType } from 'redux/exclusive/types';
+import { ExclusiveType } from 'redux/exclusives/types';
 import { useTableRow } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRow';
 import {
   handleAddCell,

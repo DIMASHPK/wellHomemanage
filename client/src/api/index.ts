@@ -1,5 +1,10 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { AddArgsType, GetAllArgs, RemoveArgsType } from './types';
+import {
+  AddArgsType,
+  GetAllArgs,
+  RemoveArgsType,
+  UpdateArgsType,
+} from './types';
 
 class Api {
   private readonly baseUrl: string;
@@ -49,6 +54,12 @@ class Api {
     const { data, path } = config;
 
     return this.axios.delete<RemoveArgsType['data']>(path, { data });
+  };
+
+  update = <T, R = T>(config: UpdateArgsType<T>): Promise<AxiosResponse<R>> => {
+    const { path, data } = config;
+
+    return this.axios.put<R>(path, data);
   };
 }
 

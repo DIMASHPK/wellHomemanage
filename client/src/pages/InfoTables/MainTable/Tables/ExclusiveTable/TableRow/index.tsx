@@ -7,7 +7,7 @@ import {
   handleAddCell,
   handleRemoveCell,
   handleSelectedAll,
-} from 'redux/flats/reducer';
+} from 'redux/exclusives/reducer';
 import { useAppSelector } from 'redux/hooks';
 import { checkIsDataValid, formatDate } from 'utils/dates';
 import { TableRowTypes } from './types';
@@ -16,7 +16,7 @@ import { useStyles } from './styles';
 const TableRow: React.FC<TableRowTypes> = memo(props => {
   const { tableRow, hiddenColumns, pathForHiddenColumnsState } = props;
 
-  const { selectedCells } = useAppSelector(({ flats }) => flats);
+  const { selectedCells } = useAppSelector(({ exclusives }) => exclusives);
 
   const {
     reformatedRowData,

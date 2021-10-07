@@ -4,7 +4,11 @@ import { getNullFromEmptyArrray } from 'utils/arrays';
 import { formatToISOString, formatWithCheck } from 'utils/dates';
 import { getNumberFromString, getNullableNumbers } from 'utils/numbers';
 import { getNullFromEmptyString } from 'utils/strings';
-import { INITIAL_VALUES_MAPPING, VALUES_ARRAY_NAME } from './constants';
+import {
+  INITIAL_VALUES_MAPPING,
+  SUBMIT_KEYS,
+  VALUES_ARRAY_NAME,
+} from './constants';
 import {
   GetDefaultValuesArgsType,
   GetDefaultValuesReturnType,
@@ -14,6 +18,7 @@ import {
   TableFormType,
   GetFormatedDateType,
   GetFormattedDatesArrayType,
+  GetSubmitKeyType,
 } from './types';
 
 export const getDefaultValues = ({
@@ -74,6 +79,7 @@ export const transformFlatsData: TransformFlatsDataType = item => {
     pricePerMeter,
     commission,
     soldPrice,
+    type,
     ...rest
   } = item;
 
@@ -103,6 +109,7 @@ export const transformHouseData: TransformHousesDataType = item => {
     pricePerMeter,
     commission,
     soldPrice,
+    type,
     ...rest
   } = item;
 
@@ -139,6 +146,7 @@ export const transformExclusivesData: TransformExclusivesDataType = item => {
     deposit,
     preSalePrepare,
     watchingDays,
+    type,
     ...rest
   } = item;
 
@@ -163,3 +171,6 @@ export const transformExclusivesData: TransformExclusivesDataType = item => {
     watchingDays: getFormattedDatesArray(watchingDays),
   };
 };
+
+export const getSubmitKey: GetSubmitKeyType = edit =>
+  edit ? SUBMIT_KEYS.EDIT : SUBMIT_KEYS.CREATE;

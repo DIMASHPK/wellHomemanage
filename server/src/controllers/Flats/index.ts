@@ -10,6 +10,7 @@ import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
+import { FlatBodyType, FlatRemoveBodyType } from './types';
 
 export default class FlatController {
   public getAllFlats = async (req: Request, res: Response): Promise<void> => {
@@ -55,7 +56,7 @@ export default class FlatController {
 
   public addFlats = async (req: Request, res: Response): Promise<void> => {
     const { body } = req;
-    const { flats } = body;
+    const { flats }: FlatBodyType = body;
 
     if (!flats?.length) {
       return handleBadRequestError(res);
@@ -77,7 +78,7 @@ export default class FlatController {
 
   public removeFlats = async (req: Request, res: Response): Promise<void> => {
     const { body } = req;
-    const { ids } = body;
+    const { ids }: FlatRemoveBodyType = body;
 
     if (!ids.length) {
       return handleBadRequestError(res);
@@ -90,6 +91,32 @@ export default class FlatController {
 
       await res.send({
         removedFlatsIds: ids,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public updateFlats = async (req: Request, res: Response): Promise<void> => {
+    const { body } = req;
+    const { flats }: FlatBodyType = body;
+
+    if (!flats?.length) {
+      return handleBadRequestError(res);
+    }
+
+    const snakeCaseFlats = camelToSnakeKeysOfArrayObject(flats);
+
+    try {
+      await Promise.allSettled(
+        snakeCaseFlats.map(item =>
+          Flat.update<Flat>({ ...item }, { where: { id: item.id } })
+        )
+      );
+
+      await res.send({
+        newFlats: flats,
       });
     } catch (err) {
       console.log(err);

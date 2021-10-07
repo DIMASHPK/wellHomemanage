@@ -10,7 +10,7 @@ import { getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
-import Flat from '../../models/Flats';
+import { ExclusiveBodyType, ExclusiveRemoveBodyType } from './types';
 
 export default class ExclusiveController {
   public getAllExclusives = async (
@@ -53,7 +53,7 @@ export default class ExclusiveController {
 
   public addExclusives = async (req: Request, res: Response): Promise<void> => {
     const { body } = req;
-    const { exclusives } = body;
+    const { exclusives }: ExclusiveBodyType = body;
 
     if (!exclusives?.length) {
       return handleBadRequestError(res);
@@ -80,7 +80,7 @@ export default class ExclusiveController {
     res: Response
   ): Promise<void> => {
     const { body } = req;
-    const { ids } = body;
+    const { ids }: ExclusiveRemoveBodyType = body;
 
     if (!ids.length) {
       return handleBadRequestError(res);
@@ -93,6 +93,35 @@ export default class ExclusiveController {
 
       await res.send({
         removedExclusivesIds: ids,
+      });
+    } catch (err) {
+      console.log(err);
+      handleInternalServerError(res, err as Error);
+    }
+  };
+
+  public updateExclusives = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const { body } = req;
+    const { exclusives }: ExclusiveBodyType = body;
+
+    if (!exclusives?.length) {
+      return handleBadRequestError(res);
+    }
+
+    const snakeCaseExclusives = camelToSnakeKeysOfArrayObject(exclusives);
+
+    try {
+      await Promise.allSettled(
+        snakeCaseExclusives.map(item =>
+          Exclusive.update<Exclusive>({ ...item }, { where: { id: item.id } })
+        )
+      );
+
+      await res.send({
+        newExclusives: exclusives,
       });
     } catch (err) {
       console.log(err);

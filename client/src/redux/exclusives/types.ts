@@ -37,5 +37,9 @@ export interface ExclusiveState {
 }
 
 export interface AddDataType {
-  [key: string]: Omit<ExclusiveType, 'id'>[];
+  exclusives: Omit<ExclusiveType, 'id'>[];
+}
+
+export interface UpdateDataType {
+  exclusives: ExclusiveType[];
 }

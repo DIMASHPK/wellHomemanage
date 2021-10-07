@@ -35,5 +35,9 @@ export interface FlatsState {
 }
 
 export interface AddDataType {
-  [key: string]: Omit<FlatType, 'id'>[];
+  flats: Omit<FlatType, 'id'>[];
+}
+
+export interface UpdateDataType {
+  flats: FlatType[];
 }

@@ -4,7 +4,7 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { handleResetSelectedCells, setData } from './reducer';
-import { AddDataType, FlatType } from './types';
+import { AddDataType, FlatType, UpdateDataType } from './types';
 
 export const getFlats =
   (): AppThunk =>
@@ -66,3 +66,21 @@ export const removeFlats = (): AppThunk => async (dispatch, getState) => {
     console.log(e);
   }
 };
+
+export const updateFlats =
+  (data: UpdateDataType): AppThunk =>
+  async dispatch => {
+    try {
+      if (!data.flats.length) return;
+
+      await Api.update<UpdateDataType>({
+        path: 'flats/update',
+        data,
+      });
+
+      dispatch(handleResetSelectedCells());
+      dispatch(getFlats());
+    } catch (e) {
+      console.log(e);
+    }
+  };

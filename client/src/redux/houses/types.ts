@@ -33,5 +33,9 @@ export interface HousesStateType {
 }
 
 export interface AddDataType {
-  [key: string]: Omit<HouseType, 'id'>[];
+  houses: Omit<HouseType, 'id'>[];
+}
+
+export interface UpdateDataType {
+  houses: HouseType[];
 }

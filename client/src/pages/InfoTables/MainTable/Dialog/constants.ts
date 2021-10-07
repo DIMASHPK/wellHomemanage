@@ -1,7 +1,7 @@
 import { TAB_NAMES } from 'constants/tabs';
 import { INPUT_FIELDS as EXCLUSIVE_INPUT_FIELDS } from './ExclusiveForm/constants';
-import { INPUT_FIELDS as HOUSES_INPUT_FIELDS } from './FlatForm/constants';
-import { INPUT_FIELDS as FLATS_INPUT_FIELDS } from './HouseForm/constants';
+import { INPUT_FIELDS as FLATS_INPUT_FIELDS } from './FlatForm/constants';
+import { INPUT_FIELDS as HOUSES_INPUT_FIELDS } from './HouseForm/constants';
 
 const initValueForMultiplyDate: Date[] = [];
 

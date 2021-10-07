@@ -89,6 +89,10 @@ export const useFilters = ({
     [remove, setValue]
   );
 
+  const onReset = useCallback(() => {
+    setValue(VALUES_ARRAY_NAME, [{ name: '', value: '' }]);
+  }, [setValue]);
+
   useDebounceSubmit({
     form: reactHookFormData,
     selectedTabName: selectedTab.name,
@@ -101,5 +105,6 @@ export const useFilters = ({
     onRemoveFilter,
     control,
     reactHookFormData,
+    onReset
   };
 };

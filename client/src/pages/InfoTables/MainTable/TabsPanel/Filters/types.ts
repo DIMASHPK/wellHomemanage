@@ -35,6 +35,7 @@ export interface UseFilterReturnType {
   onRemoveFilter: (index: number) => void;
   control: Control<UseFormValuesType>;
   reactHookFormData: UseFormReturn<UseFormValuesType>;
+  onReset: () => void;
 }
 
 export interface FiltersPropsType extends UseFilterReturnType {

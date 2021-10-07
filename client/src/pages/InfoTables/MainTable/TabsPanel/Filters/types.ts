@@ -40,3 +40,12 @@ export interface UseFilterReturnType {
 export interface FiltersPropsType extends UseFilterReturnType {
   selectedTabName: getOptionalType<typeof TAB_NAMES>;
 }
+
+export interface useDebounceSubmitArgs {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  form: UseFormReturn<UseFormValuesType, object>;
+  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+  onSaveFormState: (data: UseFormValuesType) => void;
+}
+
+export type useDebounceSubmitType = (data: UseFormValuesType) => void;

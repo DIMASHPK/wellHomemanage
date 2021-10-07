@@ -87,3 +87,8 @@ export const INPUTS_MAPPING = {
   [TAB_NAMES.HOUSES]: HOUSES_INPUT_FIELDS,
   [TAB_NAMES.EXCLUSIVES]: EXCLUSIVE_INPUT_FIELDS,
 } as const;
+
+export const SUBMIT_KEYS = {
+  EDIT: 'EDIT',
+  CREATE: 'CREATE',
+} as const;

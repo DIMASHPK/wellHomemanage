@@ -6,7 +6,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { FlatType } from 'redux/flats/types';
 import { HouseType } from 'redux/houses/types';
 import { ExclusiveType } from 'redux/exclusives/types';
-import { INITIAL_VALUES_MAPPING } from './constants';
+import { INITIAL_VALUES_MAPPING, SUBMIT_KEYS } from './constants';
 
 interface DialogProps {
   type: getOptionalType<typeof TAB_NAMES>;
@@ -35,32 +35,36 @@ export interface UseSubmitReturnType {
 
 export interface UseSubmitArgsType {
   onClose: () => void;
+  edit: boolean;
+  type: getOptionalType<typeof TAB_NAMES>;
 }
 
 export type HandleMapType = (item: TableFormType) => TableFormType;
 
-export type UseSubmitFormArrayType<
-  O,
-  T extends getOptionalType<typeof TAB_NAMES>
-> = O & { type: T };
-
 export type TransformFlatsDataType = (
   item: typeof INITIAL_VALUES_MAPPING.flats
-) => UseSubmitFormArrayType<Omit<FlatType, 'id'>, typeof TAB_NAMES.FLATS>;
+) => Omit<FlatType, 'id'>;
 
 export type TransformHousesDataType = (
   item: typeof INITIAL_VALUES_MAPPING.houses
-) => UseSubmitFormArrayType<Omit<HouseType, 'id'>, typeof TAB_NAMES.HOUSES>;
+) => Omit<HouseType, 'id'>;
 
 export type TransformExclusivesDataType = (
   item: typeof INITIAL_VALUES_MAPPING.exclusives
-) => UseSubmitFormArrayType<
-  Omit<ExclusiveType, 'id'>,
-  typeof TAB_NAMES.EXCLUSIVES
->;
+) => Omit<ExclusiveType, 'id'>;
 
 export type GetFormatedDateType = (data: string) => string | null;
 
 export type GetFormattedDatesArrayType = (
   array: (string | Date)[]
 ) => string[] | null;
+
+export type GetSubmitKeyType = (
+  edit: boolean
+) => getOptionalType<typeof SUBMIT_KEYS>;
+
+export type HandleCreateType = (data: {
+  flats: ReturnType<TransformFlatsDataType>[];
+  houses: ReturnType<TransformHousesDataType>[];
+  exclusives: ReturnType<TransformExclusivesDataType>[];
+}) => void;

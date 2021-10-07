@@ -40,11 +40,12 @@ const Dialog: React.FC<DialogType> = memo(props => {
     formState: { isSubmitting },
   } = formDataFromHook;
 
-  const { handleSubmit: onSubmit } = useSubmit({ onClose });
+  const { handleSubmit: onSubmit } = useSubmit({ onClose, edit, type });
 
   const { fields, append, remove } = useFieldArray({
     name: VALUES_ARRAY_NAME,
     control,
+    keyName: 'keyId',
   });
 
   const componentsMappings = {
@@ -64,7 +65,7 @@ const Dialog: React.FC<DialogType> = memo(props => {
               const Component = componentsMappings[type];
 
               return (
-                <div className={formItemWrapperMain} key={i}>
+                <div className={formItemWrapperMain} key={field.keyId}>
                   <Component
                     control={control}
                     name={`${VALUES_ARRAY_NAME}.${i}`}

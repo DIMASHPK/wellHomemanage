@@ -111,8 +111,7 @@ export default class ExclusiveController {
       return handleBadRequestError(res);
     }
 
-    const snakeCaseExclusives: ExclusiveBodyType['exclusives'] =
-      camelToSnakeKeysOfArrayObject(exclusives);
+    const snakeCaseExclusives = camelToSnakeKeysOfArrayObject(exclusives);
 
     try {
       await Promise.allSettled(

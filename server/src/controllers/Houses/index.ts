@@ -100,8 +100,7 @@ export default class HouseController {
       return handleBadRequestError(res);
     }
 
-    const snakeCaseHouses: HouseBodyType['houses'] =
-      camelToSnakeKeysOfArrayObject(houses);
+    const snakeCaseHouses = camelToSnakeKeysOfArrayObject(houses);
 
     try {
       await Promise.allSettled(

@@ -106,8 +106,7 @@ export default class FlatController {
       return handleBadRequestError(res);
     }
 
-    const snakeCaseFlats: FlatBodyType['flats'] =
-      camelToSnakeKeysOfArrayObject(flats);
+    const snakeCaseFlats = camelToSnakeKeysOfArrayObject(flats);
 
     try {
       await Promise.allSettled(

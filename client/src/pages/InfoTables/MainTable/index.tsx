@@ -45,7 +45,7 @@ const MainTable: React.FC = memo(() => {
             onChange={handleChange as TabsProps['onChange']}
             onDialogData={handleDialogData}
           />
-          <Tables value={value.value} />
+          <Tables value={value} />
         </div>
       </Container>
       {dialogData.open && (

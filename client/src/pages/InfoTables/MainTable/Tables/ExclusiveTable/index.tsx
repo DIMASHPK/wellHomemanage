@@ -18,7 +18,7 @@ import { TABLE_COLUMNS } from './constants';
 import { useGetData } from '../hooks/useGetData';
 
 const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
-  const { hiddenColumns, onHideColumn } = props;
+  const { hiddenColumns, onHideColumn, activeTab } = props;
 
   const {
     exclusives,
@@ -39,6 +39,8 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
     rowsPerPage,
     orderBy,
     orderOption,
+    activeTab,
+    myTab: 'exclusives',
   });
 
   const renderRow = (tableRow: ExclusiveType) => (

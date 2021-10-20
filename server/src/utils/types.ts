@@ -1,11 +1,30 @@
-import { getOptionalType } from '../constants/types';
+import { Op } from 'sequelize';
+import { FiltersType, getOptionalType } from '../constants/types';
 import { SORT_OPTIONS_FROM_CLIENT, SORT_OPTIONS } from '../constants';
 
-export type HandlePageType = (data: { page: string; rowsPerPage: string }) => {
+export type HandleFiltersType = (filters: FiltersType) => {
+  [x in typeof Op['all'] | typeof Op['or']]: {
+    [key: string]: {
+      [key in getOptionalType<typeof Op>]: string[] | string;
+    };
+  };
+};
+
+export type HandlePageType = (data: {
+  page: string;
+  rowsPerPage: string;
+  filters: FiltersType;
+}) => {
   limit: number;
   offset: number;
   page: string;
+  where?: ReturnType<HandleFiltersType>;
 };
+
+export type GetValueType = (data: {
+  value: string;
+  op: string;
+}) => `%${string}` | string | string[];
 
 export type HandleOrderByType = (data: {
   orderBy: string;

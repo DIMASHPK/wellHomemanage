@@ -20,6 +20,7 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
     variant,
     pickerVariant = 'inline',
     error,
+    datesLimit,
     ...rest
   } = props;
 
@@ -45,6 +46,8 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
       const nextDates = [...dates];
       nextDates.splice(i, 1);
       setDates(nextDates);
+    } else if (datesLimit && dates.length === datesLimit) {
+      setDates([...dates.slice(-1), day]);
     } else {
       setDates([...dates, day]);
     }

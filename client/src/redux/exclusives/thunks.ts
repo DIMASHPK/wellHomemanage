@@ -4,10 +4,15 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { handleResetSelectedCells, setData } from './reducer';
-import { AddDataType, ExclusiveType, UpdateDataType } from './types';
+import {
+  AddDataType,
+  ExclusiveType,
+  UpdateDataType,
+  GetExclusivesType,
+} from './types';
 
-export const getExclusives =
-  (): AppThunk =>
+export const getExclusives: GetExclusivesType =
+  filters =>
   async (dispatch, getState): Promise<void> => {
     const {
       exclusives: { rowsPerPage, page, orderBy, orderOption },
@@ -19,6 +24,7 @@ export const getExclusives =
       rowsPerPage,
       orderBy,
       orderOption,
+      filters,
     });
 
     const reformattedData = data?.data?.map(item =>

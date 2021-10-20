@@ -6,7 +6,7 @@ import {
   handleBadRequestError,
 } from 'utils/handleError';
 import { handleOrderBy } from 'utils/handleSort';
-import { getOptionalType } from 'constants/types';
+import { FiltersType, getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
@@ -15,11 +15,18 @@ import { HouseBodyType, HouseRemoveBodyType } from './types';
 export default class HouseController {
   public getAllHouses = async (req: Request, res: Response): Promise<void> => {
     const { query } = req;
-    const { page: queryPage, rowsPerPage, orderBy, orderOption } = query;
+    const {
+      page: queryPage,
+      rowsPerPage,
+      orderBy,
+      orderOption,
+      ...filters
+    } = query;
 
     const { page, limit, offset } = handlePage({
       rowsPerPage: rowsPerPage as string,
       page: queryPage as string,
+      filters: filters as unknown as FiltersType,
     });
 
     const order = handleOrderBy({

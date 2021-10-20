@@ -16,7 +16,7 @@ const getNameValues = ({
 });
 
 export type FiltersType = {
-  value: string | Date[];
+  value: string | string[];
   name: keyof ReturnType<typeof getNameValues> | '';
   cond?: getOptionalType<typeof FILTER_COND_ITEMS> | '';
 }[];

@@ -7,3 +7,8 @@ export const SORT_OPTIONS = {
   [SORT_OPTIONS_FROM_CLIENT.ASC]: 'ASC NULLS LAST',
   [SORT_OPTIONS_FROM_CLIENT.DESC]: 'DESC NULLS LAST',
 } as const;
+
+export const COND_OPTIONS = {
+  AND: 'and',
+  OR: 'or',
+} as const;

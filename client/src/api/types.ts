@@ -1,3 +1,4 @@
+import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 import { SORT_OPTIONS } from 'constants/apiFilters';
 import { getOptionalType } from '../constants/types';
 import { TAB_NAMES } from '../constants/tabs';
@@ -12,6 +13,7 @@ export interface GetAllArgs {
   orderOption?: OrderOptionType;
   rowsPerPage?: number;
   path: possiblePaths;
+  filters?: FiltersType;
 }
 
 export interface AddArgsType<T> {

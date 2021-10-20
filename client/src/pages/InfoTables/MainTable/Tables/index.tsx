@@ -11,7 +11,7 @@ import { getHiddenFields } from './helpers';
 import ExclusiveTable from './ExclusiveTable';
 
 const Tables: React.FC<TablesPropsType> = memo(props => {
-  const { value = 0 } = props;
+  const { value } = props;
 
   const state = useAppSelector(
     ({ flats: { flats }, houses: { houses }, exclusives: { exclusives } }) => ({
@@ -60,18 +60,21 @@ const Tables: React.FC<TablesPropsType> = memo(props => {
   const { swipeableContainer } = useStyles();
 
   return (
-    <SwipeableViews index={value} className={swipeableContainer}>
+    <SwipeableViews index={value.value} className={swipeableContainer}>
       <FlatTable
         hiddenColumns={hiddenColumns}
         onHideColumn={handleHideColumn}
+        activeTab={value.name}
       />
       <HouseTable
         hiddenColumns={hiddenColumns}
         onHideColumn={handleHideColumn}
+        activeTab={value.name}
       />
       <ExclusiveTable
         hiddenColumns={hiddenColumns}
         onHideColumn={handleHideColumn}
+        activeTab={value.name}
       />
     </SwipeableViews>
   );

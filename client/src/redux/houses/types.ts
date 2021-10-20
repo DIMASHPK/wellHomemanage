@@ -1,4 +1,6 @@
+import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 import { OrderOptionType } from 'api/types';
+import { AppThunk } from 'redux/types';
 
 export interface HouseType {
   id: number;
@@ -39,3 +41,5 @@ export interface AddDataType {
 export interface UpdateDataType {
   houses: HouseType[];
 }
+
+export type GetHousesType = (filters?: FiltersType) => AppThunk;

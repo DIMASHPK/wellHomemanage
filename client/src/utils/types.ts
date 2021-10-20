@@ -22,4 +22,6 @@ export type GetNullableNumbersType = (
   withNull?: boolean
 ) => number | null;
 
-export type GetNullFromEmptyStringType = (arg: string) => null | string
+export type GetNullFromEmptyStringType = (arg: string) => null | string;
+
+export type FormatDateToSqlDateType = (arg: Required<DateArgType>) => string;

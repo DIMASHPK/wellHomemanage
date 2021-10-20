@@ -28,7 +28,12 @@ export const FLAT_FILTER_INPUTS = {
     label: 'Введите значение',
   },
   managerOfObject: { value: '', component: Input, label: 'Введите значение' },
-  dateOfStartAd: { value: [], component: DatePicker, label: 'Выбирите даты' },
+  dateOfStartAd: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
   soldPrice: {
     type: 'number',
     value: '',
@@ -42,7 +47,12 @@ export const FLAT_FILTER_INPUTS = {
     label: 'Введите значение',
   },
   address: { value: '', component: Input, label: 'Введите значение' },
-  dateOfSold: { value: [], component: DatePicker, label: 'Выбирите даты' },
+  dateOfSold: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
   number: { value: '', component: Input, label: 'Введите значение' },
   commission: {
     type: 'number',
@@ -107,8 +117,18 @@ export const HOUSE_FILTER_INPUTS = {
     component: Input,
     label: 'Введите значение',
   },
-  dateOfSold: { value: [], component: DatePicker, label: 'Выбирите даты' },
-  dateOfStartAd: { value: [], component: DatePicker, label: 'Выбирите даты' },
+  dateOfSold: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
+  dateOfStartAd: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
   description: { value: '', component: Input, label: 'Введите значение' },
   descriptionOfClient: {
     value: '',
@@ -153,7 +173,12 @@ export const EXCLUSIVE_FILTER_INPUTS = {
     label: 'Введите значение',
   },
   address: { value: '', component: Input, label: 'Введите значение' },
-  adStart: { value: [], component: DatePicker, label: 'Выбирите даты' },
+  adStart: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
   area: {
     type: 'number',
     value: '',
@@ -171,11 +196,17 @@ export const EXCLUSIVE_FILTER_INPUTS = {
     component: Input,
     label: 'Введите значение',
   },
-  deal: { value: '', component: DatePicker, label: 'Выбирите даты' },
+  deal: {
+    value: '',
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
   deposit: {
     value: '',
     component: DatePicker,
     label: 'Выбирите даты',
+    datesLimit: 2,
   },
   description: { value: '', component: Input, label: 'Введите значение' },
   endPrice: {
@@ -208,7 +239,12 @@ export const EXCLUSIVE_FILTER_INPUTS = {
     component: Input,
     label: 'Введите значение',
   },
-  preSalePrepare: { value: [], component: DatePicker, label: 'Выбирите даты' },
+  preSalePrepare: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
   reservePrice: {
     type: 'number',
     value: '',
@@ -234,7 +270,12 @@ export const EXCLUSIVE_FILTER_INPUTS = {
     component: Input,
     label: 'Введите значение',
   },
-  watchingDays: { value: [], component: DatePicker, label: 'Выбирите даты' },
+  watchingDays: {
+    value: [],
+    component: DatePicker,
+    label: 'Выбирите даты',
+    datesLimit: 2,
+  },
 } as const;
 
 export const INPUT_FILTERS_MAPPING = {

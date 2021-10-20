@@ -20,11 +20,6 @@ const NameSelect: React.FC<NameSelectPropsType> = memo(props => {
     [filters, name, selectedTabName]
   );
 
-  console.log({
-    nameOptions,
-    selectedTabName,
-  });
-
   const handleChange = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
       const { value } = event.target;

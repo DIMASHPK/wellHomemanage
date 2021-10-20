@@ -1,3 +1,4 @@
+import { tabItemType } from 'components/TabsPanel/types';
 import { Dispatch, SetStateAction } from 'react';
 import { RootState } from 'redux/types';
 
@@ -6,7 +7,7 @@ export interface GetHiddenFieldsTypeReturnType {
 }
 
 export interface TablesPropsType {
-  value: number;
+  value: tabItemType;
 }
 
 export interface HiddenColumnsStateType {

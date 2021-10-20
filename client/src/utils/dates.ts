@@ -3,6 +3,7 @@ import {
   DateFormatterType,
   CheckDateValidType,
   FormatWithCheckType,
+  FormatDateToSqlDateType,
 } from './types';
 
 export const formatDate: DateFormatterType = date =>
@@ -21,3 +22,9 @@ export const formatWithCheck: FormatWithCheckType = (
   item,
   callBack = formatDate
 ) => (checkIsDataValid(item) ? callBack(item) : '');
+
+export const formatDateToSqlDateWithTime: FormatDateToSqlDateType = date =>
+  moment(date).format('YYYY-MM-DD HH:mm:ss');
+
+export const formatDateToSqlDate: FormatDateToSqlDateType = date =>
+  moment(date).format('YYYY-MM-DD');

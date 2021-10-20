@@ -4,10 +4,10 @@ import { AppThunk } from 'redux/types';
 import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
 import { handleResetSelectedCells, setData } from './reducer';
-import { AddDataType, FlatType, UpdateDataType } from './types';
+import { AddDataType, FlatType, UpdateDataType, GetFlatsType } from './types';
 
-export const getFlats =
-  (): AppThunk =>
+export const getFlats: GetFlatsType =
+  filters =>
   async (dispatch, getState): Promise<void> => {
     try {
       const {
@@ -20,6 +20,7 @@ export const getFlats =
         rowsPerPage,
         orderBy,
         orderOption,
+        filters,
       });
 
       const reformattedData = data?.data?.map(item =>

@@ -6,7 +6,7 @@ import {
   handleInternalServerError,
 } from 'utils/handleError';
 import { handleOrderBy } from 'utils/handleSort';
-import { getOptionalType } from 'constants/types';
+import { FiltersType, getOptionalType } from 'constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
@@ -18,11 +18,18 @@ export default class ExclusiveController {
     res: Response
   ): Promise<void> => {
     const { query } = req;
-    const { page: queryPage, rowsPerPage, orderBy, orderOption } = query;
+    const {
+      page: queryPage,
+      rowsPerPage,
+      orderBy,
+      orderOption,
+      ...filters
+    } = query;
 
-    const { page, limit, offset } = handlePage({
+    const { page, limit, offset, where } = handlePage({
       rowsPerPage: rowsPerPage as string,
       page: queryPage as string,
+      filters: filters as unknown as FiltersType,
     });
 
     const order = handleOrderBy({
@@ -38,6 +45,7 @@ export default class ExclusiveController {
           limit,
           offset,
           order,
+          where,
         }),
         Exclusive.count(),
       ]);

@@ -18,7 +18,7 @@ import { TABLE_COLUMNS } from './constants';
 import { useGetData } from '../hooks/useGetData';
 
 const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
-  const { hiddenColumns, onHideColumn } = props;
+  const { hiddenColumns, onHideColumn, activeTab } = props;
 
   const {
     flats,
@@ -39,6 +39,8 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
     rowsPerPage,
     orderBy,
     orderOption,
+    activeTab,
+    myTab: 'flats',
   });
 
   const renderRow = (tableRow: FlatType) => (

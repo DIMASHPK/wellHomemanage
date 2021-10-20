@@ -1,7 +1,11 @@
 import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { FILTER_COND_ITEMS } from 'pages/InfoTables/MainTable/TabsPanel/Filters/constants';
-import { checkIsDataValid, formatDateToSqlDate } from 'utils/dates';
+import {
+  checkIsDataValid,
+  formatDateToSqlDate,
+  sortDatesByAscending,
+} from 'utils/dates';
 import {
   AddArgsType,
   GetAllArgs,
@@ -26,7 +30,7 @@ class Api {
   }
 
   getTransformFilterDates = (dates: string[]): string[] =>
-    dates.map(formatDateToSqlDate);
+    sortDatesByAscending(dates.map(formatDateToSqlDate));
 
   getTransformedFilters = (filters: FiltersType): { [x: string]: string }[] => {
     const handleMap = ({
@@ -44,7 +48,7 @@ class Api {
         return { [`filter.${name}.eq`]: value as string };
       }
 
-      return { [`filter.${name}.like`]: value as string };
+      return { [`filter.${name}.iLike`]: value as string };
     };
 
     return [

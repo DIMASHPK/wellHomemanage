@@ -23,7 +23,7 @@ export default class HouseController {
       ...filters
     } = query;
 
-    const { page, limit, offset } = handlePage({
+    const { page, limit, offset, where } = handlePage({
       rowsPerPage: rowsPerPage as string,
       page: queryPage as string,
       filters: filters as unknown as FiltersType,
@@ -42,8 +42,9 @@ export default class HouseController {
           limit,
           offset,
           order,
+          where,
         }),
-        House.count(),
+        House.count({ where }),
       ]);
 
       if (data.status === 'fulfilled' && count.status === 'fulfilled') {

@@ -1,21 +1,19 @@
 import moment, { MomentInput } from 'moment/moment';
-import { FormatDateType, LabelFuncType, GetLastDateType } from './types';
+import { sortDatesByAscending } from 'utils/dates';
+import { DateArgType } from 'utils/types';
+import { FormatDateType, LabelFuncType } from './types';
 
 export const formatDate: FormatDateType = date =>
   moment(date as MomentInput).format('DD/MM/YY');
 
-const getLastDate: GetLastDateType = dates =>
-  dates.reduce((acc, item) =>
-    moment(acc as MomentInput | undefined).isAfter(
-      item as MomentInput | undefined
-    )
-      ? acc
-      : item
-  );
-
 export const labelFunc: LabelFuncType =
   ({ emptyLabel, dates }) =>
-  date =>
-    date && dates.length > 0
-      ? [dates[0], getLastDate(dates)].map(formatDate).join(' - ')
+  date => {
+    const sortedDates = sortDatesByAscending(dates);
+
+    return date && dates.length > 0
+      ? [sortedDates[0], sortedDates[sortedDates.length - 1]]
+          .map(formatDate)
+          .join(' - ')
       : emptyLabel || '';
+  };

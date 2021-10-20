@@ -47,7 +47,7 @@ export default class ExclusiveController {
           order,
           where,
         }),
-        Exclusive.count(),
+        Exclusive.count({ where }),
       ]);
 
       if (data.status === 'fulfilled' && count.status === 'fulfilled') {

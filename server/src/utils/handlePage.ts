@@ -12,8 +12,8 @@ const handleFilters: HandleFiltersType = filters => {
   const getValue: GetValueType = ({ value, op }) => {
     const splittedValue = value.split(',');
 
-    if (op === 'like') {
-      return `%${value}%`;
+    if (op === 'iLike' || op === 'like') {
+      return `%${value.toLowerCase()}%`;
     }
 
     if (splittedValue.length > 1) {

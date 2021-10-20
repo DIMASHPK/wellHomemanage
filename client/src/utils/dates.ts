@@ -4,6 +4,7 @@ import {
   CheckDateValidType,
   FormatWithCheckType,
   FormatDateToSqlDateType,
+  SortDatesByAscendingType,
 } from './types';
 
 export const formatDate: DateFormatterType = date =>
@@ -28,3 +29,6 @@ export const formatDateToSqlDateWithTime: FormatDateToSqlDateType = date =>
 
 export const formatDateToSqlDate: FormatDateToSqlDateType = date =>
   moment(date).format('YYYY-MM-DD');
+
+export const sortDatesByAscending: SortDatesByAscendingType = dates =>
+  dates.sort((a, b) => moment(a).valueOf() - moment(b).valueOf());

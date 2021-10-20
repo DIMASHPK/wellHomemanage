@@ -44,7 +44,7 @@ export default class FlatController {
           order,
           where,
         }),
-        Flat.count(),
+        Flat.count({ where }),
       ]);
 
       if (data.status === 'fulfilled' && count.status === 'fulfilled') {

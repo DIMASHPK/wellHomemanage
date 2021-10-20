@@ -3,7 +3,6 @@ import { WithPaginationPaddingHandlerArgs } from './types';
 
 export const useStyles = makeStyles(() => ({
   table: {
-    minHeight: '100%',
     minWidth: 650,
     position: 'relative',
     boxShadow:

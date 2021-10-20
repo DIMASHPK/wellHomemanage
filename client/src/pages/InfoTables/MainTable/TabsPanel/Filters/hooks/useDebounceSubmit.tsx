@@ -28,8 +28,6 @@ export const useDebounceSubmit = ({
 
       onSaveFormState(values);
 
-      if (!filters[0].name) return;
-
       submitMapping[selectedTabName]();
     },
     [dispatch, onSaveFormState, selectedTabName]

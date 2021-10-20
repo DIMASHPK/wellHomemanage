@@ -35,7 +35,8 @@ class Api {
     }: FiltersType[number]): { [key: string]: string } => {
       if (Array.isArray(value) && value.every(checkIsDataValid)) {
         return {
-          [`filter.${name}.between`]: this.getTransformFilterDates(value).toString(),
+          [`filter.${name}.between`]:
+            this.getTransformFilterDates(value).toString(),
         };
       }
 
@@ -64,7 +65,7 @@ class Api {
       url.searchParams.append(key, value)
     );
 
-    if (filters) {
+    if (filters && filters[0].name) {
       this.getTransformedFilters(filters).forEach(item => {
         const [[key, value]] = Object.entries(item);
         url.searchParams.append(key, value);

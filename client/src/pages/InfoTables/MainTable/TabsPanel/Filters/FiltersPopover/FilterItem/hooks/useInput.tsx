@@ -1,6 +1,10 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
+import { UnionToIntersectionType } from 'constants/types';
+import {
+  INPUT_FILTERS_MAPPING,
+  VALUES_ARRAY_NAME,
+} from 'pages/InfoTables/MainTable/TabsPanel/Filters/constants';
 import { FilterInput as Input } from 'components/fields/Input/Form';
-import { INPUT_FILTERS_MAPPING, VALUES_ARRAY_NAME } from '../../../constants';
 import { UseInputArgsType, UseInputReturnType } from '../types';
 
 export const useInput = ({
@@ -10,38 +14,38 @@ export const useInput = ({
   control,
   name,
 }: UseInputArgsType): UseInputReturnType => {
-  const currentTableData = INPUT_FILTERS_MAPPING[selectedTabName];
-
-  const predicateFunc = useCallback(
-    (name: UseInputArgsType['name']): name is keyof typeof currentTableData =>
-      !!INPUT_FILTERS_MAPPING[selectedTabName],
-    [currentTableData, selectedTabName]
-  );
-
-  const matchData = useMemo(
-    () =>
-      ({
-        ...(predicateFunc(name) ? currentTableData[name] : {}),
-        variant: 'outlined',
-        className,
-        control,
-      } as const),
-    [className, control, currentTableData, name, predicateFunc]
-  );
-
   const renderInput = useCallback(() => {
-    const { component: Component, ...inputProps } = matchData;
+    const commonInputProps = {
+      variant: 'outlined',
+      className,
+      control,
+      label: 'Введите значение',
+      name: `${VALUES_ARRAY_NAME}.${index}.value`,
+    } as const;
 
-    const CurrentInput = Component || Input;
+    if (name === '' || name === 'id') {
+      return <Input {...commonInputProps} />;
+    }
+    const currentTableData = INPUT_FILTERS_MAPPING[selectedTabName];
+
+    const currentTableDataIntersection =
+      currentTableData as UnionToIntersectionType<typeof currentTableData>;
+
+    const {
+      component: Component,
+      filter,
+      ...inputProps
+    } = currentTableDataIntersection[name];
 
     return (
-      <CurrentInput
-        {...inputProps}
+      <Component
+        {...commonInputProps}
+        {...(inputProps as UnionToIntersectionType<typeof inputProps>)}
         label={inputProps?.label || 'Введите значение'}
         name={`${VALUES_ARRAY_NAME}.${index}.value`}
       />
     );
-  }, [index, matchData]);
+  }, [className, control, index, name, selectedTabName]);
 
   return { renderInput };
 };

@@ -1,4 +1,4 @@
-import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
+import { getNotEmptyFilters } from 'pages/InfoTables/MainTable/TabsPanel/Filters/helpers';
 import { OrderOptionType } from 'api/types';
 import { AppThunk } from 'redux/types';
 
@@ -44,4 +44,6 @@ export interface UpdateDataType {
   flats: FlatType[];
 }
 
-export type GetFlatsType = (filters?: FiltersType) => AppThunk;
+export type GetFlatsType = (
+  filters?: ReturnType<typeof getNotEmptyFilters>
+) => AppThunk;

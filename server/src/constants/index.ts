@@ -12,3 +12,12 @@ export const COND_OPTIONS = {
   AND: 'and',
   OR: 'or',
 } as const;
+
+export const FILTER_MAPPINGS = {
+  EQ: 'eq',
+  ILIKE: 'iLike',
+  BETWEEN: 'between',
+  RANGE_BETWEEN: 'rangeBetween',
+} as const;
+
+export const FILTER_COND_KEY = 'filter.cond' as const;

@@ -29,14 +29,16 @@ export const useFilters = ({
     [savedState, selectedTab.name]
   );
 
+  const prevTabName = usePrevious(selectedTab.name);
+
   const handleSaveFormState = useCallback(
     ({ filters }: UseFormValuesType) => {
       setSavedState(prevState => ({
         ...prevState,
-        [selectedTab.name]: cloneDeep(filters),
+        [prevTabName]: cloneDeep(filters),
       }));
     },
-    [selectedTab]
+    [prevTabName]
   );
 
   const reactHookFormData = useForm<UseFormValuesType>({
@@ -45,7 +47,7 @@ export const useFilters = ({
     },
   });
 
-  const { control, setValue, watch } = reactHookFormData;
+  const { control, setValue, watch, getValues } = reactHookFormData;
 
   const { fields, append, remove } = useFieldArray({
     name: VALUES_ARRAY_NAME,
@@ -59,13 +61,22 @@ export const useFilters = ({
     ...watchFieldArray[index],
   }));
 
-  const prevTabName = usePrevious(selectedTab.name);
-
   useEffect(() => {
     if (prevTabName !== selectedTab.name) {
+      const currentData = getValues();
+
+      handleSaveFormState(currentData);
       setValue(VALUES_ARRAY_NAME, cloneDeep(savedState[selectedTab.name]));
     }
-  }, [setValue, selectedTab, defaultFilters, savedState, prevTabName]);
+  }, [
+    setValue,
+    selectedTab,
+    defaultFilters,
+    savedState,
+    prevTabName,
+    getValues,
+    handleSaveFormState,
+  ]);
 
   const onAddFilter = useCallback(() => {
     append({
@@ -96,7 +107,6 @@ export const useFilters = ({
   useDebounceSubmit({
     form: reactHookFormData,
     selectedTabName: selectedTab.name,
-    onSaveFormState: handleSaveFormState,
   });
 
   return {
@@ -105,6 +115,6 @@ export const useFilters = ({
     onRemoveFilter,
     control,
     reactHookFormData,
-    onReset
+    onReset,
   };
 };

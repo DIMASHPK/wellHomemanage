@@ -1,4 +1,4 @@
-import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
+import { getNotEmptyFilters } from 'pages/InfoTables/MainTable/TabsPanel/Filters/helpers';
 import { OrderOptionType } from 'api/types';
 import { AppThunk } from 'redux/types';
 
@@ -42,4 +42,6 @@ export interface UpdateDataType {
   houses: HouseType[];
 }
 
-export type GetHousesType = (filters?: FiltersType) => AppThunk;
+export type GetHousesType = (
+  filters?: ReturnType<typeof getNotEmptyFilters>
+) => AppThunk;

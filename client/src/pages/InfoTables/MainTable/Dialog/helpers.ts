@@ -64,7 +64,7 @@ const getFormatedDate: GetFormatedDateType = date =>
 
 const getFormattedDatesArray: GetFormattedDatesArrayType = arr =>
   getNullFromEmptyArrray(
-    arr.map(item => formatWithCheck(item, formatToISOString))
+    arr?.map(item => formatWithCheck(item, formatToISOString))
   );
 
 export const transformFlatsData: TransformFlatsDataType = item => {

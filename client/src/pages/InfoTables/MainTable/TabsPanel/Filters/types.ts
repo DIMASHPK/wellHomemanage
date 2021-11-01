@@ -3,7 +3,11 @@ import { TAB_NAMES } from 'constants/tabs';
 import { tabItemType } from 'components/TabsPanel/types';
 import { Control, UseFormReturn } from 'react-hook-form';
 import { RootState } from 'redux/types';
-import { FILTER_COND_ITEMS } from './constants';
+import {
+  FILTER_CLAUSES,
+  FILTER_COND_ITEMS,
+  INPUT_FILTERS_MAPPING,
+} from './constants';
 
 const getNameValues = ({
   exclusives: { exclusives },
@@ -46,7 +50,18 @@ export interface useDebounceSubmitArgs {
   // eslint-disable-next-line @typescript-eslint/ban-types
   form: UseFormReturn<UseFormValuesType, object>;
   selectedTabName: getOptionalType<typeof TAB_NAMES>;
-  onSaveFormState: (data: UseFormValuesType) => void;
 }
 
 export type useDebounceSubmitType = (data: UseFormValuesType) => void;
+
+export type FilterNameType = `filter.${Exclude<
+  FiltersType[number]['name'],
+  '' | 'id'
+>}.${getOptionalType<typeof FILTER_CLAUSES>}`;
+
+export type GetNotEmptyFiltersArgsType = {
+  filters: FiltersType;
+  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+};
+
+export type GetTransformFilterDatesType = (dates: string[]) => string[];

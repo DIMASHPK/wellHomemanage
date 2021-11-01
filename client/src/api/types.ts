@@ -1,7 +1,7 @@
-import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 import { SORT_OPTIONS } from 'constants/apiFilters';
-import { getOptionalType } from '../constants/types';
-import { TAB_NAMES } from '../constants/tabs';
+import { getOptionalType } from 'constants/types';
+import { TAB_NAMES } from 'constants/tabs';
+import { getNotEmptyFilters } from 'pages/InfoTables/MainTable/TabsPanel/Filters/helpers';
 
 export type OrderOptionType = getOptionalType<typeof SORT_OPTIONS>;
 
@@ -13,7 +13,7 @@ export interface GetAllArgs {
   orderOption?: OrderOptionType;
   rowsPerPage?: number;
   path: possiblePaths;
-  filters?: FiltersType;
+  filters?: ReturnType<typeof getNotEmptyFilters>;
 }
 
 export interface AddArgsType<T> {

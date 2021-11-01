@@ -21,6 +21,14 @@ export type HandlePageType = (data: {
   where?: ReturnType<HandleFiltersType>;
 };
 
+export type HandleFindAllSqlQueryType = (data: {
+  page: string;
+  rowsPerPage: string;
+  filters: FiltersType;
+  orderBy: string;
+  orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
+}) => string;
+
 export type GetValueType = (data: {
   value: string;
   op: string;
@@ -30,6 +38,23 @@ export type HandleOrderByType = (data: {
   orderBy: string;
   orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
 }) => [[string, getOptionalType<typeof SORT_OPTIONS>]];
+
+export type HandleOrderByTypeNew = (data: {
+  orderBy: string;
+  orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
+}) => string;
+
+export type HandleOffsetType = (data: {
+  page: string;
+  rowsPerPage: string;
+}) => string;
+
+export type HandleWhereClause = (filters: FiltersType) => string;
+
+export type HandleFilterValueType = (filter: {
+  key: string;
+  value: string;
+}) => string;
 
 type Alph =
   | 'Q'

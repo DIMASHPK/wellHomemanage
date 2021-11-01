@@ -1,6 +1,6 @@
-import { COND_OPTIONS } from 'constants/index';
 import { getOptionalType } from 'constants/types';
 import { Op } from 'sequelize';
+import { COND_OPTIONS } from '../constants';
 import { camelToSnakeCase } from './strings';
 import { HandlePageType, HandleFiltersType, GetValueType } from './types';
 

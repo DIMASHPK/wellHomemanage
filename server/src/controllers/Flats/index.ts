@@ -4,12 +4,12 @@ import {
   handleInternalServerError,
   handleBadRequestError,
 } from 'utils/handleError';
-import { handlePage } from 'utils/handlePage';
-import { handleOrderBy } from 'utils/handleSort';
 import { FiltersType, getOptionalType } from 'constants/types';
-import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
+import { handleFindAllSqlQuery, handleWhereClause } from 'utils/handleFilters';
+import { sequelize } from 'configs/db';
+import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
 import { FlatBodyType, FlatRemoveBodyType } from './types';
 
 export default class FlatController {
@@ -23,35 +23,30 @@ export default class FlatController {
       ...filters
     } = query;
 
-    const { page, limit, offset, where } = handlePage({
+    const findAllSqlQuery = handleFindAllSqlQuery({
       rowsPerPage: rowsPerPage as string,
       page: queryPage as string,
       filters: filters as unknown as FiltersType,
-    });
-
-    const order = handleOrderBy({
-      orderBy: orderBy as string,
       orderOption: orderOption as getOptionalType<
         typeof SORT_OPTIONS_FROM_CLIENT
       >,
+      orderBy: orderBy as string,
     });
+
+    const whereClause = handleWhereClause(filters as unknown as FiltersType);
 
     try {
       const [data, count] = await Promise.allSettled([
-        Flat.findAll<Flat>({
-          limit,
-          offset,
-          order,
-          where,
-        }),
-        Flat.count({ where }),
+        sequelize.query(`SELECT * FROM flats ${findAllSqlQuery}`),
+        sequelize.query(`SELECT COUNT(*) FROM flats ${whereClause}`),
       ]);
 
       if (data.status === 'fulfilled' && count.status === 'fulfilled') {
         await res.send({
-          data: data.value,
-          count: count.value,
-          page,
+          data: data.value[0],
+          count: (count as { value: { count: string }[][] })?.value?.[0]?.[0]
+            ?.count,
+          page: queryPage,
           orderBy,
           orderOption,
         });

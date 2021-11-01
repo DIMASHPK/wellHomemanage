@@ -6,11 +6,11 @@ import { getHouses } from 'redux/houses/thunks';
 import { getFlats } from 'redux/flats/thunks';
 import { getExclusives } from 'redux/exclusives/thunks';
 import { useDebounceSubmitArgs, useDebounceSubmitType } from '../types';
+import { getNotEmptyFilters } from '../helpers';
 
 export const useDebounceSubmit = ({
   form,
   selectedTabName,
-  onSaveFormState,
 }: useDebounceSubmitArgs): void => {
   const { handleSubmit, watch } = form;
 
@@ -19,18 +19,17 @@ export const useDebounceSubmit = ({
   const onSubmit: useDebounceSubmitType = useCallback(
     values => {
       const { filters } = values;
+      const notEmptyFilters = getNotEmptyFilters({ filters, selectedTabName });
 
       const submitMapping = {
-        [TAB_NAMES.FLATS]: () => dispatch(getFlats(filters)),
-        [TAB_NAMES.HOUSES]: () => dispatch(getHouses(filters)),
-        [TAB_NAMES.EXCLUSIVES]: () => dispatch(getExclusives(filters)),
+        [TAB_NAMES.FLATS]: () => dispatch(getFlats(notEmptyFilters)),
+        [TAB_NAMES.HOUSES]: () => dispatch(getHouses(notEmptyFilters)),
+        [TAB_NAMES.EXCLUSIVES]: () => dispatch(getExclusives(notEmptyFilters)),
       };
-
-      onSaveFormState(values);
 
       submitMapping[selectedTabName]();
     },
-    [dispatch, onSaveFormState, selectedTabName]
+    [dispatch, selectedTabName]
   );
 
   const debouncedSubmit = useCallback(debounce(handleSubmit(onSubmit), 500), [

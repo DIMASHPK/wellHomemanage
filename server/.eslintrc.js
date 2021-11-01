@@ -99,6 +99,7 @@ module.exports = {
     'no-multi-spaces': 0,
     'operator-linebreak': 0,
     '@typescript-eslint/no-unused-vars': ['warn'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
   parser: '@typescript-eslint/parser',
 };

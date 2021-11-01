@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from '@material-ui/core';
 import { FilterItemPropsType } from './types';
@@ -23,6 +23,15 @@ const FilterItem: React.FC<FilterItemPropsType> = memo(props => {
     control,
   });
 
+  const isDisabled = useMemo(
+    () =>
+      Boolean(
+        (filters.length > 1 && !index) ||
+          !Object.values(filters[index]).some(item => item || item?.length)
+      ),
+    [filters, index]
+  );
+
   return (
     <div className={filterItemContainer}>
       <CondSelect
@@ -38,7 +47,7 @@ const FilterItem: React.FC<FilterItemPropsType> = memo(props => {
       />
       {renderInput()}
       <IconButton
-        disabled={!index}
+        disabled={isDisabled}
         color="primary"
         onClick={() => onRemoveFilter(index)}
       >

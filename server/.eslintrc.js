@@ -7,7 +7,6 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        paths: ['src'],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         moduleDirectory: ['node_modules', 'src/'],
       },
@@ -100,6 +99,7 @@ module.exports = {
     'no-multi-spaces': 0,
     'operator-linebreak': 0,
     '@typescript-eslint/no-unused-vars': ['warn'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
   parser: '@typescript-eslint/parser',
 };

@@ -2,7 +2,10 @@ import { tabItemType } from 'components/TabsPanel/types';
 import { FiltersPropsType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 
 export interface FilterItemPropsType
-  extends Omit<FiltersPropsType, 'onAddFilter' | 'reactHookFormData'> {
+  extends Omit<
+    FiltersPropsType,
+    'onAddFilter' | 'reactHookFormData' | 'onReset'
+  > {
   index: number;
 }
 

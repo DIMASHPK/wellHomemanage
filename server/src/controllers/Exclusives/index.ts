@@ -1,49 +1,57 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import Exclusive from 'models/Exclusives';
-import { handlePage } from 'utils/handlePage';
 import {
   handleBadRequestError,
   handleInternalServerError,
 } from 'utils/handleError';
-import { handleOrderBy } from 'utils/handleSort';
-import { getOptionalType } from 'constants/types';
-import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
+import { RequestWithTypedBody, RequestWithTypedQuery } from 'constants/types';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
+import { handleFindAllSqlQuery, handleWhereClause } from 'utils/handleFilters';
+import Flat from 'models/Flats';
+import { sequelize } from 'configs/db';
 import { ExclusiveBodyType, ExclusiveRemoveBodyType } from './types';
 
 export default class ExclusiveController {
   public getAllExclusives = async (
-    req: Request,
+    req: RequestWithTypedQuery,
     res: Response
   ): Promise<void> => {
     const { query } = req;
-    const { page: queryPage, rowsPerPage, orderBy, orderOption } = query;
+    const { page, rowsPerPage, orderBy, orderOption, ...filters } = query;
 
-    const { page, limit, offset } = handlePage({
-      rowsPerPage: rowsPerPage as string,
-      page: queryPage as string,
+    const findAllSqlQuery = handleFindAllSqlQuery({
+      rowsPerPage,
+      page,
+      filters,
+      orderOption,
+      orderBy,
     });
 
-    const order = handleOrderBy({
-      orderBy: orderBy as string,
-      orderOption: orderOption as getOptionalType<
-        typeof SORT_OPTIONS_FROM_CLIENT
-      >,
-    });
+    const whereClause = handleWhereClause(filters);
 
     try {
       const [data, count] = await Promise.allSettled([
-        Exclusive.findAll<Exclusive>({
-          limit,
-          offset,
-          order,
-        }),
-        Exclusive.count(),
+        sequelize.query(`SELECT * FROM exclusive ${findAllSqlQuery}`),
+        sequelize.query(`SELECT COUNT(*) FROM exclusive ${whereClause}`),
       ]);
 
-      if (data.status === 'fulfilled' && count.status === 'fulfilled') {
-        await res.send({ data: data.value, count: count.value, page });
+      if (
+        data.status === 'fulfilled' &&
+        count.status === 'fulfilled' &&
+        count?.value?.[0]?.[0]
+      ) {
+        const currentData = data.value?.[0] as Flat[];
+        const currentCount = (count?.value?.[0]?.[0] as { count: string })
+          .count;
+
+        res.send({
+          data: currentData,
+          count: currentCount,
+          page,
+          orderBy,
+          orderOption,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -51,7 +59,10 @@ export default class ExclusiveController {
     }
   };
 
-  public addExclusives = async (req: Request, res: Response): Promise<void> => {
+  public addExclusives = async (
+    req: RequestWithTypedBody<ExclusiveBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
     const { exclusives }: ExclusiveBodyType = body;
 
@@ -66,7 +77,7 @@ export default class ExclusiveController {
         snakeCaseExclusives
       );
 
-      await res.send({
+      res.send({
         newExclusives,
       });
     } catch (err) {
@@ -76,11 +87,11 @@ export default class ExclusiveController {
   };
 
   public removeExclusives = async (
-    req: Request,
+    req: RequestWithTypedBody<ExclusiveRemoveBodyType>,
     res: Response
   ): Promise<void> => {
     const { body } = req;
-    const { ids }: ExclusiveRemoveBodyType = body;
+    const { ids } = body;
 
     if (!ids.length) {
       return handleBadRequestError(res);
@@ -91,7 +102,7 @@ export default class ExclusiveController {
         where: { id: { [Op.in]: ids } },
       });
 
-      await res.send({
+      res.send({
         removedExclusivesIds: ids,
       });
     } catch (err) {
@@ -101,11 +112,11 @@ export default class ExclusiveController {
   };
 
   public updateExclusives = async (
-    req: Request,
+    req: RequestWithTypedBody<ExclusiveBodyType>,
     res: Response
   ): Promise<void> => {
     const { body } = req;
-    const { exclusives }: ExclusiveBodyType = body;
+    const { exclusives } = body;
 
     if (!exclusives?.length) {
       return handleBadRequestError(res);
@@ -120,7 +131,7 @@ export default class ExclusiveController {
         )
       );
 
-      await res.send({
+      res.send({
         newExclusives: exclusives,
       });
     } catch (err) {

@@ -4,7 +4,7 @@ export type ObjectKeysToCamelFromSnakeCase = (arg: { [key: string]: any }) => {
   [key: string]: any;
 };
 
-type DateArgType = Date | string | undefined;
+export type DateArgType = Date | string | undefined;
 
 export type DateFormatterType = (date: DateArgType) => string;
 
@@ -22,4 +22,8 @@ export type GetNullableNumbersType = (
   withNull?: boolean
 ) => number | null;
 
-export type GetNullFromEmptyStringType = (arg: string) => null | string
+export type GetNullFromEmptyStringType = (arg: string) => null | string;
+
+export type FormatDateToSqlDateType = (arg: Required<DateArgType>) => string;
+
+export type SortDatesByAscendingType = <T extends any[]>(dates: T) => T;

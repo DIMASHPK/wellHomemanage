@@ -1,16 +1,30 @@
-import { getOptionalType } from '../constants/types';
-import { SORT_OPTIONS_FROM_CLIENT, SORT_OPTIONS } from '../constants';
+import { FiltersType, getOptionalType } from '../constants/types';
+import { SORT_OPTIONS_FROM_CLIENT } from '../constants';
 
-export type HandlePageType = (data: { page: string; rowsPerPage: string }) => {
-  limit: number;
-  offset: number;
+export type HandleFindAllSqlQueryType = (data: {
   page: string;
-};
+  rowsPerPage: string;
+  filters: FiltersType;
+  orderBy: string;
+  orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
+}) => string;
 
 export type HandleOrderByType = (data: {
   orderBy: string;
   orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
-}) => [[string, getOptionalType<typeof SORT_OPTIONS>]];
+}) => string;
+
+export type HandleOffsetType = (data: {
+  page: string;
+  rowsPerPage: string;
+}) => string;
+
+export type HandleWhereClause = (filters: FiltersType) => string;
+
+export type HandleFilterValueType = (filter: {
+  key: string;
+  value: string;
+}) => string;
 
 type Alph =
   | 'Q'

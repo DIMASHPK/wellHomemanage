@@ -2,6 +2,8 @@ import React, { memo, useMemo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import { useStyles } from './styles';
 import { FiltersPopoverPropsType } from './types';
 import FilterItem from './FilterItem';
@@ -15,6 +17,7 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
     selectedTabName,
     onAddFilter,
     onRemoveFilter,
+    onReset,
     control,
   } = props;
 
@@ -23,8 +26,14 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
     [filters, selectedTabName]
   );
 
-  const { filtersTitle, popoverPaper, filtersContainer, actionsContainer } =
-    useStyles();
+  const {
+    filtersTitle,
+    popoverPaper,
+    filtersContainer,
+    actionsContainer,
+    titleContainer,
+    closeButton,
+  } = useStyles();
 
   const open = Boolean(anchorEl);
   const id = open ? 'filter-popover' : undefined;
@@ -59,7 +68,12 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
         horizontal: 'right',
       }}
     >
-      <Typography className={filtersTitle}>Фильтры</Typography>
+      <div className={titleContainer}>
+        <Typography className={filtersTitle}>Фильтры</Typography>
+        <IconButton className={closeButton} onClick={onClose}>
+          <CloseIcon color="primary" />
+        </IconButton>
+      </div>
       <div className={filtersContainer}>{filters.map(renderFilter)}</div>
       <div className={actionsContainer}>
         <Button
@@ -70,8 +84,8 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
         >
           + Добавить фильтр
         </Button>
-        <Button onClick={onClose} variant="contained" color="secondary">
-          Отмена
+        <Button onClick={onReset} variant="contained" color="secondary">
+          Сбросить все
         </Button>
       </div>
     </Popover>

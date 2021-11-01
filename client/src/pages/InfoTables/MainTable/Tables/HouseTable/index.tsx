@@ -18,7 +18,7 @@ import { TABLE_COLUMNS } from './constants';
 import { useGetData } from '../hooks/useGetData';
 
 const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
-  const { hiddenColumns, onHideColumn } = props;
+  const { hiddenColumns, onHideColumn, activeTab } = props;
 
   const {
     houses,
@@ -39,6 +39,8 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
     rowsPerPage,
     orderBy,
     orderOption,
+    activeTab,
+    myTab: 'houses',
   });
 
   const renderRow = (tableRow: HouseType) => (

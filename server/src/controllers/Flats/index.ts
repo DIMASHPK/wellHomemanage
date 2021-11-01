@@ -1,48 +1,52 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import Flat from 'models/Flats';
 import {
   handleInternalServerError,
   handleBadRequestError,
 } from 'utils/handleError';
-import { handlePage } from 'utils/handlePage';
-import { handleOrderBy } from 'utils/handleSort';
-import { getOptionalType } from 'constants/types';
-import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
+import { RequestWithTypedBody, RequestWithTypedQuery } from 'constants/types';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
+import { handleFindAllSqlQuery, handleWhereClause } from 'utils/handleFilters';
+import { sequelize } from 'configs/db';
 import { FlatBodyType, FlatRemoveBodyType } from './types';
 
 export default class FlatController {
-  public getAllFlats = async (req: Request, res: Response): Promise<void> => {
+  public getAllFlats = async (
+    req: RequestWithTypedQuery,
+    res: Response
+  ): Promise<void> => {
     const { query } = req;
-    const { page: queryPage, rowsPerPage, orderBy, orderOption } = query;
+    const { page, rowsPerPage, orderBy, orderOption, ...filters } = query;
 
-    const { page, limit, offset } = handlePage({
-      rowsPerPage: rowsPerPage as string,
-      page: queryPage as string,
+    const findAllSqlQuery = handleFindAllSqlQuery({
+      rowsPerPage,
+      page,
+      filters,
+      orderOption,
+      orderBy,
     });
 
-    const order = handleOrderBy({
-      orderBy: orderBy as string,
-      orderOption: orderOption as getOptionalType<
-        typeof SORT_OPTIONS_FROM_CLIENT
-      >,
-    });
+    const whereClause = handleWhereClause(filters);
 
     try {
       const [data, count] = await Promise.allSettled([
-        Flat.findAll<Flat>({
-          limit,
-          offset,
-          order,
-        }),
-        Flat.count(),
+        sequelize.query(`SELECT * FROM flats ${findAllSqlQuery}`),
+        sequelize.query(`SELECT COUNT(*) FROM flats ${whereClause}`),
       ]);
 
-      if (data.status === 'fulfilled' && count.status === 'fulfilled') {
-        await res.send({
-          data: data.value,
-          count: count.value,
+      if (
+        data.status === 'fulfilled' &&
+        count.status === 'fulfilled' &&
+        count?.value?.[0]?.[0]
+      ) {
+        const currentData = data.value?.[0] as Flat[];
+        const currentCount = (count?.value?.[0]?.[0] as { count: string })
+          .count;
+
+        res.send({
+          data: currentData,
+          count: currentCount,
           page,
           orderBy,
           orderOption,
@@ -54,9 +58,12 @@ export default class FlatController {
     }
   };
 
-  public addFlats = async (req: Request, res: Response): Promise<void> => {
+  public addFlats = async (
+    req: RequestWithTypedBody<FlatBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
-    const { flats }: FlatBodyType = body;
+    const { flats } = body;
 
     if (!flats?.length) {
       return handleBadRequestError(res);
@@ -67,7 +74,7 @@ export default class FlatController {
     try {
       const newFlats = await Flat.bulkCreate<Flat>(snakeCaseFlats);
 
-      await res.send({
+      res.send({
         newFlats,
       });
     } catch (err) {
@@ -76,9 +83,12 @@ export default class FlatController {
     }
   };
 
-  public removeFlats = async (req: Request, res: Response): Promise<void> => {
+  public removeFlats = async (
+    req: RequestWithTypedBody<FlatRemoveBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
-    const { ids }: FlatRemoveBodyType = body;
+    const { ids } = body;
 
     if (!ids.length) {
       return handleBadRequestError(res);
@@ -89,7 +99,7 @@ export default class FlatController {
         where: { id: { [Op.in]: ids } },
       });
 
-      await res.send({
+      res.send({
         removedFlatsIds: ids,
       });
     } catch (err) {
@@ -98,9 +108,12 @@ export default class FlatController {
     }
   };
 
-  public updateFlats = async (req: Request, res: Response): Promise<void> => {
+  public updateFlats = async (
+    req: RequestWithTypedBody<FlatBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
-    const { flats }: FlatBodyType = body;
+    const { flats } = body;
 
     if (!flats?.length) {
       return handleBadRequestError(res);
@@ -115,7 +128,7 @@ export default class FlatController {
         )
       );
 
-      await res.send({
+      res.send({
         newFlats: flats,
       });
     } catch (err) {

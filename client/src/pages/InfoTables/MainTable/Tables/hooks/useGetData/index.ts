@@ -11,6 +11,8 @@ export const useGetData = ({
   rowsPerPage = 0,
   orderBy,
   orderOption,
+  activeTab,
+  myTab,
 }: UseGetDataHookArgsType): UseGetDataHookReturnType => {
   const [state, setState] = useState({ error: '', loading: false });
 
@@ -37,10 +39,12 @@ export const useGetData = ({
   }, [dispatch, handleState, thunk]);
 
   useEffect(() => {
+    if (activeTab !== myTab) return;
+
     (async () => {
       await handleLoad();
     })();
-  }, [handleLoad, page, rowsPerPage, orderBy, orderOption]);
+  }, [handleLoad, page, rowsPerPage, orderBy, orderOption, activeTab, myTab]);
 
   const onPageChange: TablePropsType['onPageChange'] = useCallback(
     (_, page) => {

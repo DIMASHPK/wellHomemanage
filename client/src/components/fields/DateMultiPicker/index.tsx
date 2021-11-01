@@ -10,16 +10,16 @@ import {
 } from './types';
 import { labelFunc } from './helpers';
 
-/* eslint-disable @typescript-eslint/no-empty-function */
 const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
   const {
     value = [new Date()],
     emptyLabel,
     onClose,
-    onChange = () => {},
+    onChange = () => null,
     variant,
     pickerVariant = 'inline',
     error,
+    datesLimit,
     ...rest
   } = props;
 
@@ -45,6 +45,8 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
       const nextDates = [...dates];
       nextDates.splice(i, 1);
       setDates(nextDates);
+    } else if (datesLimit && dates.length === datesLimit) {
+      setDates([...dates.slice(-1), day]);
     } else {
       setDates([...dates, day]);
     }
@@ -74,7 +76,7 @@ const DateMultiPicker: React.FC<DateMultiPickerPropType> = props => {
       value={dates[0]}
       renderDay={renderDay}
       onClose={handleClose}
-      onChange={() => {}}
+      onChange={() => null}
       labelFunc={labelFunc({ dates, emptyLabel })}
       inputVariant={variant}
       variant={pickerVariant}

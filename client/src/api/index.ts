@@ -23,13 +23,20 @@ class Api {
   }
 
   getPathnameWithParameters = (data: GetAllArgs): string => {
-    const { path, ...restData } = data;
+    const { path, filters, ...restData } = data;
 
     const url = new URL(`${this.baseUrl}/${path}`);
 
     Object.entries(restData).forEach(([key, value]) =>
       url.searchParams.append(key, value)
     );
+
+    if (filters?.length) {
+      filters.forEach(item => {
+        const { name, value } = item;
+        url.searchParams.append(name, value);
+      });
+    }
 
     const { search, pathname } = url;
 

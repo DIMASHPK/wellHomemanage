@@ -10,6 +10,7 @@ export interface DateMultiPickerPropType
   onChange?: (...args: any) => void;
   variant?: DatePickerProps['inputVariant'];
   pickerVariant?: DatePickerProps['variant'];
+  datesLimit?: number;
 }
 
 export type DatesUseStateType = (Moment | MaterialUiPickersDate)[];

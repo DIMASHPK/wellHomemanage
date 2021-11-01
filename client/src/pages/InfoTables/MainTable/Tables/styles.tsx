@@ -5,6 +5,9 @@ export const useStyles = makeStyles(() => ({
     flexGrow: 1,
     '& > div': {
       height: '100%',
+      '& > div': {
+        position: 'relative',
+      },
     },
   },
 }));

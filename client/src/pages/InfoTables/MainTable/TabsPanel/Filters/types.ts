@@ -6,7 +6,6 @@ import { RootState } from 'redux/types';
 import {
   FILTER_CLAUSES,
   FILTER_COND_ITEMS,
-  INPUT_FILTERS_MAPPING,
 } from './constants';
 
 const getNameValues = ({

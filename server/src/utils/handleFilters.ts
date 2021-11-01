@@ -9,11 +9,11 @@ import {
   HandleFilterValueType,
   HandleFindAllSqlQueryType,
   HandleOffsetType,
-  HandleOrderByTypeNew,
+  HandleOrderByType,
   HandleWhereClause,
 } from './types';
 
-export const handleOrderBy: HandleOrderByTypeNew = data => {
+export const handleOrderBy: HandleOrderByType = data => {
   const {
     orderOption = SORT_OPTIONS_FROM_CLIENT.DESC,
     orderBy = 'created_at',
@@ -52,7 +52,7 @@ export const handleWhereClause: HandleWhereClause = filters => {
 
   const currentCond = filters[FILTER_COND_KEY].toUpperCase();
 
-  const filterString = Object.entries(filters).reduce(
+  return Object.entries(filters).reduce(
     (acc, [key, value], index) =>
       `${acc}${
         index === 0 || key === FILTER_COND_KEY ? ' ' : ` ${currentCond} `
@@ -62,8 +62,6 @@ export const handleWhereClause: HandleWhereClause = filters => {
       })}`,
     'WHERE'
   );
-
-  return filterString;
 };
 
 export const handleFindAllSqlQuery: HandleFindAllSqlQueryType = ({

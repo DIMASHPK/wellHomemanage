@@ -1,54 +1,57 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import House from 'models/Houses';
-import { handlePage } from 'utils/handlePage';
 import {
   handleInternalServerError,
   handleBadRequestError,
 } from 'utils/handleError';
-import { handleOrderBy } from 'utils/handleSort';
-import { FiltersType, getOptionalType } from 'constants/types';
-import { SORT_OPTIONS_FROM_CLIENT } from 'constants/index';
+import { RequestWithTypedBody, RequestWithTypedQuery } from 'constants/types';
 import { camelToSnakeKeysOfArrayObject } from 'utils/strings';
 import { Op } from 'sequelize';
+import { handleFindAllSqlQuery, handleWhereClause } from 'utils/handleFilters';
+import Flat from 'models/Flats';
+import { sequelize } from 'configs/db';
 import { HouseBodyType, HouseRemoveBodyType } from './types';
 
 export default class HouseController {
-  public getAllHouses = async (req: Request, res: Response): Promise<void> => {
+  public getAllHouses = async (
+    req: RequestWithTypedQuery,
+    res: Response
+  ): Promise<void> => {
     const { query } = req;
-    const {
-      page: queryPage,
+    const { page, rowsPerPage, orderBy, orderOption, ...filters } = query;
+
+    const findAllSqlQuery = handleFindAllSqlQuery({
       rowsPerPage,
-      orderBy,
+      page,
+      filters,
       orderOption,
-      ...filters
-    } = query;
-
-    const { page, limit, offset, where } = handlePage({
-      rowsPerPage: rowsPerPage as string,
-      page: queryPage as string,
-      filters: filters as unknown as FiltersType,
+      orderBy,
     });
 
-    const order = handleOrderBy({
-      orderBy: orderBy as string,
-      orderOption: orderOption as getOptionalType<
-        typeof SORT_OPTIONS_FROM_CLIENT
-      >,
-    });
+    const whereClause = handleWhereClause(filters);
 
     try {
       const [data, count] = await Promise.allSettled([
-        House.findAll<House>({
-          limit,
-          offset,
-          order,
-          where,
-        }),
-        House.count({ where }),
+        sequelize.query(`SELECT * FROM houses ${findAllSqlQuery}`),
+        sequelize.query(`SELECT COUNT(*) FROM flats ${whereClause}`),
       ]);
 
-      if (data.status === 'fulfilled' && count.status === 'fulfilled') {
-        await res.send({ data: data.value, count: count.value, page });
+      if (
+        data.status === 'fulfilled' &&
+        count.status === 'fulfilled' &&
+        count?.value?.[0]?.[0]
+      ) {
+        const currentData = data.value?.[0] as Flat[];
+        const currentCount = (count?.value?.[0]?.[0] as { count: string })
+          .count;
+
+        res.send({
+          data: currentData,
+          count: currentCount,
+          page,
+          orderBy,
+          orderOption,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -56,9 +59,12 @@ export default class HouseController {
     }
   };
 
-  public addHouses = async (req: Request, res: Response): Promise<void> => {
+  public addHouses = async (
+    req: RequestWithTypedBody<HouseBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
-    const { houses }: HouseBodyType = body;
+    const { houses } = body;
 
     if (!houses?.length) {
       return handleBadRequestError(res);
@@ -69,7 +75,7 @@ export default class HouseController {
     try {
       const newHouses = await House.bulkCreate<House>(snakeCaseHouses);
 
-      await res.send({
+      res.send({
         newHouses,
       });
     } catch (err) {
@@ -78,9 +84,12 @@ export default class HouseController {
     }
   };
 
-  public removeHouses = async (req: Request, res: Response): Promise<void> => {
+  public removeHouses = async (
+    req: RequestWithTypedBody<HouseRemoveBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
-    const { ids }: HouseRemoveBodyType = body;
+    const { ids } = body;
 
     if (!ids.length) {
       return handleBadRequestError(res);
@@ -91,7 +100,7 @@ export default class HouseController {
         where: { id: { [Op.in]: ids } },
       });
 
-      await res.send({
+      res.send({
         removedHousesIds: ids,
       });
     } catch (err) {
@@ -100,9 +109,12 @@ export default class HouseController {
     }
   };
 
-  public updateHouses = async (req: Request, res: Response): Promise<void> => {
+  public updateHouses = async (
+    req: RequestWithTypedBody<HouseBodyType>,
+    res: Response
+  ): Promise<void> => {
     const { body } = req;
-    const { houses }: HouseBodyType = body;
+    const { houses } = body;
 
     if (!houses?.length) {
       return handleBadRequestError(res);
@@ -117,7 +129,7 @@ export default class HouseController {
         )
       );
 
-      await res.send({
+      res.send({
         newHouses: houses,
       });
     } catch (err) {

@@ -1,6 +1,3 @@
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { Moment } from 'moment';
-
 export type SnakeToCamelCaseType = (arg: string) => string;
 
 export type ObjectKeysToCamelFromSnakeCase = (arg: { [key: string]: any }) => {

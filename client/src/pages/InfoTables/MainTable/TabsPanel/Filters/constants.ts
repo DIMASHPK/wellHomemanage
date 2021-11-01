@@ -7,7 +7,7 @@ export const VALUES_ARRAY_NAME = 'filters';
 export const FILTER_COND_ITEMS = {
   OR: 'or',
   AND: 'and',
-};
+} as const;
 
 export const FILTER_CLAUSES = {
   EQ: 'eq',

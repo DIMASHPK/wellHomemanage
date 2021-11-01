@@ -1,5 +1,5 @@
 import { FiltersType, getOptionalType } from '../constants/types';
-import { SORT_OPTIONS_FROM_CLIENT, SORT_OPTIONS } from '../constants';
+import { SORT_OPTIONS_FROM_CLIENT } from '../constants';
 
 export type HandleFindAllSqlQueryType = (data: {
   page: string;

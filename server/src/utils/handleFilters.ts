@@ -39,6 +39,11 @@ export const handleFilterValue: HandleFilterValueType = ({ key, value }) => {
 
       return `${snakeCaseKey} BETWEEN '${firstDate}'::timestamp AND '${lastDate}'::timestamp`;
     }
+    case FILTER_MAPPINGS.RANGE_BETWEEN: {
+      const [firstDate, lastDate] = value.split(',');
+
+      return `'${firstDate}'::timestamp <= ALL(${snakeCaseKey}) AND '${lastDate}'::timestamp >= ALL(${snakeCaseKey})`;
+    }
 
     default:
       return '';

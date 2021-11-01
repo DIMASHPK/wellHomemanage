@@ -44,7 +44,7 @@ export const getNotEmptyFilters = ({
 
     const getMapValue = () => {
       if (Array.isArray(value)) {
-        return `{${getTransformFilterDates(value)}`;
+        return `${getTransformFilterDates(value)}`;
       }
 
       return value;

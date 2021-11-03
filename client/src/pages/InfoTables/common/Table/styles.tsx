@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { WithPaginationPaddingHandlerArgs } from './types';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 650,
     position: 'relative',
@@ -43,5 +43,44 @@ export const useStyles = makeStyles(() => ({
   },
   pagination: {
     flexShrink: 0,
+    [theme.breakpoints.down(756)]: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+  },
+  toolbar: {
+    [theme.breakpoints.down(756)]: {
+      marginTop: 10,
+      display: 'grid',
+      gridTemplateColumns: 'repeat(17, 20px)',
+      justifyItems: 'end',
+      width: 'fit-content',
+    },
+  },
+  spacer: {
+    [theme.breakpoints.down(756)]: {
+      display: 'none',
+    },
+  },
+  caption: {
+    [theme.breakpoints.down(756)]: {
+      fontSize: 13,
+      lineHeight: '15px',
+      '&:first-of-type': {
+        gridColumnStart: 1,
+        gridColumnEnd: 15,
+      },
+      '&:nth-of-type(2)': {
+        gridColumnStart: 1,
+        gridColumnEnd: 11,
+      },
+    },
+  },
+  selectRoot: {
+    [theme.breakpoints.down(756)]: {
+      margin: 0,
+      gridColumnEnd: 18,
+      gridColumnStart: 16,
+    },
   },
 }));

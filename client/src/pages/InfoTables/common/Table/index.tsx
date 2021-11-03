@@ -34,7 +34,9 @@ const Table: React.FC<TablePropsType> = memo(props => {
 
   const ref = useRef<HTMLDivElement>();
 
-  const styles = useStyles({ withPagination });
+  const { toolbar, spacer, selectRoot, caption, ...styles } = useStyles({
+    withPagination,
+  });
 
   const renderLoader = () => {
     if (!loading) return null;
@@ -79,6 +81,12 @@ const Table: React.FC<TablePropsType> = memo(props => {
           labelRowsPerPage="Рядов на странице"
           component="div"
           className={styles.pagination}
+          classes={{
+            toolbar,
+            spacer,
+            selectRoot,
+            caption,
+          }}
           count={count}
           rowsPerPage={rowsPerPage}
           page={page}

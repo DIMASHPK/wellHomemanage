@@ -1,9 +1,11 @@
 import React, { memo, useMemo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Popover from '@material-ui/core/Popover';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import ResponsiveButton from 'components/ResponsiveButton';
 import { useStyles } from './styles';
 import { FiltersPopoverPropsType } from './types';
 import FilterItem from './FilterItem';
@@ -76,17 +78,23 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
       </div>
       <div className={filtersContainer}>{filters.map(renderFilter)}</div>
       <div className={actionsContainer}>
-        <Button
+        <ResponsiveButton
           variant="contained"
           color="primary"
           onClick={onAddFilter}
           disabled={isDisableAdding}
+          icon={<AddIcon />}
         >
-          + Добавить фильтр
-        </Button>
-        <Button onClick={onReset} variant="contained" color="secondary">
+          Добавить фильтр
+        </ResponsiveButton>
+        <ResponsiveButton
+          onClick={onReset}
+          variant="contained"
+          color="secondary"
+          icon={<RotateLeftIcon />}
+        >
           Сбросить все
-        </Button>
+        </ResponsiveButton>
       </div>
     </Popover>
   );

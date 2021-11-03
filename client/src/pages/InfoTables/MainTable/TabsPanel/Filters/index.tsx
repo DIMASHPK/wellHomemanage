@@ -1,6 +1,7 @@
-import Button from '@material-ui/core/Button';
 import React, { memo, useCallback, useState } from 'react';
 import { FormProvider } from 'react-hook-form';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import ResponsiveButton from 'components/ResponsiveButton';
 import { useStyles } from './styles';
 import { FiltersPropsType } from './types';
 import FiltersPopover from './FiltersPopover';
@@ -22,9 +23,13 @@ const Filters: React.FC<FiltersPropsType> = memo(props => {
 
   return (
     <FormProvider {...reactHookFormData}>
-      <Button className={filterButton} onClick={handleClick}>
+      <ResponsiveButton
+        icon={<FilterListIcon />}
+        className={filterButton}
+        onClick={handleClick}
+      >
         Фильтры
-      </Button>
+      </ResponsiveButton>
       <FiltersPopover
         anchorEl={anchorEl}
         onClose={handleClose}

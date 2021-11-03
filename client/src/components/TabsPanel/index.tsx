@@ -24,6 +24,7 @@ const TabsPanel: React.FC<TabsPanelType> = memo(props => {
         classes={omit(classes, ['indicator', 'tabsRoot'])}
         key={tab.value}
         {...tab}
+        label={<span>{tab.label}</span>}
       />
     ));
 

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(theme => ({
   titleSection: {
     height: '100vh',
     width: '100%',
@@ -28,5 +28,9 @@ export const useStyles = makeStyles(() => ({
     textAlign: 'center',
     fontWeight: 400,
     color: '#fff',
+    [theme.breakpoints.down(768)]: {
+      fontSize: 64,
+      lineHeight: '75px',
+    },
   },
 }));

@@ -1,40 +1,37 @@
 import React, { memo, useMemo } from 'react';
 import { CircularProgress } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
-import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 import ModeEditIcon from '@material-ui/icons/Edit';
-import clsx from 'clsx';
-import { useStyles } from './styles';
+import ResponsiveButton from 'components/ResponsiveButton';
 import { SubmitButtonType } from './types';
+import { useStyles } from './styles';
 
 const SubmitButton: React.FC<SubmitButtonType> = memo(props => {
   const { isSubmitting, edit, className } = props;
 
-  const { submitIcon, iconFontSize } = useStyles();
+  const { iconFontSize, loader } = useStyles();
 
-  const renderIcon = useMemo(() => {
-    const Icon = edit ? ModeEditIcon : CheckIcon;
+  const icon = useMemo(() => {
+    const Icon = edit ? ModeEditIcon : SaveIcon;
 
     if (isSubmitting) {
-      return (
-        <CircularProgress size={15} color="inherit" className={submitIcon} />
-      );
+      return <CircularProgress className={loader} color="inherit" />;
     }
 
-    return <Icon color="inherit" className={clsx(submitIcon, iconFontSize)} />;
-  }, [edit, iconFontSize, isSubmitting, submitIcon]);
+    return <Icon color="inherit" className={iconFontSize} />;
+  }, [edit, iconFontSize, isSubmitting, loader]);
 
   return (
-    <Button
+    <ResponsiveButton
       type="submit"
       variant="contained"
       color="primary"
       className={className}
       disabled={isSubmitting}
+      icon={icon}
     >
-      {renderIcon}
       {edit ? 'Изменить' : 'Сохранить'}
-    </Button>
+    </ResponsiveButton>
   );
 });
 

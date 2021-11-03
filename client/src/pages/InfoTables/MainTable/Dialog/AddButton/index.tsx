@@ -1,8 +1,9 @@
 import React, { memo, useCallback } from 'react';
-import Button from '@material-ui/core/Button';
 import CreatingPopover from 'components/CreatingPopover';
 import { getOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
+import AddIcon from '@material-ui/icons/Add';
+import ResponsiveButton from 'components/ResponsiveButton';
 import { INITIAL_VALUES_MAPPING } from '../constants';
 import { AddButtonTypes } from './types';
 
@@ -30,14 +31,15 @@ const AddButton: React.FC<AddButtonTypes> = memo(props => {
 
   return (
     <>
-      <Button
+      <ResponsiveButton
         variant="contained"
         color="secondary"
         className={className}
         onClick={handleClick}
+        icon={<AddIcon />}
       >
         Добавить
-      </Button>
+      </ResponsiveButton>
       <CreatingPopover
         onClose={handleClose}
         anchorEl={anchorEl}

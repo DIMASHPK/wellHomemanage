@@ -1,11 +1,11 @@
 import React, { memo, useCallback, useState } from 'react';
 import { TabsProps, Typography } from '@material-ui/core';
 import TabsPanelCommon from 'components/TabsPanel';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
 import { useAppSelector } from 'redux/hooks';
+import ResponsiveButton from 'components/ResponsiveButton';
 import { tabs } from '../constants';
 import AddButton from './AddButton';
 import { useStyles } from './styles';
@@ -37,6 +37,7 @@ const TabsPanel: React.FC<TabsPanelTypes> = memo(props => {
     selectedContainerTitle,
     selectedContainerActionContainer,
     button,
+    buttonIcon,
     opened,
     leftTabsContainer,
   } = useStyles();
@@ -67,25 +68,25 @@ const TabsPanel: React.FC<TabsPanelTypes> = memo(props => {
             {`(${currentCount})`}
           </Typography>
           <div className={selectedContainerActionContainer}>
-            <Button
+            <ResponsiveButton
               variant="contained"
-              startIcon={<EditIcon />}
+              icon={<EditIcon className={buttonIcon} />}
               className={button}
               size="small"
               onClick={handleEdit}
             >
               Редактировать
-            </Button>
-            <Button
+            </ResponsiveButton>
+            <ResponsiveButton
               variant="contained"
               className={button}
               color="secondary"
-              startIcon={<DeleteIcon />}
+              icon={<DeleteIcon className={buttonIcon} />}
               size="small"
               onClick={handleOpen}
             >
               Удалить
-            </Button>
+            </ResponsiveButton>
           </div>
         </div>
         <div className={leftTabsContainer}>

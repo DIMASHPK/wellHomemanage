@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
-import Button from '@material-ui/core/Button';
 import CreatingPopover from 'components/CreatingPopover';
+import AddIcon from '@material-ui/icons/Add';
+import ResponsiveButton from 'components/ResponsiveButton';
 import { useStyles } from './styles';
 import { AddButtonType } from './types';
 
@@ -28,9 +29,13 @@ const AddButton: React.FC<AddButtonType> = memo(props => {
 
   return (
     <>
-      <Button className={addButton} onClick={handleClick}>
-        + Добавить
-      </Button>
+      <ResponsiveButton
+        className={addButton}
+        onClick={handleClick}
+        icon={<AddIcon />}
+      >
+        Добавить
+      </ResponsiveButton>
       <CreatingPopover
         onClose={handleClose}
         anchorEl={anchorEl}

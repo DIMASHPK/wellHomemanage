@@ -8,5 +8,6 @@ export const useStyles = makeStyles(() => ({
   },
   valueInput: {
     marginRight: 12,
+    flexShrink: 0,
   },
 }));

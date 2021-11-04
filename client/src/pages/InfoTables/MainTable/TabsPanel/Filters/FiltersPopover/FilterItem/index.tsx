@@ -13,7 +13,7 @@ const FilterItem: React.FC<FilterItemPropsType> = memo(props => {
   const currentFilter = filters[index];
   const { name } = currentFilter;
 
-  const { filterItemContainer, valueInput } = useStyles();
+  const { filterItemContainer, valueInput } = useStyles({ filters });
 
   const { renderInput } = useInput({
     name,

@@ -21,6 +21,9 @@ export const useStyles = makeStyles(theme => ({
   modalContainer: {
     minWidth: 600,
     maxWidth: 'unset',
+    [theme.breakpoints.down(601)]: {
+      minWidth: '100%',
+    },
   },
   closeButtonIcon: {
     color: theme.palette.primary.main,

@@ -16,5 +16,10 @@ export const useStyles = makeStyles(theme => ({
   },
   allCheckbox: {
     textAlign: 'left',
+    [theme.breakpoints.down(768)]: {
+      '& svg': {
+        fontSize: '1.25rem',
+      },
+    },
   },
 }));

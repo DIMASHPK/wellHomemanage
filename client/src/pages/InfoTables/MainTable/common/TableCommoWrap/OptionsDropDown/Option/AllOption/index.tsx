@@ -9,7 +9,7 @@ const AllOption: React.FC<AllOptionType> = memo(props => {
   const { title, pathForHiddenColumnsState, hiddenColumns, onHideColumn } =
     props;
 
-  const { listItem } = useStyles();
+  const { listItem, label, root } = useStyles();
 
   const handleChange = useCallback(
     () =>
@@ -30,14 +30,19 @@ const AllOption: React.FC<AllOptionType> = memo(props => {
 
   const control = useMemo(
     () => (
-      <Checkbox color="primary" checked={isChecked} onChange={handleChange} />
+      <Checkbox
+        color="primary"
+        checked={isChecked}
+        onChange={handleChange}
+        classes={{ root }}
+      />
     ),
-    [handleChange, isChecked]
+    [handleChange, isChecked, root]
   );
 
   return (
     <ListItem className={listItem}>
-      <FormControlLabel control={control} label={title} />
+      <FormControlLabel classes={{ label }} control={control} label={title} />
     </ListItem>
   );
 });

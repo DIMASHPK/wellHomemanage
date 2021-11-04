@@ -13,7 +13,7 @@ import { tabItemType } from '../TabsPanel/types';
 const CreatingPopover: React.FC<CreatingPopoverType> = memo(props => {
   const { id, anchorEl, onClose, onButtonClick } = props;
 
-  const { list } = useStyles();
+  const { list,listItem } = useStyles();
 
   const open = Boolean(anchorEl);
   const currentId = open ? id : undefined;
@@ -30,6 +30,7 @@ const CreatingPopover: React.FC<CreatingPopoverType> = memo(props => {
       key={item.name}
       component={Button}
       onClick={() => handleButtonClick(item.name)}
+      className={listItem}
     >
       {item.label}
     </ListItem>

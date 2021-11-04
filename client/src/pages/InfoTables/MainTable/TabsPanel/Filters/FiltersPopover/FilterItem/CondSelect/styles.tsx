@@ -4,5 +4,6 @@ export const useStyles = makeStyles(() => ({
   condSelect: {
     width: 75,
     marginRight: 12,
+    flexShrink: 0,
   },
 }));

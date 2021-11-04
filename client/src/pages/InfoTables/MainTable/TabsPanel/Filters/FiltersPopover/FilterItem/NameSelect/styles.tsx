@@ -4,5 +4,6 @@ export const useStyles = makeStyles(() => ({
   nameSelect: {
     width: 238,
     marginRight: 12,
+    flexShrink: 0,
   },
 }));

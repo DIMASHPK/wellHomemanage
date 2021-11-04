@@ -28,6 +28,9 @@ export const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     paddingBottom: ({ withPagination }: WithPaginationPaddingHandlerArgs) =>
       withPagination ? 0 : 24,
+    [theme.breakpoints.down(768)]: {
+      padding: 10,
+    },
   },
   loaderContainer: {
     position: 'absolute',
@@ -43,44 +46,44 @@ export const useStyles = makeStyles(theme => ({
   },
   pagination: {
     flexShrink: 0,
-    [theme.breakpoints.down(756)]: {
+    [theme.breakpoints.down(768)]: {
       display: 'flex',
-      justifyContent: 'flex-end',
     },
   },
   toolbar: {
-    [theme.breakpoints.down(756)]: {
-      marginTop: 10,
+    [theme.breakpoints.down(768)]: {
+      padding: 0,
+      width: '100%',
+      margin: '10px 0 ',
+      minHeight: 'auto',
       display: 'grid',
-      gridTemplateColumns: 'repeat(17, 20px)',
       justifyItems: 'end',
-      width: 'fit-content',
+      gridTemplateColumns: 'repeat(4, auto)',
     },
   },
   spacer: {
-    [theme.breakpoints.down(756)]: {
+    [theme.breakpoints.down(768)]: {
       display: 'none',
     },
   },
   caption: {
-    [theme.breakpoints.down(756)]: {
+    [theme.breakpoints.down(768)]: {
       fontSize: 13,
       lineHeight: '15px',
-      '&:first-of-type': {
-        gridColumnStart: 1,
-        gridColumnEnd: 15,
-      },
-      '&:nth-of-type(2)': {
-        gridColumnStart: 1,
-        gridColumnEnd: 11,
-      },
     },
   },
   selectRoot: {
-    [theme.breakpoints.down(756)]: {
+    [theme.breakpoints.down(768)]: {
       margin: 0,
-      gridColumnEnd: 18,
-      gridColumnStart: 16,
     },
+  },
+  menuItem: {
+    [theme.breakpoints.down(768)]: {
+      fontSize: 13,
+      lineHeight: '15px',
+    },
+  },
+  select: {
+    minHeight: 'auto',
   },
 }));

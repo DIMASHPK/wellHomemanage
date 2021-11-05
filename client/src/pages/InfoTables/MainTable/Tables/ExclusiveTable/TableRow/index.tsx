@@ -66,6 +66,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     descriptionCell,
     descriptionOfClientCell,
     watchingDayCell,
+    checkboxRoot,
   } = useStyles({ isCheck });
 
   if (!Object.values(reformatedRowData).length) {
@@ -78,7 +79,15 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
       className={tableRowClassName}
       onClick={handleClick}
     >
-      {renderCell({ value: <Checkbox color="primary" checked={isCheck} /> })}
+      {renderCell({
+        value: (
+          <Checkbox
+            color="primary"
+            checked={isCheck}
+            classes={{ root: checkboxRoot }}
+          />
+        ),
+      })}
       {renderCell({ value: id.value, keyName: id.keyMap })}
       {renderCell({
         value: address.value,

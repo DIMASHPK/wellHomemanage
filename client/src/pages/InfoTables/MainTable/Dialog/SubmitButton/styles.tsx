@@ -1,10 +1,13 @@
 import { makeStyles } from '@material-ui/core';
 
+const size = 19;
+
 export const useStyles = makeStyles(theme => ({
-  submitIcon: {
-    marginRight: 5,
-  },
   iconFontSize: {
-    fontSize: 21,
+    fontSize: size,
+  },
+  loader: {
+    width: `${size}px !important`,
+    height: `${size}px !important`,
   },
 }));

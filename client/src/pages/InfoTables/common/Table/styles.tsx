@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { WithPaginationPaddingHandlerArgs } from './types';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 650,
     position: 'relative',
@@ -28,6 +28,9 @@ export const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     paddingBottom: ({ withPagination }: WithPaginationPaddingHandlerArgs) =>
       withPagination ? 0 : 24,
+    [theme.breakpoints.down(768)]: {
+      padding: 10,
+    },
   },
   loaderContainer: {
     position: 'absolute',
@@ -43,5 +46,44 @@ export const useStyles = makeStyles(() => ({
   },
   pagination: {
     flexShrink: 0,
+    [theme.breakpoints.down(768)]: {
+      display: 'flex',
+    },
+  },
+  toolbar: {
+    [theme.breakpoints.down(768)]: {
+      padding: 0,
+      width: '100%',
+      margin: '10px 0 ',
+      minHeight: 'auto',
+      display: 'grid',
+      justifyItems: 'end',
+      gridTemplateColumns: 'repeat(4, auto)',
+    },
+  },
+  spacer: {
+    [theme.breakpoints.down(768)]: {
+      display: 'none',
+    },
+  },
+  caption: {
+    [theme.breakpoints.down(768)]: {
+      fontSize: 13,
+      lineHeight: '15px',
+    },
+  },
+  selectRoot: {
+    [theme.breakpoints.down(768)]: {
+      margin: 0,
+    },
+  },
+  menuItem: {
+    [theme.breakpoints.down(768)]: {
+      fontSize: 13,
+      lineHeight: '15px',
+    },
+  },
+  select: {
+    minHeight: 'auto',
   },
 }));

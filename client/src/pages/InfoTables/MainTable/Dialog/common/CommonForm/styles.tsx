@@ -30,5 +30,23 @@ export const useStyles = makeStyles(theme => ({
   },
   inputRoot: {
     marginBottom: 12,
+    [theme.breakpoints.down(768)]: {
+      '& fieldset': {
+        minInlineSize: 'auto',
+        '& legend > span': {
+          fontSize: 10,
+        },
+      },
+      '& input, & label': {
+        fontSize: 13,
+        lineHeight: '15px',
+      },
+      '& input': {
+        padding: '13.5px 10px',
+      },
+      '& label': {
+        transform: 'translate(14px, 14px) scale(1)',
+      },
+    },
   },
 }));

@@ -1,7 +1,7 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { stylesTypes } from './types';
 
-export const useStyles = makeStyles<Theme, stylesTypes>(() => ({
+export const useStyles = makeStyles<Theme, stylesTypes>(theme => ({
   tableRow: {
     transition: 'background-color .15s',
     background: ({ isCheck }) => (isCheck ? 'rgba(79, 145, 255, 0.2)' : 'none'),
@@ -40,5 +40,12 @@ export const useStyles = makeStyles<Theme, stylesTypes>(() => ({
   },
   watchingDayCell: {
     minWidth: 205,
+  },
+  checkboxRoot: {
+    [theme.breakpoints.down(768)]: {
+      '& svg': {
+        fontSize: '1.25rem',
+      },
+    },
   },
 }));

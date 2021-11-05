@@ -9,8 +9,17 @@ export const useStyles = makeStyles(theme => ({
     lineHeight: '140%',
     textTransform: 'capitalize',
     color: theme.palette.tableHeadCell,
+    [theme.breakpoints.down(768)]: {
+      fontSize: 14,
+      lineHeight: '16px',
+    },
   },
   allCheckbox: {
     textAlign: 'left',
+    [theme.breakpoints.down(768)]: {
+      '& svg': {
+        fontSize: '1.25rem',
+      },
+    },
   },
 }));

@@ -9,10 +9,25 @@ export const useStyles = makeStyles(theme => ({
     '&:first-of-type': {
       borderTopLeftRadius: 16,
     },
+    [theme.breakpoints.down(1025)]: {
+      minWidth: 72,
+    },
+    [theme.breakpoints.down(426)]: {
+      minWidth: 40,
+    },
   },
   wrapper: {
     height: 'auto',
     padding: 0,
+    flexDirection: 'row',
+    '& > span': {
+      marginLeft: 4,
+    },
+    [theme.breakpoints.down(1025)]: {
+      '& > span': {
+        display: 'none',
+      },
+    },
   },
   tabsRoot: {
     minHeight: 'unset',
@@ -68,6 +83,12 @@ export const useStyles = makeStyles(theme => ({
     '&:last-of-type': {
       marginLeft: 15,
     },
+    [theme.breakpoints.down(426)]: {
+      minWidth: 40,
+    },
+  },
+  buttonIcon: {
+    fontSize: 18,
   },
   leftTabsContainer: {
     display: 'flex',

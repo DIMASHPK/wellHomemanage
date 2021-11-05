@@ -1,11 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(theme => ({
   mainTable: {
     height: '100vh',
     padding: '70px 50px 30px',
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down(1025)]: {
+      padding: '40px 10px 20px',
+    },
   },
   mainTableTitle: {
     textAlign: 'center',

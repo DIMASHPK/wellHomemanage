@@ -8,10 +8,10 @@ import clsx from 'clsx';
 import { TableCellProps } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { SORT_OPTIONS } from 'constants/apiFilters';
+import { OrderOptionType } from 'api/types';
 import { useStyles } from './styles';
 import type { SortCellType } from './types';
 import { SORT_DIRECTIONS } from './constants';
-import { OrderOptionType } from '../../../../../api/types';
 
 const SortCell: React.FC<SortCellType> = memo(props => {
   const {

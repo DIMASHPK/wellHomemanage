@@ -14,7 +14,8 @@ export const useStyles = makeStyles(() => ({
     padding: 22,
   },
   filtersContainer: {
-    margin: '22px 0',
+    padding: '22px 0 10px',
+    overflowX: 'auto',
   },
   actionsContainer: {
     display: 'flex',

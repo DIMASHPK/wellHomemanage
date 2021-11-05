@@ -1,8 +1,9 @@
 import Api from 'api';
 import { PATHS } from 'api/constants';
 import { AppThunk } from 'redux/types';
-import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
+import { CamelToSnakeKeys } from 'constants/types';
+import { getDataWithCreatedData } from 'utils/objects';
 import { handleResetSelectedCells, setData } from './reducer';
 import {
   AddDataType,
@@ -18,7 +19,9 @@ export const getExclusives: GetExclusivesType =
       exclusives: { rowsPerPage, page, orderBy, orderOption },
     } = getState();
 
-    const { data } = await Api.getAll<GetAllDataType<ExclusiveType[]>>({
+    const { data } = await Api.getAll<
+      GetAllDataType<CamelToSnakeKeys<ExclusiveType>[]>
+    >({
       path: PATHS.EXCLUSIVES,
       page,
       rowsPerPage,
@@ -27,9 +30,7 @@ export const getExclusives: GetExclusivesType =
       filters,
     });
 
-    const reformattedData = data?.data?.map(item =>
-      objectKeysToCamelFromSnakeCase(item)
-    );
+    const reformattedData = data?.data?.map(getDataWithCreatedData);
 
     dispatch(setData({ count: data.count, data: reformattedData }));
   };

@@ -1,9 +1,9 @@
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 
 export interface onButtonClickArgs {
   title: string;
-  type: getOptionalType<typeof TAB_NAMES>;
+  type: GetOptionalType<typeof TAB_NAMES>;
   edit: boolean;
 }
 

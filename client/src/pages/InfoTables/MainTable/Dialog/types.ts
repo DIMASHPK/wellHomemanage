@@ -1,6 +1,6 @@
 import type { CommonDialogTypes } from 'components/Dialog/types';
 import { TAB_NAMES } from 'constants/tabs';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { RootState } from 'redux/types';
 import { SubmitHandler } from 'react-hook-form';
 import { FlatType } from 'redux/flats/types';
@@ -9,15 +9,15 @@ import { ExclusiveType } from 'redux/exclusives/types';
 import { INITIAL_VALUES_MAPPING, SUBMIT_KEYS } from './constants';
 
 interface DialogProps {
-  type: getOptionalType<typeof TAB_NAMES>;
+  type: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export interface GetDefaultValuesArgsType {
-  type: getOptionalType<typeof TAB_NAMES>;
+  type: GetOptionalType<typeof TAB_NAMES>;
   state: RootState;
 }
 
-export type TableFormType = getOptionalType<typeof INITIAL_VALUES_MAPPING>;
+export type TableFormType = GetOptionalType<typeof INITIAL_VALUES_MAPPING>;
 
 export interface FormInput {
   tableForm: TableFormType[];
@@ -36,7 +36,7 @@ export interface UseSubmitReturnType {
 export interface UseSubmitArgsType {
   onClose: () => void;
   edit: boolean;
-  type: getOptionalType<typeof TAB_NAMES>;
+  type: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export type HandleMapType = (item: TableFormType) => TableFormType;
@@ -61,7 +61,7 @@ export type GetFormattedDatesArrayType = (
 
 export type GetSubmitKeyType = (
   edit: boolean
-) => getOptionalType<typeof SUBMIT_KEYS>;
+) => GetOptionalType<typeof SUBMIT_KEYS>;
 
 export type HandleCreateType = (data: {
   flats: ReturnType<TransformFlatsDataType>[];

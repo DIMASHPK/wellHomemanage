@@ -4,7 +4,7 @@ export const getHiddenFields: GetHiddenFieldsType = (state, prevState) => {
   let hiddenColumns = Object.entries(state)
     .map(([key, [value] = [{}]]) => ({
       [key]: (value ? Object.keys(value) : [])
-        .map(item => ({ [item]: false, isHiddenTransformed: true }))
+        .map(item => ({ [item]: false }))
         .reduce((prev, item) => ({ ...prev, ...item }), {}),
     }))
     .reduce((prev, item) => ({ ...prev, ...item }), {});

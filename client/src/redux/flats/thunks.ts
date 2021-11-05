@@ -1,8 +1,9 @@
 import Api from 'api';
 import { PATHS } from 'api/constants';
 import { AppThunk } from 'redux/types';
-import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
+import { getDataWithCreatedData } from 'utils/objects';
+import { CamelToSnakeKeys } from 'constants/types';
 import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, FlatType, UpdateDataType, GetFlatsType } from './types';
 
@@ -14,7 +15,9 @@ export const getFlats: GetFlatsType =
         flats: { rowsPerPage, page, orderBy, orderOption },
       } = getState();
 
-      const { data } = await Api.getAll<GetAllDataType<FlatType[]>>({
+      const { data } = await Api.getAll<
+        GetAllDataType<CamelToSnakeKeys<FlatType>[]>
+      >({
         path: PATHS.FLATS,
         page,
         rowsPerPage,
@@ -23,9 +26,7 @@ export const getFlats: GetFlatsType =
         filters,
       });
 
-      const reformattedData = data?.data?.map(item =>
-        objectKeysToCamelFromSnakeCase(item)
-      );
+      const reformattedData = data?.data?.map(getDataWithCreatedData);
 
       dispatch(setData({ count: data.count, data: reformattedData }));
     } catch (e) {

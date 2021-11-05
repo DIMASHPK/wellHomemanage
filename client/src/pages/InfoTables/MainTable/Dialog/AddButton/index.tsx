@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import CreatingPopover from 'components/CreatingPopover';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import AddIcon from '@material-ui/icons/Add';
 import ResponsiveButton from 'components/ResponsiveButton';
@@ -23,7 +23,7 @@ const AddButton: React.FC<AddButtonTypes> = memo(props => {
   };
 
   const handleMenuItemClick = useCallback(
-    ({ type }: { type: getOptionalType<typeof TAB_NAMES> }) => {
+    ({ type }: { type: GetOptionalType<typeof TAB_NAMES> }) => {
       append({ ...INITIAL_VALUES_MAPPING[type] });
     },
     [append]

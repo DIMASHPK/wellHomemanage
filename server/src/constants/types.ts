@@ -1,8 +1,7 @@
 import { Request } from 'express';
 import { SORT_OPTIONS_FROM_CLIENT } from './index';
-import Flat from '../models/Flats';
 
-export type getOptionalType<T> = T extends { [key: string]: infer U }
+export type GetOptionalType<T> = T extends { [key: string]: infer U }
   ? U
   : never;
 
@@ -19,7 +18,7 @@ export type CommonRequest<
 
 export interface CommonQueryType {
   [x: string]: string;
-  orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
+  orderOption: GetOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
 }
 
 export type RequestWithTypedQuery<Q = CommonQueryType, B = any> = CommonRequest<

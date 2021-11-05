@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { TabsProps } from '@material-ui/core';
 import { tabItemType } from 'components/TabsPanel/types';
@@ -17,7 +17,7 @@ const MainTable: React.FC = memo(() => {
   const [dialogData, setDialogData] = useState({
     open: false,
     title: '',
-    type: '' as getOptionalType<typeof TAB_NAMES>,
+    type: '' as GetOptionalType<typeof TAB_NAMES>,
     edit: false,
   });
 

@@ -1,11 +1,11 @@
 import { SORT_OPTIONS } from 'constants/apiFilters';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { getNotEmptyFilters } from 'pages/InfoTables/MainTable/TabsPanel/Filters/helpers';
 
-export type OrderOptionType = getOptionalType<typeof SORT_OPTIONS>;
+export type OrderOptionType = GetOptionalType<typeof SORT_OPTIONS>;
 
-export type possiblePaths = getOptionalType<typeof TAB_NAMES>;
+export type possiblePaths = GetOptionalType<typeof TAB_NAMES>;
 
 export interface GetAllArgs {
   page?: number;
@@ -32,7 +32,14 @@ export interface UpdateArgsType<T> {
 }
 
 export interface GetAllDataType<T> {
-  data: T;
+  data: T extends []
+    ? {
+        [Property in keyof T]: T[Property] & {
+          created_at: string;
+          updated_at: string;
+        };
+      }
+    : (T & { created_at: string; updated_at: string })[];
   count: number;
   page: number;
   orderBy: string;

@@ -1,12 +1,9 @@
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { tabItemType } from 'components/TabsPanel/types';
 import { Control, UseFormReturn } from 'react-hook-form';
 import { RootState } from 'redux/types';
-import {
-  FILTER_CLAUSES,
-  FILTER_COND_ITEMS,
-} from './constants';
+import { FILTER_CLAUSES, FILTER_COND_ITEMS } from './constants';
 
 const getNameValues = ({
   exclusives: { exclusives },
@@ -21,7 +18,7 @@ const getNameValues = ({
 export type FiltersType = {
   value: string | string[];
   name: keyof ReturnType<typeof getNameValues> | '';
-  cond?: getOptionalType<typeof FILTER_COND_ITEMS> | '';
+  cond?: GetOptionalType<typeof FILTER_COND_ITEMS> | '';
 }[];
 
 export interface UseFormValuesType {
@@ -42,13 +39,13 @@ export interface UseFilterReturnType {
 }
 
 export interface FiltersPropsType extends UseFilterReturnType {
-  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export interface useDebounceSubmitArgs {
   // eslint-disable-next-line @typescript-eslint/ban-types
   form: UseFormReturn<UseFormValuesType, object>;
-  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export type useDebounceSubmitType = (data: UseFormValuesType) => void;
@@ -56,11 +53,11 @@ export type useDebounceSubmitType = (data: UseFormValuesType) => void;
 export type FilterNameType = `filter.${Exclude<
   FiltersType[number]['name'],
   '' | 'id'
->}.${getOptionalType<typeof FILTER_CLAUSES>}`;
+>}.${GetOptionalType<typeof FILTER_CLAUSES>}`;
 
 export type GetNotEmptyFiltersArgsType = {
   filters: FiltersType;
-  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
 };
 
 export type GetTransformFilterDatesType = (dates: string[]) => string[];

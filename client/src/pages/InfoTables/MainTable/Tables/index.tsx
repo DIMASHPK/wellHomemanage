@@ -1,61 +1,16 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { useAppSelector } from 'redux/hooks';
-import { usePrevious } from 'hooks/usePrevios';
-import { isEqual } from 'lodash';
-import type { HandleHideColumnArgsType, TablesPropsType } from './types';
+import type { TablesPropsType } from './types';
 import FlatTable from './FlatTable';
 import HouseTable from './HouseTable';
 import { useStyles } from './styles';
-import { getHiddenFields } from './helpers';
 import ExclusiveTable from './ExclusiveTable';
+import { useHideColumns } from './hooks/useHideColumns';
 
 const Tables: React.FC<TablesPropsType> = memo(props => {
   const { value } = props;
 
-  const state = useAppSelector(
-    ({ flats: { flats }, houses: { houses }, exclusives: { exclusives } }) => ({
-      flats,
-      houses,
-      exclusives,
-    })
-  );
-
-  const [hiddenColumns, setHiddenColumns] = useState(getHiddenFields(state));
-
-  const prevState = usePrevious(state);
-
-  useEffect(() => {
-    if (!isEqual(prevState, state)) {
-      setHiddenColumns(prevState => getHiddenFields(state, prevState));
-    }
-  }, [prevState, state]);
-
-  const handleHideColumn = useCallback(
-    ({ typeName, columnName }: HandleHideColumnArgsType) => {
-      setHiddenColumns(prevState =>
-        columnName === 'all'
-          ? {
-              ...prevState,
-              [typeName]: {
-                ...Object.entries(prevState[typeName])
-                  .map(([key]) => ({
-                    [key]: false,
-                  }))
-                  .reduce((acc, item) => ({ ...acc, ...item }), {}),
-              },
-            }
-          : {
-              ...prevState,
-              [typeName]: {
-                ...prevState[typeName],
-                [columnName]: !prevState[typeName][columnName],
-              },
-            }
-      );
-    },
-    []
-  );
+  const { handleHideColumn, hiddenColumns } = useHideColumns();
 
   const { swipeableContainer } = useStyles();
 

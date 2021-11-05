@@ -15,6 +15,7 @@ const Select: React.FC<SelectPropsType> = memo(props => {
     error,
     options = [],
     className,
+    labelClasses = {},
     ...rest
   } = props;
 
@@ -24,7 +25,9 @@ const Select: React.FC<SelectPropsType> = memo(props => {
 
   return (
     <FormControl variant={variant} className={className}>
-      <InputLabel id="demo-simple-select-outlined-label">{label}</InputLabel>
+      <InputLabel classes={labelClasses} id="demo-simple-select-outlined-label">
+        {label}
+      </InputLabel>
       <MuiSelect
         labelId="demo-simple-select-outlined-label"
         id="demo-simple-select-outlined"

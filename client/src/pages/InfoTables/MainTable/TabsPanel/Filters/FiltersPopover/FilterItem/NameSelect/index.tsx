@@ -13,10 +13,14 @@ const NameSelect: React.FC<NameSelectPropsType> = memo(props => {
 
   const { name, cond } = currentFilter;
 
-  const { nameSelect } = useStyles();
+  const { nameSelect, select, labelRoot, option } = useStyles();
 
   const nameOptions = useMemo(
-    () => getNameOptions({ selectedTabName, name, filters }),
+    () =>
+      getNameOptions({ selectedTabName, name, filters }).map(item => ({
+        ...item,
+        className: option,
+      })),
     [filters, name, selectedTabName]
   );
 
@@ -42,6 +46,8 @@ const NameSelect: React.FC<NameSelectPropsType> = memo(props => {
       className={nameSelect}
       label="Выбирите имя фильтра"
       value={name}
+      classes={{ select }}
+      labelClasses={{ root: labelRoot }}
       name={`${VALUES_ARRAY_NAME}.${index}.name`}
       onChange={handleChange}
     />

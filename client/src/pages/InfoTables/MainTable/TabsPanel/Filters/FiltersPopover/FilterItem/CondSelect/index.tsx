@@ -13,9 +13,11 @@ const CondSelect: React.FC<CondSelectPropsType> = memo(props => {
 
   const { setValue } = useFormContext();
 
-  const { condSelect } = useStyles();
+  const { condSelect, select, option, labelRoot } = useStyles();
 
-  const conditionsOptions = Object.values(FILTER_COND_ITEM_OPTIONS);
+  const conditionsOptions = Object.values(FILTER_COND_ITEM_OPTIONS).map(
+    item => ({ ...item, className: option })
+  );
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -43,6 +45,8 @@ const CondSelect: React.FC<CondSelectPropsType> = memo(props => {
           options={conditionsOptions}
           className={condSelect}
           label="Условие"
+          labelClasses={{ root: labelRoot }}
+          classes={{ select }}
           value={currentFilter?.cond}
           disabled={index > 1}
           name={`${VALUES_ARRAY_NAME}.${index}.cond`}

@@ -31,7 +31,13 @@ export const useStyles = makeStyles(theme => ({
   inputRoot: {
     marginBottom: 12,
     [theme.breakpoints.down(768)]: {
-      '&  input, &  label': {
+      '& fieldset': {
+        minInlineSize: 'auto',
+        '& legend > span': {
+          fontSize: 10,
+        },
+      },
+      '& input, & label': {
         fontSize: 13,
         lineHeight: '15px',
       },

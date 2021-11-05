@@ -23,4 +23,5 @@ export type SelectPropsType = Omit<
   error?: FieldError;
   options?: OptionType[];
   onChange?: SelectInputProps['onChange'];
+  labelClasses?: InputLabelProps['classes'];
 };

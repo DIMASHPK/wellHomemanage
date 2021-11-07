@@ -23,7 +23,9 @@ const HeadCheckbox: React.FC<HeadCheckboxTypes> = memo(props => {
   );
 
   const getCheck = useMemo(
-    () => isEqual(selectedCells, reformattedCellsIds),
+    () =>
+      !!reformattedCellsIds.length &&
+      isEqual(selectedCells, reformattedCellsIds),
     [reformattedCellsIds, selectedCells]
   );
 

@@ -1,4 +1,4 @@
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import { FiltersPropsType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 
 export interface FilterItemPropsType

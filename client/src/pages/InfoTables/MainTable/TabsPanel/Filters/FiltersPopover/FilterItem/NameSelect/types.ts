@@ -1,5 +1,5 @@
 import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import { GetNameOptionsArgsType } from '../types';
 
 export interface NameSelectPropsType {

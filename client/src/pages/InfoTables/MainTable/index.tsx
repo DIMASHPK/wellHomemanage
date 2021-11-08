@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { TabsProps } from '@material-ui/core';
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import Dialog from './Dialog';
 import { useStyles } from './styles';
 import Tables from './Tables';

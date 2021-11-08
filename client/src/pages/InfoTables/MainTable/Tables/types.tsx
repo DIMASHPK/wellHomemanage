@@ -1,4 +1,4 @@
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import { Dispatch, SetStateAction } from 'react';
 import { RootState } from 'redux/types';
 

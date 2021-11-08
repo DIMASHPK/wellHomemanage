@@ -8,7 +8,7 @@ import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { CreatingPopoverType } from './types';
 import { useStyles } from './styles';
-import { tabItemType } from '../TabsPanel/types';
+import { tabItemType } from '../Tabs/types';
 
 const CreatingPopover: React.FC<CreatingPopoverType> = memo(props => {
   const { id, anchorEl, onClose, onButtonClick } = props;

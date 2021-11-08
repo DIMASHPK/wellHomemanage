@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import TabPanel from 'components/TabPanel';
 import type { TablesPropsType } from './types';
 import FlatTable from './FlatTable';
 import HouseTable from './HouseTable';
@@ -12,26 +12,34 @@ const Tables: React.FC<TablesPropsType> = memo(props => {
 
   const { handleHideColumn, hiddenColumns } = useHideColumns();
 
-  const { swipeableContainer } = useStyles();
+  const { tabPanelContainer } = useStyles();
 
   return (
-    <SwipeableViews index={value.value} className={swipeableContainer}>
-      <FlatTable
-        hiddenColumns={hiddenColumns}
-        onHideColumn={handleHideColumn}
-        activeTab={value.name}
-      />
-      <HouseTable
-        hiddenColumns={hiddenColumns}
-        onHideColumn={handleHideColumn}
-        activeTab={value.name}
-      />
-      <ExclusiveTable
-        hiddenColumns={hiddenColumns}
-        onHideColumn={handleHideColumn}
-        activeTab={value.name}
-      />
-    </SwipeableViews>
+    <div className={tabPanelContainer}>
+      <div>
+        <TabPanel index={0} value={value.value}>
+          <FlatTable
+            hiddenColumns={hiddenColumns}
+            onHideColumn={handleHideColumn}
+            activeTab={value.name}
+          />
+        </TabPanel>
+        <TabPanel index={1} value={value.value}>
+          <HouseTable
+            hiddenColumns={hiddenColumns}
+            onHideColumn={handleHideColumn}
+            activeTab={value.name}
+          />
+        </TabPanel>
+        <TabPanel index={2} value={value.value}>
+          <ExclusiveTable
+            hiddenColumns={hiddenColumns}
+            onHideColumn={handleHideColumn}
+            activeTab={value.name}
+          />
+        </TabPanel>
+      </div>
+    </div>
   );
 });
 

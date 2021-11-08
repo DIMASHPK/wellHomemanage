@@ -1,6 +1,6 @@
 import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import { Control, UseFormReturn } from 'react-hook-form';
 import { RootState } from 'redux/types';
 import { FILTER_CLAUSES, FILTER_COND_ITEMS } from './constants';

@@ -53,7 +53,7 @@ export type TransformExclusivesDataType = (
   item: typeof INITIAL_VALUES_MAPPING.exclusives
 ) => Omit<ExclusiveType, 'id'>;
 
-export type GetFormatedDateType = (data: string) => string | null;
+export type GetFormattedDateType = (data: string | null) => string | null;
 
 export type GetFormattedDatesArrayType = (
   array: (string | Date)[]

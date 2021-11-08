@@ -39,7 +39,13 @@ export const useStyles = makeStyles<Theme, stylesTypes>(theme => ({
     minWidth: 166,
   },
   watchingDayCell: {
-    minWidth: 205,
+    minWidth: 211,
+  },
+  depositCell: {
+    minWidth: 190,
+  },
+  dealCell: {
+    minWidth: 190,
   },
   checkboxRoot: {
     [theme.breakpoints.down(768)]: {

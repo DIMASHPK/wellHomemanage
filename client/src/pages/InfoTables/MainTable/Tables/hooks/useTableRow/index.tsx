@@ -8,11 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Zoom from '@material-ui/core/Zoom';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
-import {
-  checkIsDataValid,
-  formatDateWithoutTime,
-  formatWithCheck,
-} from 'utils/dates';
+import { formatDateWithoutTime, formatWithCheck } from 'utils/dates';
 import { useStyles } from './styles';
 import type {
   UseTableRowArgsType,

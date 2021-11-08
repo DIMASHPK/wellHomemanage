@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { WithPaginationPaddingHandlerArgs } from './types';
+import { UseStylesPropsType } from './types';
 
 export const useStyles = makeStyles(theme => ({
   table: {
@@ -26,7 +26,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     height: '100%',
     flexDirection: 'column',
-    paddingBottom: ({ withPagination }: WithPaginationPaddingHandlerArgs) =>
+    paddingBottom: ({ withPagination }: UseStylesPropsType) =>
       withPagination ? 0 : 24,
     [theme.breakpoints.down(768)]: {
       padding: 10,
@@ -85,5 +85,10 @@ export const useStyles = makeStyles(theme => ({
   },
   select: {
     minHeight: 'auto',
+  },
+  tableHeadRow: {
+    '& > th:last-of-type': {
+      width: 'unset !important',
+    },
   },
 }));

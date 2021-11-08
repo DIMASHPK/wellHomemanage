@@ -1,0 +1,26 @@
+import { makeStyles } from '@material-ui/core';
+
+export const useStyles = makeStyles(() => ({
+  idCell: { width: 100 },
+  addressCell: { width: 200 },
+  typeOfHouseCell: { width: 140 },
+  floorCell: { width: 120 },
+  areaCell: { width: 152 },
+  descriptionCell: { width: 330 },
+  reservePriceCell: { width: 205 },
+  startPriceCell: { width: 205 },
+  endPriceCell: { width: 205 },
+  preSalePrepareCell: { width: 300 },
+  adStartCell: { width: 200 },
+  incomingCallsCell: { width: 215 },
+  incomingSocialCell: { width: 225 },
+  crmNumberAndDescriptionOfClientCell: { width: 275 },
+  watchingDaysCell: { width: 211 },
+  signUpForViewCell: { width: 275 },
+  visitedCell: { width: 140 },
+  offersCell: { width: 180 },
+  depositCell: { width: 190 },
+  dealCell: { width: 190 },
+  commissionCell: { width: 170 },
+  adCostCell: { width: 250 },
+}));

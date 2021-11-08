@@ -12,7 +12,7 @@ class Api {
   private readonly axios: AxiosInstance;
 
   constructor() {
-    this.baseUrl = process.env.REAC_APP_API_URL || 'http://localhost:7777';
+    this.baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:7777';
 
     this.axios = axios.create({
       baseURL: this.baseUrl,

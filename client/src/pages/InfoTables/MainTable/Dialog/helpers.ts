@@ -16,7 +16,7 @@ import {
   TransformHousesDataType,
   TransformExclusivesDataType,
   TableFormType,
-  GetFormatedDateType,
+  GetFormattedDateType,
   GetFormattedDatesArrayType,
   GetSubmitKeyType,
 } from './types';
@@ -59,8 +59,8 @@ export const exclusivePredicate = (
 ): item is typeof INITIAL_VALUES_MAPPING.exclusives =>
   item.type === TAB_NAMES.EXCLUSIVES;
 
-const getFormatedDate: GetFormatedDateType = date =>
-  getNullFromEmptyString(formatWithCheck(date, formatToISOString));
+const getFormattedDate: GetFormattedDateType = date =>
+  date && getNullFromEmptyString(formatWithCheck(date, formatToISOString));
 
 const getFormattedDatesArray: GetFormattedDatesArrayType = arr =>
   getNullFromEmptyArrray(
@@ -93,8 +93,8 @@ export const transformFlatsData: TransformFlatsDataType = item => {
     pricePerMeter: getNumberFromString(pricePerMeter),
     commission: getNumberFromString(commission),
     soldPrice: getNullableNumbers(soldPrice),
-    dateOfStartAd: getFormatedDate(dateOfStartAd),
-    dateOfSold: getFormatedDate(dateOfSold),
+    dateOfStartAd: getFormattedDate(dateOfStartAd),
+    dateOfSold: getFormattedDate(dateOfSold),
   };
 };
 
@@ -122,8 +122,8 @@ export const transformHouseData: TransformHousesDataType = item => {
     pricePerMeter: getNumberFromString(pricePerMeter),
     commission: getNumberFromString(commission),
     soldPrice: getNullableNumbers(soldPrice),
-    dateOfStartAd: getFormatedDate(dateOfStartAd),
-    dateOfSold: getFormatedDate(dateOfSold),
+    dateOfStartAd: getFormattedDate(dateOfStartAd),
+    dateOfSold: getFormattedDate(dateOfSold),
   };
 };
 
@@ -164,9 +164,9 @@ export const transformExclusivesData: TransformExclusivesDataType = item => {
     offers: getNullableNumbers(offers),
     commission: getNumberFromString(commission),
     adCost: getNullableNumbers(adCost),
-    deal: getFormatedDate(deal),
-    adStart: getFormatedDate(adStart),
-    deposit: getFormatedDate(deposit),
+    deal: getFormattedDate(deal),
+    adStart: getFormattedDate(adStart),
+    deposit: getFormattedDate(deposit),
     preSalePrepare: getFormattedDatesArray(preSalePrepare),
     watchingDays: getFormattedDatesArray(watchingDays),
   };

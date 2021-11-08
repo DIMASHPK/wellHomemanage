@@ -1,0 +1,106 @@
+import { GetTableColumnsType } from './types';
+
+export const getTableColumns: GetTableColumnsType = ({ classes }) => [
+  { className: classes.idCell, id: 39, value: 'id', title: '№' },
+  { className: classes.addressCell, id: 40, value: 'address', title: 'адрес' },
+  {
+    className: classes.typeOfHouseCell,
+    id: 41,
+    value: 'typeOfHouse',
+    title: 'тип',
+  },
+  { className: classes.floorCell, id: 42, value: 'floor', title: 'этаж' },
+  { className: classes.areaCell, id: 43, value: 'area', title: 'площадь' },
+  {
+    className: classes.descriptionCell,
+    id: 44,
+    value: 'description',
+    title: 'описание объекта',
+  },
+  {
+    className: classes.reservePriceCell,
+    id: 45,
+    value: 'reservePrice',
+    title: 'цена резервная',
+  },
+  {
+    className: classes.startPriceCell,
+    id: 46,
+    value: 'startPrice',
+    title: 'цена стартовая',
+  },
+  {
+    className: classes.endPriceCell,
+    id: 47,
+    value: 'endPrice',
+    title: 'цена конечная',
+  },
+  {
+    className: classes.preSalePrepareCell,
+    id: 48,
+    value: 'preSalePrepare',
+    title: 'предпродажная подготовка',
+  },
+  {
+    className: classes.adStartCell,
+    id: 49,
+    value: 'adStart',
+    title: 'старт рекламы',
+  },
+  {
+    className: classes.incomingCallsCell,
+    id: 50,
+    value: 'incomingCalls',
+    title: 'входящие звонки',
+  },
+  {
+    className: classes.incomingSocialCell,
+    id: 51,
+    value: 'incomingSocial',
+    title: 'входящие соцсети',
+  },
+  {
+    className: classes.crmNumberAndDescriptionOfClientCell,
+    id: 52,
+    value: 'crmNumberAndDescriptionOfClient',
+    title: '№ в срм анкета клиента',
+  },
+  {
+    className: classes.watchingDaysCell,
+    id: 53,
+    value: 'watchingDays',
+    title: 'дни показов',
+  },
+  {
+    className: classes.signUpForViewCell,
+    id: 54,
+    value: 'signUpForView',
+    title: 'записались на просмотр',
+  },
+  { className: classes.visitedCell, id: 55, value: 'visited', title: 'пришли' },
+  {
+    className: classes.offersCell,
+    id: 56,
+    value: 'offers',
+    title: 'оферты к-во',
+  },
+  {
+    className: classes.depositCell,
+    id: 57,
+    value: 'deposit',
+    title: 'задаток',
+  },
+  { className: classes.dealCell, id: 58, value: 'deal', title: 'сделка' },
+  {
+    className: classes.commissionCell,
+    id: 59,
+    value: 'commission',
+    title: 'комиссия',
+  },
+  {
+    className: classes.adCostCell,
+    id: 60,
+    value: 'adCost',
+    title: 'расход рекламы(грн.)',
+  },
+];

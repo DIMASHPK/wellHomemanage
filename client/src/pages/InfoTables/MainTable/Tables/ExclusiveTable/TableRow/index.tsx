@@ -67,6 +67,8 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     descriptionOfClientCell,
     watchingDayCell,
     checkboxRoot,
+    depositCell,
+    dealCell,
   } = useStyles({ isCheck });
 
   if (!Object.values(reformatedRowData).length) {
@@ -152,6 +154,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
             ? formatDate(deposit.value)
             : '',
         keyName: deposit.keyMap,
+        className: depositCell,
       })}
       {renderCell({
         value:
@@ -159,6 +162,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
             ? formatDate(deal.value)
             : '',
         keyName: deal.keyMap,
+        className: dealCell,
       })}
       {renderCell({
         value: commission.value,

@@ -56,9 +56,12 @@ const Table: React.FC<TablePropsType> = memo(props => {
         className={clsx(styles.tableContainer, classes?.tableContainer)}
         ref={ref}
       >
-        <MuiTable className={styles.table} stickyHeader={stickyHeader}>
+        <MuiTable
+          className={clsx(styles.table, classes?.table)}
+          stickyHeader={stickyHeader}
+        >
           <TableHead>
-            <TableRow>
+            <TableRow className={styles.tableHeadRow}>
               {headColumns.map(({ id, ...rest }) => (
                 <SortCell
                   key={id}

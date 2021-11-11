@@ -9,9 +9,6 @@ export const useStyles = makeStyles<Theme, stylesTypes>(theme => ({
       background: 'rgba(79, 145, 255, 0.2)',
       cursor: 'pointer',
     },
-    '&:last-of-type td': {
-      borderBottom: 'none',
-    },
     width: 3300,
   },
   addressCell: {

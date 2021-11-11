@@ -78,7 +78,7 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
       {...restGetData}
     >
       {({ ref }) =>
-        exclusives?.length || !error?.length ? (
+        exclusives?.length && !error?.length ? (
           exclusives?.map(renderRow)
         ) : (
           <EmptyRow

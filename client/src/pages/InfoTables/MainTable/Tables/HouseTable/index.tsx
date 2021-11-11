@@ -78,7 +78,7 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
       {...restGetData}
     >
       {({ ref }) =>
-        houses?.length || !error?.length ? (
+        houses?.length && !error?.length ? (
           houses?.map(renderRow)
         ) : (
           <EmptyRow

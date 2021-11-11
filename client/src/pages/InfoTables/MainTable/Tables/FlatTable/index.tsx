@@ -78,7 +78,7 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
       {...restGetData}
     >
       {({ ref }) =>
-        flats.length || !error?.length ? (
+        flats.length && !error?.length ? (
           flats.map(renderRow)
         ) : (
           <EmptyRow

@@ -10,28 +10,24 @@ import { AddDataType, FlatType, UpdateDataType, GetFlatsType } from './types';
 export const getFlats: GetFlatsType =
   filters =>
   async (dispatch, getState): Promise<void> => {
-    try {
-      const {
-        flats: { rowsPerPage, page, orderBy, orderOption },
-      } = getState();
+    const {
+      flats: { rowsPerPage, page, orderBy, orderOption },
+    } = getState();
 
-      const { data } = await Api.getAll<
-        GetAllDataType<CamelToSnakeKeys<FlatType>[]>
-      >({
-        path: PATHS.FLATS,
-        page,
-        rowsPerPage,
-        orderBy,
-        orderOption,
-        filters,
-      });
+    const { data } = await Api.getAll<
+      GetAllDataType<CamelToSnakeKeys<FlatType>[]>
+    >({
+      path: PATHS.FLATS,
+      page,
+      rowsPerPage,
+      orderBy,
+      orderOption,
+      filters,
+    });
 
-      const reformattedData = data?.data?.map(getDataWithCreatedData);
+    const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-      dispatch(setData({ count: data.count, data: reformattedData }));
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch(setData({ count: data.count, data: reformattedData }));
   };
 
 export const addFlats =

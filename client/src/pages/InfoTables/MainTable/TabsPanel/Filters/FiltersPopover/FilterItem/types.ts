@@ -4,7 +4,7 @@ import { FiltersPropsType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/t
 export interface FilterItemPropsType
   extends Omit<
     FiltersPropsType,
-    'onAddFilter' | 'reactHookFormData' | 'onReset'
+    'onAddFilter' | 'reactHookFormData' | 'onReset' | 'fields'
   > {
   index: number;
 }

@@ -1,17 +1,16 @@
-import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 import { tabItemType } from 'components/Tabs/types';
-import { GetNameOptionsArgsType } from '../types';
+import { FilterItemPropsType, GetNameOptionsArgsType } from '../types';
 
 export interface NameSelectPropsType {
-  currentFilter: FiltersType[number];
+  currentFilter: FilterItemPropsType['filters'][number];
   index: number;
-  filters: FiltersType;
+  filters: FilterItemPropsType['filters'];
   selectedTabName: tabItemType['name'];
 }
 
 export type GetValueForInput = (data: {
   selectedTabName: tabItemType['name'];
-  name: FiltersType[number]['name'];
+  name: FilterItemPropsType['filters'][number]['name'];
 }) => '' | [];
 
 export type GetNameOptionsType = (

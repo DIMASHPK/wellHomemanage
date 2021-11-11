@@ -9,7 +9,7 @@ import { getValueForInput, getNameOptions } from './helpers';
 const NameSelect: React.FC<NameSelectPropsType> = memo(props => {
   const { currentFilter, index, filters, selectedTabName } = props;
 
-  const { setValue } = useFormContext();
+  const { setValue, register } = useFormContext();
 
   const { name, cond } = currentFilter;
 
@@ -21,23 +21,26 @@ const NameSelect: React.FC<NameSelectPropsType> = memo(props => {
         ...item,
         className: option,
       })),
-    [filters, name, selectedTabName]
+    [filters, name, option, selectedTabName]
   );
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
-      const { value } = event.target;
+      const value = event.target
+        .value as NameSelectPropsType['currentFilter']['name'];
 
-      setValue(`${VALUES_ARRAY_NAME}.${index}`, {
+      filters[index] = {
         ...(index ? { cond } : {}),
         name: value,
         value: getValueForInput({
-          name: value as NameSelectPropsType['currentFilter']['name'],
+          name: value,
           selectedTabName,
         }),
-      });
+      };
+
+      setValue(`${VALUES_ARRAY_NAME}`, [...filters]);
     },
-    [cond, index, selectedTabName, setValue]
+    [cond, filters, index, selectedTabName, setValue]
   );
 
   return (
@@ -48,7 +51,7 @@ const NameSelect: React.FC<NameSelectPropsType> = memo(props => {
       value={name}
       classes={{ select }}
       labelClasses={{ root: labelRoot }}
-      name={`${VALUES_ARRAY_NAME}.${index}.name`}
+      {...register(`${VALUES_ARRAY_NAME}.${index}.name`)}
       onChange={handleChange}
     />
   );

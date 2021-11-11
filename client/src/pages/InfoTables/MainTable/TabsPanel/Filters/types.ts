@@ -1,9 +1,10 @@
 import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { tabItemType } from 'components/Tabs/types';
-import { Control, UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import { RootState } from 'redux/types';
 import { FILTER_CLAUSES, FILTER_COND_ITEMS } from './constants';
+import { useFilters } from './hooks/useFilters';
 
 const getNameValues = ({
   exclusives: { exclusives },
@@ -29,16 +30,7 @@ export interface UseFilterArgsType {
   selectedTab: tabItemType;
 }
 
-export interface UseFilterReturnType {
-  filters: FiltersType;
-  onAddFilter: () => void;
-  onRemoveFilter: (index: number) => void;
-  control: Control<UseFormValuesType>;
-  reactHookFormData: UseFormReturn<UseFormValuesType>;
-  onReset: () => void;
-}
-
-export interface FiltersPropsType extends UseFilterReturnType {
+export interface FiltersPropsType extends ReturnType<typeof useFilters> {
   selectedTabName: GetOptionalType<typeof TAB_NAMES>;
 }
 

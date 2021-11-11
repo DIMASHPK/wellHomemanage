@@ -1,7 +1,7 @@
-import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
+import { FilterItemPropsType } from '../types';
 
 export interface CondSelectPropsType {
-  currentFilter: FiltersType[number];
+  currentFilter: FilterItemPropsType['filters'][number];
   index: number;
-  filters: FiltersType;
+  filters: FilterItemPropsType['filters'];
 }

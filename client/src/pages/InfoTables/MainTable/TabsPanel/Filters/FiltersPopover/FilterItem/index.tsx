@@ -26,8 +26,7 @@ const FilterItem: React.FC<FilterItemPropsType> = memo(props => {
   const isDisabled = useMemo(
     () =>
       Boolean(
-        (filters.length > 1 && !index) ||
-          !Object.values(filters[index]).some(item => item || item?.length)
+        !Object.values(filters[index]).some(item => item || item?.length)
       ),
     [filters, index]
   );

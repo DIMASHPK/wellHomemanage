@@ -9,14 +9,25 @@ export const useStyles = makeStyles(theme => ({
   tableContainer: {
     flexGrow: 1,
     borderRadius: 16,
-    '&::-webkit-scrollbar': {
-      height: 0,
-      width: 0,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderBottomLeftRadius: 16,
-      borderBottomRightRadius: 16,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    [theme.breakpoints.down(768)]: {
+      borderBottomLeftRadius: 7,
+      borderTopRightRadius: 7,
+      marginLeft: 0,
+      '&::-webkit-scrollbar-track': {
+        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.3)',
+        borderRadius: 16,
+      },
+      '&::-webkit-scrollbar-thumb': {
+        borderRadius: 16,
+        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.5);',
+      },
+      '&::-webkit-scrollbar': {
+        height: 15,
+        width: 15,
+      },
     },
   },
   sideContainer: {

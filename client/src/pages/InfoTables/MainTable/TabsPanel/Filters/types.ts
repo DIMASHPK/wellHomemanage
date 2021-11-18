@@ -40,6 +40,15 @@ export interface useDebounceSubmitArgs {
   selectedTabName: GetOptionalType<typeof TAB_NAMES>;
 }
 
+export interface UseSavedFiltersArgsType {
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
+}
+
+export interface HandleSaveStateArgsType {
+  filters: FiltersType;
+  tabName: GetOptionalType<typeof TAB_NAMES>;
+}
+
 export type useDebounceSubmitType = (data: UseFormValuesType) => void;
 
 export type FilterNameType = `filter.${Exclude<

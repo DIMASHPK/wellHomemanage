@@ -13,6 +13,7 @@ export const initialState: ExclusiveState = {
   rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
   orderBy: 'created_at',
   orderOption: SORT_OPTIONS.DESC,
+  filters: [{ name: '', value: '' }],
 };
 
 export const exclusiveSlice = createSlice({
@@ -61,6 +62,9 @@ export const exclusiveSlice = createSlice({
       state.selectedCells = [];
       state.selectedAll = false;
     },
+    handleSaveFilters: (state, { payload }) => {
+      state.filters = payload;
+    },
   },
 });
 
@@ -74,6 +78,7 @@ export const {
   handlePageChange,
   handleOrderBy,
   handleResetSelectedCells,
+  handleSaveFilters,
 } = exclusiveSlice.actions;
 
 export default exclusiveSlice.reducer;

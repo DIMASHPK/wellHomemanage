@@ -1,43 +1,22 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { cloneDeep } from 'lodash';
-import { TAB_NAMES } from 'constants/tabs';
 import { usePrevious } from 'hooks/usePrevios';
 import { UseFilterArgsType, UseFormValuesType } from '../types';
 import { VALUES_ARRAY_NAME, FILTER_COND_ITEMS } from '../constants';
 import { useDebounceSubmit } from './useDebounceSubmit';
+import { useSavedFilters } from './useSavedFilters';
 
 export const useFilters = ({ selectedTab }: UseFilterArgsType) => {
-  const [savedState, setSavedState] = useState<
-    Record<typeof selectedTab.name, UseFormValuesType['filters']>
-  >({
-    [TAB_NAMES.FLATS]: [{ name: '', value: '' }],
-    [TAB_NAMES.HOUSES]: [{ name: '', value: '' }],
-    [TAB_NAMES.EXCLUSIVES]: [{ name: '', value: '' }],
+  const { currentFilters, handleSaveFilters } = useSavedFilters({
+    selectedTabName: selectedTab.name,
   });
-
-  const defaultFilters = useMemo(
-    () => [
-      ...(cloneDeep(savedState[selectedTab.name]) || [{ name: '', value: '' }]),
-    ],
-    [savedState, selectedTab.name]
-  );
 
   const prevTabName = usePrevious(selectedTab.name);
 
-  const handleSaveFormState = useCallback(
-    ({ filters }: UseFormValuesType) => {
-      setSavedState(prevState => ({
-        ...prevState,
-        [prevTabName]: cloneDeep(filters),
-      }));
-    },
-    [prevTabName]
-  );
-
   const reactHookFormData = useForm<UseFormValuesType>({
     defaultValues: {
-      [VALUES_ARRAY_NAME]: defaultFilters,
+      [VALUES_ARRAY_NAME]: currentFilters,
     },
   });
 
@@ -54,17 +33,16 @@ export const useFilters = ({ selectedTab }: UseFilterArgsType) => {
     if (prevTabName !== selectedTab.name) {
       const currentData = getValues();
 
-      handleSaveFormState(currentData);
-      setValue(VALUES_ARRAY_NAME, cloneDeep(savedState[selectedTab.name]));
+      handleSaveFilters({ filters: currentData.filters, tabName: prevTabName });
+      setValue(VALUES_ARRAY_NAME, cloneDeep(currentFilters));
     }
   }, [
     setValue,
     selectedTab,
-    defaultFilters,
-    savedState,
     prevTabName,
     getValues,
-    handleSaveFormState,
+    handleSaveFilters,
+    currentFilters,
   ]);
 
   const onAddFilter = useCallback(() => {

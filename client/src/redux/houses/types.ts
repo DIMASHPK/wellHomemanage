@@ -1,6 +1,7 @@
 import { getNotEmptyFilters } from 'pages/InfoTables/MainTable/TabsPanel/Filters/helpers';
 import { OrderOptionType } from 'api/types';
 import { AppThunk } from 'redux/types';
+import { UseFormValuesType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 
 export interface HouseType {
   id: number;
@@ -32,6 +33,7 @@ export interface HousesStateType {
   rowsPerPage: number;
   orderBy: string;
   orderOption: OrderOptionType;
+  filters: UseFormValuesType['filters'];
 }
 
 export interface AddDataType {

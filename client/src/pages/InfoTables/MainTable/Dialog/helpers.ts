@@ -79,6 +79,7 @@ export const transformFlatsData: TransformFlatsDataType = item => {
     pricePerMeter,
     commission,
     soldPrice,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type,
     ...rest
   } = item;
@@ -109,6 +110,7 @@ export const transformHouseData: TransformHousesDataType = item => {
     pricePerMeter,
     commission,
     soldPrice,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type,
     ...rest
   } = item;
@@ -146,6 +148,7 @@ export const transformExclusivesData: TransformExclusivesDataType = item => {
     deposit,
     preSalePrepare,
     watchingDays,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type,
     ...rest
   } = item;

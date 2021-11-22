@@ -40,7 +40,7 @@ export interface GetAllDataType<T> {
         };
       }
     : (T & { created_at: string; updated_at: string })[];
-  count: number;
+  count: string;
   page: number;
   orderBy: string;
   orderOption: OrderOptionType;

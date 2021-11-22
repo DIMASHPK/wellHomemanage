@@ -78,7 +78,7 @@ export const {
   handlePageChange,
   handleOrderBy,
   handleResetSelectedCells,
-  handleSaveFilters
+  handleSaveFilters,
 } = housesSlice.actions;
 
 export default housesSlice.reducer;

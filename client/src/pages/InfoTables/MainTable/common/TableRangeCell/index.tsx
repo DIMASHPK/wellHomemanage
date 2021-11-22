@@ -31,7 +31,7 @@ const TableRangeCell: React.FC<TableRangeCellPropsType> = memo(props => {
     `${formattedDates[0]}-${formattedDates[formattedDates.length - 1]}`;
 
   const renderListItem = (data: string) => (
-    <ListItem className={tooltipListItem}>
+    <ListItem key={data} className={tooltipListItem}>
       <Button onClick={handleCopy(data)} className={copyAction}>
         Скопировать
       </Button>

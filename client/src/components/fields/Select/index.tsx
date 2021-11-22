@@ -6,43 +6,51 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { SelectPropsType, OptionType } from './types';
 
-const Select: React.FC<SelectPropsType> = memo(props => {
-  const {
-    variant = 'outlined',
-    label,
-    value,
-    onChange = () => null,
-    error,
-    options = [],
-    className,
-    labelClasses = {},
-    ...rest
-  } = props;
+const Select: React.FC<SelectPropsType> = memo(
+  React.forwardRef((props, ref) => {
+    const {
+      variant = 'outlined',
+      label,
+      value,
+      onChange = () => null,
+      error,
+      options = [],
+      className,
+      labelClasses = {},
+      ...rest
+    } = props;
 
-  const renderOption = ({ name, ...data }: OptionType) => (
-    <MenuItem {...data}>{name}</MenuItem>
-  );
+    const renderOption = ({ name, ...data }: OptionType) => (
+      <MenuItem {...data} key={name}>
+        {name}
+      </MenuItem>
+    );
 
-  return (
-    <FormControl variant={variant} className={className}>
-      <InputLabel classes={labelClasses} id="demo-simple-select-outlined-label">
-        {label}
-      </InputLabel>
-      <MuiSelect
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
-        value={value}
-        onChange={onChange}
-        label={label}
-        error={!!error}
-        {...rest}
-      >
-        {options.map(renderOption)}
-      </MuiSelect>
-      {error && <FormHelperText>{error.message}</FormHelperText>}
-    </FormControl>
-  );
-});
+    return (
+      <FormControl variant={variant} className={className}>
+        <InputLabel
+          classes={labelClasses}
+          id="demo-simple-select-outlined-label"
+        >
+          {label}
+        </InputLabel>
+        <MuiSelect
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={value}
+          onChange={onChange}
+          label={label}
+          error={!!error}
+          {...rest}
+          ref={ref}
+        >
+          {options.map(renderOption)}
+        </MuiSelect>
+        {error && <FormHelperText>{error.message}</FormHelperText>}
+      </FormControl>
+    );
+  })
+);
 
 Select.displayName = 'Select';
 

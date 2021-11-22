@@ -36,7 +36,7 @@ export const getExclusives: GetExclusivesType =
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-    dispatch(setData({ count: data.count, data: reformattedData }));
+    dispatch(setData({ count: parseInt(data.count), data: reformattedData }));
   };
 
 export const addExclusives =

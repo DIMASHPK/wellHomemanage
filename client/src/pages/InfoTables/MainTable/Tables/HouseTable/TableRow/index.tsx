@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import MuiTableRow from '@material-ui/core/TableRow';
 import { HouseType } from 'redux/houses/types';
 import { useAppSelector } from 'redux/hooks';

@@ -1,6 +1,6 @@
 import ListItem from '@material-ui/core/ListItem';
 import React, { memo, useCallback, useMemo } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import { useStyles } from '../styles';
 import type { AllOptionType } from './types';

@@ -12,7 +12,7 @@ const CommonDialog: React.FC<CommonDialogTypes> = memo(props => {
     open,
     children,
     title,
-    onClose,
+    onClose = () => null,
     classes,
     withCloseButton = true,
   } = props;

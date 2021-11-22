@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import isEqual from 'lodash/isEqual';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import { useAppDispatch } from 'redux/hooks';
 import type { HeadCheckboxTypes } from './types';
 import RemoveAllCheckbox from './RemoveAllCheckbox';

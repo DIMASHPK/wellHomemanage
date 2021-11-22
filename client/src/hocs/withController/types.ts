@@ -13,6 +13,7 @@ export type ComponentPropsType<T> = {
   label?: SelectPropsType['label'] | TextFieldPropsType['label'];
   disabled?: boolean;
   variant?: DatePickerProps['inputVariant'];
+  color?: TextFieldPropsType['color'];
 };
 
 export type WithControllerType<

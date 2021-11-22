@@ -34,7 +34,7 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
 
   const classes = useStyles();
 
-  const { error, ...restGetData } = useGetData({
+  const { error, loading, ...restGetData } = useGetData({
     thunk: getHouses,
     handleRowsPerPageChange,
     handlePageChange,
@@ -75,10 +75,13 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
       orderBy={orderBy}
       orderDirection={orderOption}
       onOrderBy={handleOrderBy}
+      loading={loading}
       {...restGetData}
     >
-      {({ ref }) =>
-        houses?.length && !error?.length ? (
+      {({ ref }) => {
+        if (loading) return null;
+
+        return houses?.length && !error?.length ? (
           houses?.map(renderRow)
         ) : (
           <EmptyRow
@@ -86,8 +89,8 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
             colSpan={tableColumns.length + 1}
             title={error || 'Нету домов'}
           />
-        )
-      }
+        );
+      }}
     </TableCommonWrap>
   );
 });

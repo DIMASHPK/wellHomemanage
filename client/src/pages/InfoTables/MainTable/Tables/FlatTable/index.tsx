@@ -34,7 +34,7 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
 
   const classes = useStyles();
 
-  const { error, ...restGetData } = useGetData({
+  const { error, loading, ...restGetData } = useGetData({
     thunk: getFlats,
     handleRowsPerPageChange,
     handlePageChange,
@@ -75,10 +75,13 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
       orderBy={orderBy}
       orderDirection={orderOption}
       onOrderBy={handleOrderBy}
+      loading={loading}
       {...restGetData}
     >
-      {({ ref }) =>
-        flats.length && !error?.length ? (
+      {({ ref }) => {
+        if (loading) return null;
+
+        return flats.length && !error?.length ? (
           flats.map(renderRow)
         ) : (
           <EmptyRow
@@ -86,8 +89,8 @@ const FlatTable: React.FC<FlatTablePropsType> = memo(props => {
             colSpan={tableColumns.length + 1}
             title={error || 'Нету квартир'}
           />
-        )
-      }
+        );
+      }}
     </TableCommonWrap>
   );
 });

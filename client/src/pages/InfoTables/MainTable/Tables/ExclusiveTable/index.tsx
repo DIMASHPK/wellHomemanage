@@ -32,7 +32,7 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
     orderOption,
   } = useAppSelector(({ exclusives }) => exclusives);
 
-  const { error, ...restGetData } = useGetData({
+  const { error, loading, ...restGetData } = useGetData({
     thunk: getExclusives,
     handleRowsPerPageChange,
     handlePageChange,
@@ -75,10 +75,13 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
       orderBy={orderBy}
       orderDirection={orderOption}
       onOrderBy={handleOrderBy}
+      loading={loading}
       {...restGetData}
     >
-      {({ ref }) =>
-        exclusives?.length && !error?.length ? (
+      {({ ref }) => {
+        if (loading) return null;
+
+        return exclusives?.length && !error?.length ? (
           exclusives?.map(renderRow)
         ) : (
           <EmptyRow
@@ -86,8 +89,8 @@ const ExclusiveTable: React.FC<ExclusiveTablePropsType> = memo(props => {
             colSpan={tableColumns.length + 1}
             title={error || 'Нету эксклюзивов'}
           />
-        )
-      }
+        );
+      }}
     </TableCommonWrap>
   );
 });

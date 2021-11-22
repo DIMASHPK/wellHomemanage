@@ -4,6 +4,7 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { CamelToSnakeKeys } from 'constants/types';
 import { getDataWithCreatedData } from 'utils/objects';
+import { transformFiltersForApi } from 'utils/helpers';
 import { handleResetSelectedCells, setData } from './reducer';
 import {
   AddDataType,
@@ -13,10 +14,10 @@ import {
 } from './types';
 
 export const getExclusives: GetExclusivesType =
-  filters =>
+  () =>
   async (dispatch, getState): Promise<void> => {
     const {
-      exclusives: { rowsPerPage, page, orderBy, orderOption },
+      exclusives: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
     const { data } = await Api.getAll<
@@ -27,7 +28,10 @@ export const getExclusives: GetExclusivesType =
       rowsPerPage,
       orderBy,
       orderOption,
-      filters,
+      filters: transformFiltersForApi({
+        filters,
+        selectedTabName: 'exclusives',
+      }),
     });
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);

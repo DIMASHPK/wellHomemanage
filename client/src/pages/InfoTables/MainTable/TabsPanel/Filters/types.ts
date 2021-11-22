@@ -50,15 +50,3 @@ export interface HandleSaveStateArgsType {
 }
 
 export type useDebounceSubmitType = (data: UseFormValuesType) => void;
-
-export type FilterNameType = `filter.${Exclude<
-  FiltersType[number]['name'],
-  '' | 'id'
->}.${GetOptionalType<typeof FILTER_CLAUSES>}`;
-
-export type GetNotEmptyFiltersArgsType = {
-  filters: FiltersType;
-  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
-};
-
-export type GetTransformFilterDatesType = (dates: string[]) => string[];

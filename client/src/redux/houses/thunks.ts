@@ -4,14 +4,15 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { CamelToSnakeKeys } from 'constants/types';
 import { getDataWithCreatedData } from 'utils/objects';
+import { transformFiltersForApi } from 'utils/helpers';
 import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, HouseType, UpdateDataType, GetHousesType } from './types';
 
 export const getHouses: GetHousesType =
-  filters =>
+  () =>
   async (dispatch, getState): Promise<void> => {
     const {
-      houses: { rowsPerPage, page, orderBy, orderOption },
+      houses: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
     const { data } = await Api.getAll<
@@ -22,7 +23,10 @@ export const getHouses: GetHousesType =
       rowsPerPage,
       orderBy,
       orderOption,
-      filters,
+      filters: transformFiltersForApi({
+        filters,
+        selectedTabName: 'houses',
+      }),
     });
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);

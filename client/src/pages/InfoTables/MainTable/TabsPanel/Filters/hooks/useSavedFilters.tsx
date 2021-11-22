@@ -22,14 +22,23 @@ export const useSavedFilters = ({
 
   const handleSaveFilters = useCallback(
     ({ filters, tabName }: HandleSaveStateArgsType) => {
+      const copiedFilters = cloneDeep(filters);
+
       const actionsMapping = {
-        [TAB_NAMES.FLATS]: () => dispatch(handleSaveFlatFilters(filters)),
-        [TAB_NAMES.HOUSES]: () => dispatch(handleSaveHouseFilters(filters)),
-        [TAB_NAMES.EXCLUSIVES]: () =>
-          dispatch(handleSaveExclusiveFilters(filters)),
+        [TAB_NAMES.FLATS]: () => {
+          dispatch(handleSaveFlatFilters(copiedFilters));
+        },
+        [TAB_NAMES.HOUSES]: () => {
+          dispatch(handleSaveHouseFilters(copiedFilters));
+        },
+        [TAB_NAMES.EXCLUSIVES]: () => {
+          dispatch(handleSaveExclusiveFilters(copiedFilters));
+        },
       };
 
-      actionsMapping[tabName]?.();
+      if (tabName) {
+        actionsMapping[tabName]();
+      }
     },
     [dispatch]
   );

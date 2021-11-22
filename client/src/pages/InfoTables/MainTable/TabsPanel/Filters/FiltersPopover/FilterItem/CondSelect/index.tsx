@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 const CondSelect: React.FC<CondSelectPropsType> = memo(props => {
   const { currentFilter, index, filters } = props;
 
-  const { setValue } = useFormContext();
+  const { setValue, register } = useFormContext();
 
   const { condSelect, select, option, labelRoot } = useStyles();
 
@@ -49,7 +49,7 @@ const CondSelect: React.FC<CondSelectPropsType> = memo(props => {
           classes={{ select }}
           value={currentFilter?.cond}
           disabled={index > 1}
-          name={`${VALUES_ARRAY_NAME}.${index}.cond`}
+          {...register(`${VALUES_ARRAY_NAME}.${index}.cond`)}
           onChange={handleChange}
         />
       ) : (

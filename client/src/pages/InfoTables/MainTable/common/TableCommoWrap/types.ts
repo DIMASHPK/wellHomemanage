@@ -4,7 +4,7 @@ import {
   TablePropsType,
 } from 'pages/InfoTables/common/Table/types';
 import { HideColumnsLogicType } from 'pages/InfoTables/MainTable/Tables/types';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import React from 'react';
 
@@ -17,7 +17,7 @@ export interface TableCommonWrapType
   selectedAll: boolean;
   handleAllCells: (action: number[]) => AnyAction;
   handleSelectedAll: (value: boolean) => AnyAction;
-  pathForHiddenColumnsState: getOptionalType<typeof TAB_NAMES>;
+  pathForHiddenColumnsState: GetOptionalType<typeof TAB_NAMES>;
   stickyHeader?: boolean;
 }
 

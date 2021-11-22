@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import TableCommonWrap from 'pages/InfoTables/MainTable/common/TableCommoWrap';
 import { useAppSelector } from 'redux/hooks';
 import {
@@ -14,8 +14,9 @@ import EmptyRow from 'pages/InfoTables/MainTable/common/EmptyRow';
 import TableRow from './TableRow';
 import type { HouseTablePropsType } from './types';
 import { COLUMN_PATH_NAMES } from '../constants';
-import { TABLE_COLUMNS } from './constants';
+import { getTableColumns } from './helpers';
 import { useGetData } from '../hooks/useGetData';
+import { useStyles } from './styles';
 
 const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
   const { hiddenColumns, onHideColumn, activeTab } = props;
@@ -31,7 +32,9 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
     orderOption,
   } = useAppSelector(({ houses }) => houses);
 
-  const { error, ...restGetData } = useGetData({
+  const classes = useStyles();
+
+  const { error, loading, ...restGetData } = useGetData({
     thunk: getHouses,
     handleRowsPerPageChange,
     handlePageChange,
@@ -52,9 +55,11 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
     />
   );
 
+  const tableColumns = useMemo(() => getTableColumns({ classes }), [classes]);
+
   return (
     <TableCommonWrap
-      tableColumns={TABLE_COLUMNS}
+      tableColumns={tableColumns}
       data={houses}
       selectedAll={selectedAll}
       selectedCells={selectedCells}
@@ -70,19 +75,22 @@ const HouseTable: React.FC<HouseTablePropsType> = memo(props => {
       orderBy={orderBy}
       orderDirection={orderOption}
       onOrderBy={handleOrderBy}
+      loading={loading}
       {...restGetData}
     >
-      {({ ref }) =>
-        houses?.length || !error?.length ? (
+      {({ ref }) => {
+        if (loading) return null;
+
+        return houses?.length && !error?.length ? (
           houses?.map(renderRow)
         ) : (
           <EmptyRow
             ref={ref}
-            colSpan={TABLE_COLUMNS.length + 1}
+            colSpan={tableColumns.length + 1}
             title={error || 'Нету домов'}
           />
-        )
-      }
+        );
+      }}
     </TableCommonWrap>
   );
 });

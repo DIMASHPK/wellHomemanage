@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import { TabsProps, Typography } from '@material-ui/core';
-import TabsPanelCommon from 'components/TabsPanel';
+import TabsPanelCommon from 'components/Tabs';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';

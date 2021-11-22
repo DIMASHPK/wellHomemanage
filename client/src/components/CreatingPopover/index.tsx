@@ -4,23 +4,23 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { tabs } from 'pages/InfoTables/MainTable/constants';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { CreatingPopoverType } from './types';
 import { useStyles } from './styles';
-import { tabItemType } from '../TabsPanel/types';
+import { tabItemType } from '../Tabs/types';
 
 const CreatingPopover: React.FC<CreatingPopoverType> = memo(props => {
   const { id, anchorEl, onClose, onButtonClick } = props;
 
-  const { list,listItem } = useStyles();
+  const { list, listItem } = useStyles();
 
   const open = Boolean(anchorEl);
   const currentId = open ? id : undefined;
 
   const createActions = useMemo(() => Object.values(tabs), []);
 
-  const handleButtonClick = (type: getOptionalType<typeof TAB_NAMES>) => {
+  const handleButtonClick = (type: GetOptionalType<typeof TAB_NAMES>) => {
     onButtonClick({ type });
     onClose();
   };

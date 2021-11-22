@@ -1,4 +1,4 @@
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { AppThunk } from 'redux/types';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { TablePropsType } from 'pages/InfoTables/common/Table/types';
@@ -13,8 +13,8 @@ export interface UseGetDataHookArgsType {
   rowsPerPage?: number;
   orderBy: string;
   orderOption: OrderOptionType;
-  activeTab: getOptionalType<typeof TAB_NAMES>;
-  myTab: getOptionalType<typeof TAB_NAMES>;
+  activeTab: GetOptionalType<typeof TAB_NAMES>;
+  myTab: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export interface UseGetDataHookReturnType {

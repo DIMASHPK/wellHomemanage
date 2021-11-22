@@ -20,7 +20,7 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
     onHideColumn,
     hiddenColumns,
     pathForHiddenColumnsState,
-    stickyHeader,
+    stickyHeader = true,
     ...rest
   } = props;
 
@@ -62,7 +62,7 @@ const TableCommonWrap: React.FC<TableCommonWrapType> = memo(props => {
     <>
       <Table
         headColumns={tableColumnsCanHide}
-        stickyHeader={stickyHeader || true}
+        stickyHeader={stickyHeader}
         {...rest}
       >
         {props => children?.(props)}

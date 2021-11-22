@@ -1,6 +1,9 @@
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import { Dispatch, SetStateAction } from 'react';
 import { RootState } from 'redux/types';
+import { GetOptionalType } from 'constants/types';
+import { TAB_NAMES } from 'constants/tabs';
+import {getIsCellVisible} from "./helpers";
 
 export interface GetHiddenFieldsTypeReturnType {
   [x: string]: { [x: string]: boolean };
@@ -35,3 +38,13 @@ export type GetHiddenFieldsType = (
   state: ReturnType<typeof getHiddenFieldsStateType>,
   prevState?: GetHiddenFieldsTypeReturnType
 ) => GetHiddenFieldsTypeReturnType;
+
+export type ReformattedRowDataType<T> = {
+  [Property in keyof T]: { keyMap: Property; value: T[Property] };
+};
+
+export interface GetIsCellVisibleArgsType {
+  keyName?: string;
+  hiddenColumns: HideColumnsLogicType['hiddenColumns'];
+  pathForHiddenColumnsState: GetOptionalType<typeof TAB_NAMES>;
+}

@@ -14,12 +14,7 @@ const WithController = <F extends { [Property in keyof F]: F[Property] }, V>(
       field: { onChange, value },
       fieldState: { error },
     }) => (
-      <Component
-        {...(rest as any)}
-        onChange={onChange}
-        value={value}
-        error={error}
-      />
+      <Component {...rest} onChange={onChange} value={value} error={error} />
     );
 
     return (

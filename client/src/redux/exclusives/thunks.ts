@@ -1,8 +1,10 @@
 import Api from 'api';
 import { PATHS } from 'api/constants';
 import { AppThunk } from 'redux/types';
-import { objectKeysToCamelFromSnakeCase } from 'utils/strings';
 import { GetAllDataType } from 'api/types';
+import { CamelToSnakeKeys } from 'constants/types';
+import { getDataWithCreatedData } from 'utils/objects';
+import { transformFiltersForApi } from 'utils/helpers';
 import { handleResetSelectedCells, setData } from './reducer';
 import {
   AddDataType,
@@ -12,26 +14,29 @@ import {
 } from './types';
 
 export const getExclusives: GetExclusivesType =
-  filters =>
+  () =>
   async (dispatch, getState): Promise<void> => {
     const {
-      exclusives: { rowsPerPage, page, orderBy, orderOption },
+      exclusives: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
-    const { data } = await Api.getAll<GetAllDataType<ExclusiveType[]>>({
+    const { data } = await Api.getAll<
+      GetAllDataType<CamelToSnakeKeys<ExclusiveType>[]>
+    >({
       path: PATHS.EXCLUSIVES,
       page,
       rowsPerPage,
       orderBy,
       orderOption,
-      filters,
+      filters: transformFiltersForApi({
+        filters,
+        selectedTabName: 'exclusives',
+      }),
     });
 
-    const reformattedData = data?.data?.map(item =>
-      objectKeysToCamelFromSnakeCase(item)
-    );
+    const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-    dispatch(setData({ count: data.count, data: reformattedData }));
+    dispatch(setData({ count: parseInt(data.count), data: reformattedData }));
   };
 
 export const addExclusives =

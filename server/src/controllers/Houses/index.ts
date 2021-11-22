@@ -33,7 +33,7 @@ export default class HouseController {
     try {
       const [data, count] = await Promise.allSettled([
         sequelize.query(`SELECT * FROM houses ${findAllSqlQuery}`),
-        sequelize.query(`SELECT COUNT(*) FROM flats ${whereClause}`),
+        sequelize.query(`SELECT COUNT(*) FROM houses ${whereClause}`),
       ]);
 
       if (

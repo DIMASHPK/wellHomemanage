@@ -1,82 +1,45 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { useAppSelector } from 'redux/hooks';
-import { usePrevious } from 'hooks/usePrevios';
-import { isEqual } from 'lodash';
-import type { HandleHideColumnArgsType, TablesPropsType } from './types';
+import React, { memo } from 'react';
+import TabPanel from 'components/TabPanel';
+import type { TablesPropsType } from './types';
 import FlatTable from './FlatTable';
 import HouseTable from './HouseTable';
 import { useStyles } from './styles';
-import { getHiddenFields } from './helpers';
 import ExclusiveTable from './ExclusiveTable';
+import { useHideColumns } from './hooks/useHideColumns';
 
 const Tables: React.FC<TablesPropsType> = memo(props => {
   const { value } = props;
 
-  const state = useAppSelector(
-    ({ flats: { flats }, houses: { houses }, exclusives: { exclusives } }) => ({
-      flats,
-      houses,
-      exclusives,
-    })
-  );
+  const { handleHideColumn, hiddenColumns } = useHideColumns();
 
-  const [hiddenColumns, setHiddenColumns] = useState(getHiddenFields(state));
-
-  const prevState = usePrevious(state);
-
-  useEffect(() => {
-    if (!isEqual(prevState, state)) {
-      setHiddenColumns(prevState => getHiddenFields(state, prevState));
-    }
-  }, [prevState, state]);
-
-  const handleHideColumn = useCallback(
-    ({ typeName, columnName }: HandleHideColumnArgsType) => {
-      setHiddenColumns(prevState =>
-        columnName === 'all'
-          ? {
-              ...prevState,
-              [typeName]: {
-                ...Object.entries(prevState[typeName])
-                  .map(([key]) => ({
-                    [key]: false,
-                  }))
-                  .reduce((acc, item) => ({ ...acc, ...item }), {}),
-              },
-            }
-          : {
-              ...prevState,
-              [typeName]: {
-                ...prevState[typeName],
-                [columnName]: !prevState[typeName][columnName],
-              },
-            }
-      );
-    },
-    []
-  );
-
-  const { swipeableContainer } = useStyles();
+  const { tabPanelContainer } = useStyles();
 
   return (
-    <SwipeableViews index={value.value} className={swipeableContainer}>
-      <FlatTable
-        hiddenColumns={hiddenColumns}
-        onHideColumn={handleHideColumn}
-        activeTab={value.name}
-      />
-      <HouseTable
-        hiddenColumns={hiddenColumns}
-        onHideColumn={handleHideColumn}
-        activeTab={value.name}
-      />
-      <ExclusiveTable
-        hiddenColumns={hiddenColumns}
-        onHideColumn={handleHideColumn}
-        activeTab={value.name}
-      />
-    </SwipeableViews>
+    <div className={tabPanelContainer}>
+      <div>
+        <TabPanel index={0} value={value.value}>
+          <FlatTable
+            hiddenColumns={hiddenColumns}
+            onHideColumn={handleHideColumn}
+            activeTab={value.name}
+          />
+        </TabPanel>
+        <TabPanel index={1} value={value.value}>
+          <HouseTable
+            hiddenColumns={hiddenColumns}
+            onHideColumn={handleHideColumn}
+            activeTab={value.name}
+          />
+        </TabPanel>
+        <TabPanel index={2} value={value.value}>
+          <ExclusiveTable
+            hiddenColumns={hiddenColumns}
+            onHideColumn={handleHideColumn}
+            activeTab={value.name}
+          />
+        </TabPanel>
+      </div>
+    </div>
   );
 });
 

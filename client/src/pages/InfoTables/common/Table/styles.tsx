@@ -1,24 +1,33 @@
 import { makeStyles } from '@material-ui/core';
-import { WithPaginationPaddingHandlerArgs } from './types';
+import { UseStylesPropsType } from './types';
 
 export const useStyles = makeStyles(theme => ({
   table: {
     minWidth: 650,
     position: 'relative',
-    boxShadow:
-      '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
   },
   tableContainer: {
     flexGrow: 1,
     borderRadius: 16,
-    '&::-webkit-scrollbar': {
-      height: 0,
-      width: 0,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: 'rgba(0,0,0,.1)',
-      borderBottomLeftRadius: 16,
-      borderBottomRightRadius: 16,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    [theme.breakpoints.down(768)]: {
+      borderBottomLeftRadius: 7,
+      borderTopRightRadius: 7,
+      marginLeft: 0,
+      '&::-webkit-scrollbar-track': {
+        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.3)',
+        borderRadius: 16,
+      },
+      '&::-webkit-scrollbar-thumb': {
+        borderRadius: 16,
+        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.5);',
+      },
+      '&::-webkit-scrollbar': {
+        height: 15,
+        width: 15,
+      },
     },
   },
   sideContainer: {
@@ -26,7 +35,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     height: '100%',
     flexDirection: 'column',
-    paddingBottom: ({ withPagination }: WithPaginationPaddingHandlerArgs) =>
+    paddingBottom: ({ withPagination }: UseStylesPropsType) =>
       withPagination ? 0 : 24,
     [theme.breakpoints.down(768)]: {
       padding: 10,
@@ -85,5 +94,10 @@ export const useStyles = makeStyles(theme => ({
   },
   select: {
     minHeight: 'auto',
+  },
+  tableHeadRow: {
+    '& > th:last-of-type': {
+      width: 'unset !important',
+    },
   },
 }));

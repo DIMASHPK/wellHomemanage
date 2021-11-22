@@ -1,12 +1,10 @@
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
-import { tabItemType } from 'components/TabsPanel/types';
-import { Control, UseFormReturn } from 'react-hook-form';
+import { tabItemType } from 'components/Tabs/types';
+import { UseFormReturn } from 'react-hook-form';
 import { RootState } from 'redux/types';
-import {
-  FILTER_CLAUSES,
-  FILTER_COND_ITEMS,
-} from './constants';
+import { FILTER_CLAUSES, FILTER_COND_ITEMS } from './constants';
+import { useFilters } from './hooks/useFilters';
 
 const getNameValues = ({
   exclusives: { exclusives },
@@ -21,7 +19,7 @@ const getNameValues = ({
 export type FiltersType = {
   value: string | string[];
   name: keyof ReturnType<typeof getNameValues> | '';
-  cond?: getOptionalType<typeof FILTER_COND_ITEMS> | '';
+  cond?: GetOptionalType<typeof FILTER_COND_ITEMS> | '';
 }[];
 
 export interface UseFormValuesType {
@@ -32,35 +30,23 @@ export interface UseFilterArgsType {
   selectedTab: tabItemType;
 }
 
-export interface UseFilterReturnType {
-  filters: FiltersType;
-  onAddFilter: () => void;
-  onRemoveFilter: (index: number) => void;
-  control: Control<UseFormValuesType>;
-  reactHookFormData: UseFormReturn<UseFormValuesType>;
-  onReset: () => void;
-}
-
-export interface FiltersPropsType extends UseFilterReturnType {
-  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+export interface FiltersPropsType extends ReturnType<typeof useFilters> {
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export interface useDebounceSubmitArgs {
   // eslint-disable-next-line @typescript-eslint/ban-types
   form: UseFormReturn<UseFormValuesType, object>;
-  selectedTabName: getOptionalType<typeof TAB_NAMES>;
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
+}
+
+export interface UseSavedFiltersArgsType {
+  selectedTabName: GetOptionalType<typeof TAB_NAMES>;
+}
+
+export interface HandleSaveStateArgsType {
+  filters: FiltersType;
+  tabName: GetOptionalType<typeof TAB_NAMES>;
 }
 
 export type useDebounceSubmitType = (data: UseFormValuesType) => void;
-
-export type FilterNameType = `filter.${Exclude<
-  FiltersType[number]['name'],
-  '' | 'id'
->}.${getOptionalType<typeof FILTER_CLAUSES>}`;
-
-export type GetNotEmptyFiltersArgsType = {
-  filters: FiltersType;
-  selectedTabName: getOptionalType<typeof TAB_NAMES>;
-};
-
-export type GetTransformFilterDatesType = (dates: string[]) => string[];

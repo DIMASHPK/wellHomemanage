@@ -22,6 +22,7 @@ export interface TablePropsType {
   stickyHeader: boolean;
   classes?: {
     tableContainer?: string;
+    table?: string;
   };
   children?: (data: { ref: Ref<HTMLDivElement> | undefined }) => ReactNode;
   loading?: boolean;
@@ -41,6 +42,6 @@ export interface TablePropsType {
   >;
 }
 
-export interface WithPaginationPaddingHandlerArgs {
+export interface UseStylesPropsType {
   withPagination: boolean;
 }

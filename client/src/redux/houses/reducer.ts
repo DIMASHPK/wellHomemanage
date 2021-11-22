@@ -13,6 +13,7 @@ export const initialState: HousesStateType = {
   rowsPerPage: ROWS_PER_PAGE_OPTIONS[0],
   orderBy: 'created_at',
   orderOption: SORT_OPTIONS.DESC,
+  filters: [{ name: '', value: '' }],
 };
 
 export const housesSlice = createSlice({
@@ -61,6 +62,9 @@ export const housesSlice = createSlice({
       state.selectedCells = [];
       state.selectedAll = false;
     },
+    handleSaveFilters: (state, { payload }) => {
+      state.filters = payload;
+    },
   },
 });
 
@@ -74,6 +78,7 @@ export const {
   handlePageChange,
   handleOrderBy,
   handleResetSelectedCells,
+  handleSaveFilters,
 } = housesSlice.actions;
 
 export default housesSlice.reducer;

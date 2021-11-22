@@ -1,4 +1,4 @@
-import { FiltersType, getOptionalType } from '../constants/types';
+import { FiltersType, GetOptionalType } from '../constants/types';
 import { SORT_OPTIONS_FROM_CLIENT } from '../constants';
 
 export type HandleFindAllSqlQueryType = (data: {
@@ -6,12 +6,12 @@ export type HandleFindAllSqlQueryType = (data: {
   rowsPerPage: string;
   filters: FiltersType;
   orderBy: string;
-  orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
+  orderOption: GetOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
 }) => string;
 
 export type HandleOrderByType = (data: {
   orderBy: string;
-  orderOption: getOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
+  orderOption: GetOptionalType<typeof SORT_OPTIONS_FROM_CLIENT>;
 }) => string;
 
 export type HandleOffsetType = (data: {

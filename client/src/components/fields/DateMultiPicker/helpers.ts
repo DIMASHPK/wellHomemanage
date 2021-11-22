@@ -1,6 +1,5 @@
 import moment, { MomentInput } from 'moment/moment';
 import { sortDatesByAscending } from 'utils/dates';
-import { DateArgType } from 'utils/types';
 import { FormatDateType, LabelFuncType } from './types';
 
 export const formatDate: FormatDateType = date =>

@@ -1,3 +1,3 @@
 export interface CorsOptionsType {
-  origin: string[];
+  origin: string[] | '*';
 }

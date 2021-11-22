@@ -4,6 +4,9 @@ import { HandleWidthArgsType } from './types';
 export const useStyles = makeStyles(() => ({
   tableCell: {
     verticalAlign: 'top',
+    paddingLeft: 0,
+    paddingRight: 0,
+    borderBottom: 'none',
   },
   wrapper: {
     display: 'flex',

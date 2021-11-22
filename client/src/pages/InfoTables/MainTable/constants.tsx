@@ -1,4 +1,4 @@
-import { tabItemType } from 'components/TabsPanel/types';
+import { tabItemType } from 'components/Tabs/types';
 import { TAB_NAMES } from 'constants/tabs';
 import HomeIcon from '@material-ui/icons/Home';
 import ApartmentIcon from '@material-ui/icons/Apartment';

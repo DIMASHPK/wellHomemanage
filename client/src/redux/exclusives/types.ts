@@ -1,6 +1,6 @@
 import { OrderOptionType } from 'api/types';
 import { AppThunk } from 'redux/types';
-import { getNotEmptyFilters } from 'pages/InfoTables/MainTable/TabsPanel/Filters/helpers';
+import { FiltersType } from 'pages/InfoTables/MainTable/TabsPanel/Filters/types';
 
 export interface ExclusiveType {
   id: number;
@@ -36,6 +36,7 @@ export interface ExclusiveState {
   rowsPerPage: number;
   orderBy: string;
   orderOption: OrderOptionType;
+  filters: FiltersType;
 }
 
 export interface AddDataType {
@@ -46,6 +47,4 @@ export interface UpdateDataType {
   exclusives: ExclusiveType[];
 }
 
-export type GetExclusivesType = (
-  filters?: ReturnType<typeof getNotEmptyFilters>
-) => AppThunk;
+export type GetExclusivesType = () => AppThunk;

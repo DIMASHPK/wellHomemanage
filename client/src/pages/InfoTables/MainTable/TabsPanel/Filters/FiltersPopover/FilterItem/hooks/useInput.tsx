@@ -33,6 +33,7 @@ export const useInput = ({
 
     const {
       component: Component,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       filter,
       ...inputProps
     } = currentTableDataIntersection[name];

@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import Checkbox from 'components/Checkbox';
 import MuiTableRow from '@material-ui/core/TableRow';
 import { ExclusiveType } from 'redux/exclusives/types';
-import { useTableRow } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRow';
 import {
   handleAddCell,
   handleRemoveCell,
@@ -10,6 +9,13 @@ import {
 } from 'redux/exclusives/reducer';
 import { useAppSelector } from 'redux/hooks';
 import { checkIsDataValid, formatDate } from 'utils/dates';
+import { useTableRowClick } from 'pages/InfoTables/MainTable/Tables/hooks/useTableRowClick';
+import {
+  getIsCellVisible as getIsCellVisibleHelper,
+  getReformattedRowData,
+} from 'pages/InfoTables/MainTable/Tables/helpers';
+import TableCell from 'pages/InfoTables/MainTable/common/TableCell';
+import TableRangeCell from 'pages/InfoTables/MainTable/common/TableRangeCell';
 import { TableRowTypes } from './types';
 import { useStyles } from './styles';
 
@@ -18,22 +24,28 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
 
   const { selectedCells } = useAppSelector(({ exclusives }) => exclusives);
 
-  const {
-    reformatedRowData,
-    renderCell,
-    renderDatesRangeCell,
-    handleClick,
-    isCheck,
-  } = useTableRow<ExclusiveType>({
-    tableRow,
+  const { isCheck, handleClick } = useTableRowClick({
     id: tableRow.id,
-    hiddenColumns,
-    pathForHiddenColumnsState,
+    selectedCells,
+    handleSelectedAll,
     handleAddCell,
     handleRemoveCell,
-    handleSelectedAll,
-    selectedCells,
   });
+
+  const reformattedRowData = useMemo(
+    () => getReformattedRowData<ExclusiveType>(tableRow),
+    [tableRow]
+  );
+
+  const getIsCellVisible = useCallback(
+    (keyName: string) =>
+      getIsCellVisibleHelper({
+        keyName,
+        pathForHiddenColumnsState,
+        hiddenColumns,
+      }),
+    [hiddenColumns, pathForHiddenColumnsState]
+  );
 
   const {
     id,
@@ -58,7 +70,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     deal,
     commission,
     adCost,
-  } = reformatedRowData;
+  } = reformattedRowData;
 
   const {
     tableRow: tableRowClassName,
@@ -67,9 +79,11 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     descriptionOfClientCell,
     watchingDayCell,
     checkboxRoot,
+    depositCell,
+    dealCell,
   } = useStyles({ isCheck });
 
-  if (!Object.values(reformatedRowData).length) {
+  if (!Object.values(reformattedRowData).length) {
     return null;
   }
 
@@ -79,95 +93,98 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
       className={tableRowClassName}
       onClick={handleClick}
     >
-      {renderCell({
-        value: (
-          <Checkbox
-            color="primary"
-            checked={isCheck}
-            classes={{ root: checkboxRoot }}
-          />
-        ),
-      })}
-      {renderCell({ value: id.value, keyName: id.keyMap })}
-      {renderCell({
-        value: address.value,
-        keyName: address.keyMap,
-        className: addressCell,
-      })}
-      {renderCell({ value: typeOfHouse.value, keyName: typeOfHouse.keyMap })}
-      {renderCell({ value: floor.value, keyName: floor.keyMap })}
-      {renderCell({ value: area.value, keyName: area.keyMap })}
-      {renderCell({
-        value: description.value,
-        keyName: description.keyMap,
-        className: descriptionCell,
-      })}
-      {renderCell({ value: reservePrice.value, keyName: reservePrice.keyMap })}
-      {renderCell({ value: startPrice.value, keyName: startPrice.keyMap })}
-      {renderCell({ value: endPrice.value, keyName: endPrice.keyMap })}
-      {renderDatesRangeCell({
-        value: preSalePrepare.value,
-        keyName: preSalePrepare.keyMap,
-      })}
-      {renderCell({
-        value:
-          adStart.value && checkIsDataValid(adStart.value)
-            ? formatDate(adStart.value)
-            : '',
-        keyName: adStart.keyMap,
-      })}
-      {renderCell({
-        value: incomingCalls.value,
-        keyName: incomingCalls.keyMap,
-      })}
-      {renderCell({
-        value: incomingSocial.value,
-        keyName: incomingSocial.keyMap,
-      })}
-      {renderCell({
-        value: crmNumberAndDescriptionOfClient.value,
-        keyName: crmNumberAndDescriptionOfClient.keyMap,
-        className: descriptionOfClientCell,
-      })}
-      {renderDatesRangeCell({
-        value: watchingDays.value,
-        keyName: watchingDays.keyMap,
-        className: watchingDayCell,
-      })}
-      {renderCell({
-        value: signUpForView.value,
-        keyName: signUpForView.keyMap,
-      })}
-      {renderCell({
-        value: visited.value,
-        keyName: visited.keyMap,
-      })}
-      {renderCell({
-        value: offers.value,
-        keyName: offers.keyMap,
-      })}
-      {renderCell({
-        value:
-          deposit.value && checkIsDataValid(deposit.value)
-            ? formatDate(deposit.value)
-            : '',
-        keyName: deposit.keyMap,
-      })}
-      {renderCell({
-        value:
-          deal.value && checkIsDataValid(deal.value)
-            ? formatDate(deal.value)
-            : '',
-        keyName: deal.keyMap,
-      })}
-      {renderCell({
-        value: commission.value,
-        keyName: commission.keyMap,
-      })}
-      {renderCell({
-        value: adCost.value,
-        keyName: adCost.keyMap,
-      })}
+      <TableCell>
+        <Checkbox
+          color="primary"
+          checked={isCheck}
+          classes={{ root: checkboxRoot }}
+        />
+      </TableCell>
+      <TableCell visible={getIsCellVisible(id.keyMap)}>{id.value}</TableCell>
+      <TableCell
+        visible={getIsCellVisible(address.keyMap)}
+        className={addressCell}
+      >
+        {address.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(typeOfHouse.keyMap)}>
+        {typeOfHouse.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(floor.keyMap)}>
+        {floor.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(area.keyMap)}>
+        {area.value}
+      </TableCell>
+      <TableCell
+        visible={getIsCellVisible(description.keyMap)}
+        className={descriptionCell}
+      >
+        {description.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(reservePrice.keyMap)}>
+        {reservePrice.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(startPrice.keyMap)}>
+        {startPrice.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(endPrice.keyMap)}>
+        {endPrice.value}
+      </TableCell>
+      <TableRangeCell
+        visible={getIsCellVisible(preSalePrepare.keyMap)}
+        value={preSalePrepare.value}
+      />
+      <TableCell visible={getIsCellVisible(adStart.keyMap)}>
+        {adStart.value && checkIsDataValid(adStart.value)
+          ? formatDate(adStart.value)
+          : ''}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(incomingCalls.keyMap)}>
+        {incomingCalls.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(incomingSocial.keyMap)}>
+        {incomingSocial.value}
+      </TableCell>
+      <TableCell
+        visible={getIsCellVisible(crmNumberAndDescriptionOfClient.keyMap)}
+        className={descriptionOfClientCell}
+      >
+        {crmNumberAndDescriptionOfClient.value}
+      </TableCell>
+      <TableRangeCell
+        visible={getIsCellVisible(watchingDays.keyMap)}
+        className={watchingDayCell}
+        value={watchingDays.value}
+      />
+      <TableCell visible={getIsCellVisible(signUpForView.keyMap)}>
+        {signUpForView.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(visited.keyMap)}>
+        {visited.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(offers.keyMap)}>
+        {offers.value}
+      </TableCell>
+      <TableCell
+        visible={getIsCellVisible(deposit.keyMap)}
+        className={depositCell}
+      >
+        {deposit.value && checkIsDataValid(deposit.value)
+          ? formatDate(deposit.value)
+          : ''}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(deal.keyMap)} className={dealCell}>
+        {deal.value && checkIsDataValid(deal.value)
+          ? formatDate(deal.value)
+          : ''}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(commission.keyMap)}>
+        {commission.value}
+      </TableCell>
+      <TableCell visible={getIsCellVisible(adCost.keyMap)}>
+        {adCost.value}
+      </TableCell>
     </MuiTableRow>
   );
 });

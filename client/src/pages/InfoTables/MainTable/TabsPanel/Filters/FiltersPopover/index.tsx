@@ -21,6 +21,7 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
     onRemoveFilter,
     onReset,
     control,
+    fields,
   } = props;
 
   const isDisableAdding = useMemo(
@@ -41,14 +42,14 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
   const id = open ? 'filter-popover' : undefined;
 
   const renderFilter = (
-    filter: FiltersPopoverPropsType['filters'][number],
+    field: FiltersPopoverPropsType['fields'][number],
     index: number
   ) => (
     <FilterItem
       filters={filters}
       selectedTabName={selectedTabName}
       index={index}
-      key={filter.name}
+      key={field.id}
       onRemoveFilter={onRemoveFilter}
       control={control}
     />
@@ -76,7 +77,7 @@ const FiltersPopover: React.FC<FiltersPopoverPropsType> = memo(props => {
           <CloseIcon color="primary" />
         </IconButton>
       </div>
-      <div className={filtersContainer}>{filters.map(renderFilter)}</div>
+      <div className={filtersContainer}>{fields.map(renderFilter)}</div>
       <div className={actionsContainer}>
         <ResponsiveButton
           variant="contained"

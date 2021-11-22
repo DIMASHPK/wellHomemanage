@@ -4,7 +4,7 @@ import {
   INPUTS_MAPPING,
   VALUES_ARRAY_NAME,
 } from 'pages/InfoTables/MainTable/Dialog/constants';
-import { getOptionalType } from 'constants/types';
+import { GetOptionalType } from 'constants/types';
 
 export interface CommonFormTypes {
   control: Control<FormInput>;
@@ -12,5 +12,5 @@ export interface CommonFormTypes {
   remove: UseFieldArrayReturn<FormInput>['remove'];
   index: number;
   title: string;
-  formInputs: getOptionalType<typeof INPUTS_MAPPING>;
+  formInputs: GetOptionalType<typeof INPUTS_MAPPING>;
 }

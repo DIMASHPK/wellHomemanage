@@ -5,7 +5,7 @@ import { DatePickerPropsType } from './types';
 const DatePicker: React.FC<DatePickerPropsType> = memo(props => {
   const {
     onChange = () => null,
-    value,
+    value = null,
     error,
     variant,
     pickerVariant = 'inline',

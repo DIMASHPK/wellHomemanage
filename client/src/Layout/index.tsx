@@ -4,12 +4,12 @@ import { useStyles } from './styles';
 import AuthForm from './AuthForm';
 
 const Layout: React.FC = ({ children }) => {
-  const { modalContainer } = useStyles();
+  const { modalContainer, titleClass } = useStyles();
 
   return (
     <>
       <CommonDialog
-        classes={{ modalContainer }}
+        classes={{ modalContainer, titleClass }}
         open
         title="Авторизация"
         withCloseButton={false}

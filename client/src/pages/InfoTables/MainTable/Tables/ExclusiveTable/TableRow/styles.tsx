@@ -44,11 +44,4 @@ export const useStyles = makeStyles<Theme, stylesTypes>(theme => ({
   dealCell: {
     minWidth: 190,
   },
-  checkboxRoot: {
-    [theme.breakpoints.down(768)]: {
-      '& svg': {
-        fontSize: '1.25rem',
-      },
-    },
-  },
 }));

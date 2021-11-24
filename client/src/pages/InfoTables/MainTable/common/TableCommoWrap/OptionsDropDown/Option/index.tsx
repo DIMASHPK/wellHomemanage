@@ -14,7 +14,7 @@ const Option: React.FC<OptionType> = memo(props => {
     value,
   } = props;
 
-  const { listItem, label, root } = useStyles();
+  const { listItem, label } = useStyles();
 
   const handleChange = useCallback(
     () =>
@@ -40,17 +40,9 @@ const Option: React.FC<OptionType> = memo(props => {
         checked={!hiddenColumns[pathForHiddenColumnsState][value]}
         onChange={handleChange}
         disabled={!hiddenColumns[pathForHiddenColumnsState][value] && disabled}
-        classes={{ root }}
       />
     ),
-    [
-      disabled,
-      handleChange,
-      hiddenColumns,
-      pathForHiddenColumnsState,
-      root,
-      value,
-    ]
+    [disabled, handleChange, hiddenColumns, pathForHiddenColumnsState, value]
   );
 
   return (

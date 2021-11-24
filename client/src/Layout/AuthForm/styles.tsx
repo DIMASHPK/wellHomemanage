@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -16,6 +16,12 @@ export const useStyles = makeStyles(() => ({
   },
   checkbox: {
     marginBottom: 5,
+    [theme.breakpoints.down(768)]: {
+      '& .MuiFormControlLabel-label': {
+        fontSize: 12,
+        lineHeight: '14px',
+      },
+    },
   },
   submitButton: {
     alignSelf: 'end',

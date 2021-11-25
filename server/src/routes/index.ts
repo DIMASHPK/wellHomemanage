@@ -1,14 +1,18 @@
 import { Express } from 'express';
+import { withAuth } from '../middlewares';
 import FlatsRoute from './Flats';
 import HousesRoute from './Houses';
-import ExclusivesRouter from './Exclusives';
+import ExclusivesRoute from './Exclusives';
+import UsersRoute from './Users';
 
 export default class Routes {
   flatsRoute: FlatsRoute;
 
   housesRoute: HousesRoute;
 
-  exclusivesRoute: ExclusivesRouter;
+  exclusivesRoute: ExclusivesRoute;
+
+  usersRoute: UsersRoute;
 
   app: Express;
 
@@ -16,12 +20,14 @@ export default class Routes {
     this.app = app;
     this.flatsRoute = new FlatsRoute();
     this.housesRoute = new HousesRoute();
-    this.exclusivesRoute = new ExclusivesRouter();
+    this.exclusivesRoute = new ExclusivesRoute();
+    this.usersRoute = new UsersRoute();
   }
 
   init = (): void => {
-    this.app.use('/flats', this.flatsRoute.router);
-    this.app.use('/houses', this.housesRoute.router);
-    this.app.use('/exclusives', this.exclusivesRoute.router);
+    this.app.use('/flats', withAuth, this.flatsRoute.router);
+    this.app.use('/houses', withAuth, this.housesRoute.router);
+    this.app.use('/exclusives', withAuth, this.exclusivesRoute.router);
+    this.app.use('/user', this.usersRoute.router);
   };
 }

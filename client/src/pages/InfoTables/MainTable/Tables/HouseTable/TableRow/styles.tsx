@@ -1,16 +1,7 @@
 import { makeStyles, Theme } from '@material-ui/core';
 import { stylesTypes } from './types';
 
-export const useStyles = makeStyles<Theme, stylesTypes>(theme => ({
-  tableCell: {
-    borderBottom: `1px solid rgba(0, 0, 0, 0.12)`,
-    padding: 16,
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: '140%',
-    textTransform: 'capitalize',
-    color: theme.palette.tableHeadCell,
-  },
+export const useStyles = makeStyles<Theme, stylesTypes>(() => ({
   tableRow: {
     transition: 'background-color .15s',
     background: ({ isCheck }) => (isCheck ? 'rgba(79, 145, 255, 0.2)' : 'none'),

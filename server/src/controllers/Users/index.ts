@@ -66,7 +66,7 @@ export default class UsersController {
 
       if (!currentUser) {
         handleBadRequestError(res, {
-          message: 'Пользователь с таким именем пользователя не найден',
+          message: 'Не верные данные для входа',
           name: 'badRequest',
         });
 
@@ -80,7 +80,7 @@ export default class UsersController {
 
       if (!isPasswordMatch) {
         handleBadRequestError(res, {
-          message: 'Неверный пароль, попробуйте снова',
+          message: 'Не верные данные для входа',
           name: 'badRequest',
         });
       }
@@ -99,7 +99,7 @@ export default class UsersController {
         expiresIn: addMinutes(
           new Date(),
           parseInt(JWT_ACCESS_EXPIRED_TIME as string)
-        ),
+        ).toString(),
       };
 
       res.send(response);

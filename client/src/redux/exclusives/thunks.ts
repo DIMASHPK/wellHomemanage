@@ -20,7 +20,7 @@ export const getExclusives: GetExclusivesType =
       exclusives: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
-    const { data } = await Api.getAll<
+    const { data } = await Api.get<
       GetAllDataType<CamelToSnakeKeys<ExclusiveType>[]>
     >({
       path: PATHS.EXCLUSIVES,
@@ -45,7 +45,7 @@ export const addExclusives =
     try {
       if (!data.exclusives.length) return;
 
-      await Api.add<AddDataType>({
+      await Api.post<AddDataType>({
         path: 'exclusives/add',
         data,
       });
@@ -62,7 +62,7 @@ export const removeExclusives = (): AppThunk => async (dispatch, getState) => {
       exclusives: { selectedCells },
     } = getState();
 
-    await Api.remove({
+    await Api.delete({
       path: 'exclusives/remove',
       data: { ids: selectedCells },
     });
@@ -80,7 +80,7 @@ export const updateExclusives =
     try {
       if (!data.exclusives.length) return;
 
-      await Api.update<UpdateDataType>({
+      await Api.put<UpdateDataType>({
         path: 'exclusives/update',
         data,
       });

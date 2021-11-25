@@ -1,5 +1,5 @@
 export interface AuthFormValues {
-  login: string;
+  username: string;
   password: string;
   rememberMe: boolean;
 }

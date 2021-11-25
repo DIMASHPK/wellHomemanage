@@ -7,17 +7,24 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { AuthFormValues, GetInputPropsArgsType } from './types';
 import { useStyles } from './styles';
+import { useSubmit } from './hooks/useSubmit';
 
 const AuthForm = () => {
   const { form, input, checkbox, submitButton } = useStyles();
 
-  const { control } = useForm<AuthFormValues>({
+  const formData = useForm<AuthFormValues>({
     defaultValues: {
-      login: '',
+      username: '',
       password: '',
       rememberMe: false,
     },
   });
+
+  const {
+    control,
+    formState: { isSubmitting },
+    handleSubmit,
+  } = formData;
 
   const getInputProps = (data: GetInputPropsArgsType) =>
     ({
@@ -30,9 +37,11 @@ const AuthForm = () => {
       ...data,
     } as const);
 
+  const { onSubmit } = useSubmit();
+
   return (
-    <form className={form}>
-      <AuthInput {...getInputProps({ name: 'login', label: 'Логин' })} />
+    <form className={form} onSubmit={handleSubmit(onSubmit)}>
+      <AuthInput {...getInputProps({ name: 'username', label: 'Логин' })} />
       <AuthInput {...getInputProps({ name: 'password', label: 'Пароль' })} />
       <FormControlLabel
         control={
@@ -43,9 +52,9 @@ const AuthForm = () => {
       />
       <LoadableButton
         className={submitButton}
-        isSubmitting={false}
+        isSubmitting={isSubmitting}
         title="Войти"
-        disabled={false}
+        disabled={isSubmitting}
         icon={LockOpenIcon}
       />
     </form>

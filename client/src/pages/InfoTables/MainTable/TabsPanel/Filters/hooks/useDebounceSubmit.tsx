@@ -8,6 +8,7 @@ import { getExclusives } from 'redux/exclusives/thunks';
 import { handlePageChange as handleHousePageChange } from 'redux/houses/reducer';
 import { handlePageChange as handleFlatPageChange } from 'redux/flats/reducer';
 import { handlePageChange as handleExclusivePageChange } from 'redux/exclusives/reducer';
+import { getLocalStorageValue } from 'utils/helpers';
 import { useDebounceSubmitArgs, useDebounceSubmitType } from '../types';
 import { useSavedFilters } from './useSavedFilters';
 
@@ -26,6 +27,8 @@ export const useDebounceSubmit = ({
   const onSubmit: useDebounceSubmitType = useCallback(
     values => {
       const { filters } = values;
+
+      if (!getLocalStorageValue('accessToken')) return;
 
       const submitMapping = {
         [TAB_NAMES.FLATS]: () => {

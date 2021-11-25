@@ -15,7 +15,7 @@ export const getHouses: GetHousesType =
       houses: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
-    const { data } = await Api.getAll<
+    const { data } = await Api.get<
       GetAllDataType<CamelToSnakeKeys<HouseType>[]>
     >({
       path: PATHS.HOUSES,
@@ -40,7 +40,7 @@ export const addHouses =
     try {
       if (!data.houses.length) return;
 
-      await Api.add<AddDataType>({
+      await Api.post<AddDataType>({
         path: 'houses/add',
         data,
       });
@@ -57,7 +57,7 @@ export const removeHouses = (): AppThunk => async (dispatch, getState) => {
       houses: { selectedCells },
     } = getState();
 
-    await Api.remove({
+    await Api.delete({
       path: 'houses/remove',
       data: { ids: selectedCells },
     });
@@ -75,7 +75,7 @@ export const updateHouses =
     try {
       if (!data.houses.length) return;
 
-      await Api.update<UpdateDataType>({
+      await Api.put<UpdateDataType>({
         path: 'houses/update',
         data,
       });

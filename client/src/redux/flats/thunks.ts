@@ -15,7 +15,7 @@ export const getFlats: GetFlatsType =
       flats: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
-    const { data } = await Api.getAll<
+    const { data } = await Api.get<
       GetAllDataType<CamelToSnakeKeys<FlatType>[]>
     >({
       path: PATHS.FLATS,
@@ -40,7 +40,7 @@ export const addFlats =
     try {
       if (!data.flats.length) return;
 
-      await Api.add<AddDataType>({
+      await Api.post<AddDataType>({
         path: 'flats/add',
         data,
       });
@@ -57,7 +57,7 @@ export const removeFlats = (): AppThunk => async (dispatch, getState) => {
       flats: { selectedCells },
     } = getState();
 
-    await Api.remove({
+    await Api.delete({
       path: 'flats/remove',
       data: { ids: selectedCells },
     });
@@ -75,7 +75,7 @@ export const updateFlats =
     try {
       if (!data.flats.length) return;
 
-      await Api.update<UpdateDataType>({
+      await Api.put<UpdateDataType>({
         path: 'flats/update',
         data,
       });

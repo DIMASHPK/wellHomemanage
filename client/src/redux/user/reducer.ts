@@ -4,9 +4,9 @@ import { UserStateType } from './types';
 
 export const initialState: UserStateType = {
   data: {
-    userName: null,
-    token: getLocalStorageValue<string>('token'),
-    tokenExpiredDate: getLocalStorageValue<string>('isTokenExpired'),
+    username: null,
+    accessToken: getLocalStorageValue<string>('accessToken'),
+    expiresIn: getLocalStorageValue<string>('expiresIn'),
   },
 };
 
@@ -15,14 +15,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, { payload }) => {
-      state.data = payload;
-    },
-    setTokenData: (state, { payload }) => {
       state.data = { ...state.data, ...payload };
     },
   },
 });
 
-export const { setUserData, setTokenData } = userSlice.actions;
+export const { setUserData } = userSlice.actions;
 
 export default userSlice.reducer;

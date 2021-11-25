@@ -6,6 +6,7 @@ import {
   INPUT_FILTERS_MAPPING,
 } from 'pages/InfoTables/MainTable/TabsPanel/Filters/constants';
 import { UnionToIntersectionType } from 'constants/types';
+import { AxiosError } from 'axios';
 import {
   FilterNameType,
   GetNotEmptyFiltersArgsType,
@@ -122,4 +123,18 @@ export const removeLocalStorageValue = (key: string): null => {
   }
 
   return null;
+};
+
+export const handleAxiosError = (err: AxiosError) => {
+  if (err?.response?.data) {
+    console.log(err.response.data);
+    console.log(err.response.status);
+    console.log(err.response.headers);
+
+    return toast.error(err?.response?.data?.message);
+  }
+
+  console.log(err);
+
+  return toast.error(err?.message);
 };

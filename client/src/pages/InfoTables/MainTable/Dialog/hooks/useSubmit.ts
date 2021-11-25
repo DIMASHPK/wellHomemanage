@@ -5,6 +5,8 @@ import { addFlats, updateFlats } from 'redux/flats/thunks';
 import { addHouses, updateHouses } from 'redux/houses/thunks';
 import { addExclusives, updateExclusives } from 'redux/exclusives/thunks';
 import { TAB_NAMES } from 'constants/tabs';
+import { handleAxiosError } from 'utils/helpers';
+import { AxiosError } from 'axios';
 import {
   getSubmitKey,
   exclusivePredicate,
@@ -20,7 +22,6 @@ import {
   UseSubmitArgsType,
   HandleCreateType,
 } from '../types';
-
 import { SUBMIT_KEYS } from '../constants';
 
 export const useSubmit = ({
@@ -39,7 +40,7 @@ export const useSubmit = ({
           dispatch(addExclusives({ exclusives })),
         ]);
       } catch (e) {
-        console.log(e);
+        handleAxiosError(e as AxiosError);
       } finally {
         onClose();
       }
@@ -59,7 +60,7 @@ export const useSubmit = ({
       try {
         await thunksMapping[type]();
       } catch (e) {
-        console.log(e);
+        handleAxiosError(e as AxiosError);
       } finally {
         onClose();
       }

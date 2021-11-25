@@ -4,7 +4,8 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { CamelToSnakeKeys } from 'constants/types';
 import { getDataWithCreatedData } from 'utils/objects';
-import { transformFiltersForApi } from 'utils/helpers';
+import { handleAxiosError, transformFiltersForApi } from 'utils/helpers';
+import { AxiosError } from 'axios';
 import { handleResetSelectedCells, setData } from './reducer';
 import {
   AddDataType,
@@ -52,7 +53,7 @@ export const addExclusives =
 
       dispatch(getExclusives());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };
 
@@ -70,7 +71,7 @@ export const removeExclusives = (): AppThunk => async (dispatch, getState) => {
     dispatch(handleResetSelectedCells());
     dispatch(getExclusives());
   } catch (e) {
-    console.log(e);
+    handleAxiosError(e as AxiosError);
   }
 };
 
@@ -88,6 +89,6 @@ export const updateExclusives =
       dispatch(handleResetSelectedCells());
       dispatch(getExclusives());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };

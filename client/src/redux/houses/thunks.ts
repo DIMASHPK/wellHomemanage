@@ -4,7 +4,8 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { CamelToSnakeKeys } from 'constants/types';
 import { getDataWithCreatedData } from 'utils/objects';
-import { transformFiltersForApi } from 'utils/helpers';
+import { handleAxiosError, transformFiltersForApi } from 'utils/helpers';
+import { AxiosError } from 'axios';
 import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, HouseType, UpdateDataType, GetHousesType } from './types';
 
@@ -47,7 +48,7 @@ export const addHouses =
 
       dispatch(getHouses());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };
 
@@ -65,7 +66,7 @@ export const removeHouses = (): AppThunk => async (dispatch, getState) => {
     dispatch(handleResetSelectedCells());
     dispatch(getHouses());
   } catch (e) {
-    console.log(e);
+    handleAxiosError(e as AxiosError);
   }
 };
 
@@ -83,6 +84,6 @@ export const updateHouses =
       dispatch(handleResetSelectedCells());
       dispatch(getHouses());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };

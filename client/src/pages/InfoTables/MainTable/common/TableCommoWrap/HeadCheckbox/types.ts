@@ -1,4 +1,4 @@
-import { CheckboxTypes } from 'components/Checkbox/types';
+import { CheckboxTypes } from 'components/fields/Checkbox/types';
 import { TableCommonWrapType } from '../types';
 
 export type HeadCheckboxTypes = CheckboxTypes &

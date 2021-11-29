@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import { useAppDispatch } from 'redux/hooks';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import type { RemoveAllCheckboxType } from './types';

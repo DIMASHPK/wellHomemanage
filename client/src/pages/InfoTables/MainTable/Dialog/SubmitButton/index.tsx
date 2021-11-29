@@ -1,37 +1,20 @@
-import React, { memo, useMemo } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import React, { memo } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import ModeEditIcon from '@material-ui/icons/Edit';
-import ResponsiveButton from 'components/ResponsiveButton';
+import LoadableButton from 'components/LoadableButton';
 import { SubmitButtonType } from './types';
-import { useStyles } from './styles';
 
 const SubmitButton: React.FC<SubmitButtonType> = memo(props => {
-  const { isSubmitting, edit, className } = props;
-
-  const { iconFontSize, loader } = useStyles();
-
-  const icon = useMemo(() => {
-    const Icon = edit ? ModeEditIcon : SaveIcon;
-
-    if (isSubmitting) {
-      return <CircularProgress className={loader} color="inherit" />;
-    }
-
-    return <Icon color="inherit" className={iconFontSize} />;
-  }, [edit, iconFontSize, isSubmitting, loader]);
+  const { isSubmitting, edit, ...rest } = props;
 
   return (
-    <ResponsiveButton
-      type="submit"
-      variant="contained"
-      color="primary"
-      className={className}
+    <LoadableButton
       disabled={isSubmitting}
-      icon={icon}
-    >
-      {edit ? 'Изменить' : 'Сохранить'}
-    </ResponsiveButton>
+      icon={edit ? ModeEditIcon : SaveIcon}
+      isSubmitting={isSubmitting}
+      title={edit ? 'Изменить' : 'Сохранить'}
+      {...rest}
+    />
   );
 });
 

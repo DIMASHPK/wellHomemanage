@@ -4,7 +4,8 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { CamelToSnakeKeys } from 'constants/types';
 import { getDataWithCreatedData } from 'utils/objects';
-import { transformFiltersForApi } from 'utils/helpers';
+import { handleAxiosError, transformFiltersForApi } from 'utils/api';
+import { AxiosError } from 'axios';
 import { handleResetSelectedCells, setData } from './reducer';
 import {
   AddDataType,
@@ -20,7 +21,7 @@ export const getExclusives: GetExclusivesType =
       exclusives: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
-    const { data } = await Api.getAll<
+    const { data } = await Api.get<
       GetAllDataType<CamelToSnakeKeys<ExclusiveType>[]>
     >({
       path: PATHS.EXCLUSIVES,
@@ -36,7 +37,7 @@ export const getExclusives: GetExclusivesType =
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-    dispatch(setData({ count: parseInt(data.count), data: reformattedData }));
+    dispatch(setData({ count: parseInt(data?.count), data: reformattedData }));
   };
 
 export const addExclusives =
@@ -45,14 +46,14 @@ export const addExclusives =
     try {
       if (!data.exclusives.length) return;
 
-      await Api.add<AddDataType>({
+      await Api.post<AddDataType>({
         path: 'exclusives/add',
         data,
       });
 
       dispatch(getExclusives());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };
 
@@ -62,7 +63,7 @@ export const removeExclusives = (): AppThunk => async (dispatch, getState) => {
       exclusives: { selectedCells },
     } = getState();
 
-    await Api.remove({
+    await Api.delete({
       path: 'exclusives/remove',
       data: { ids: selectedCells },
     });
@@ -70,7 +71,7 @@ export const removeExclusives = (): AppThunk => async (dispatch, getState) => {
     dispatch(handleResetSelectedCells());
     dispatch(getExclusives());
   } catch (e) {
-    console.log(e);
+    handleAxiosError(e as AxiosError);
   }
 };
 
@@ -80,7 +81,7 @@ export const updateExclusives =
     try {
       if (!data.exclusives.length) return;
 
-      await Api.update<UpdateDataType>({
+      await Api.put<UpdateDataType>({
         path: 'exclusives/update',
         data,
       });
@@ -88,6 +89,6 @@ export const updateExclusives =
       dispatch(handleResetSelectedCells());
       dispatch(getExclusives());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };

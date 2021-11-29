@@ -4,7 +4,8 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { CamelToSnakeKeys } from 'constants/types';
 import { getDataWithCreatedData } from 'utils/objects';
-import { transformFiltersForApi } from 'utils/helpers';
+import { handleAxiosError, transformFiltersForApi } from 'utils/api';
+import { AxiosError } from 'axios';
 import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, HouseType, UpdateDataType, GetHousesType } from './types';
 
@@ -15,7 +16,7 @@ export const getHouses: GetHousesType =
       houses: { rowsPerPage, page, orderBy, orderOption, filters },
     } = getState();
 
-    const { data } = await Api.getAll<
+    const { data } = await Api.get<
       GetAllDataType<CamelToSnakeKeys<HouseType>[]>
     >({
       path: PATHS.HOUSES,
@@ -31,7 +32,7 @@ export const getHouses: GetHousesType =
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-    dispatch(setData({ count: parseInt(data.count), data: reformattedData }));
+    dispatch(setData({ count: parseInt(data?.count), data: reformattedData }));
   };
 
 export const addHouses =
@@ -40,14 +41,14 @@ export const addHouses =
     try {
       if (!data.houses.length) return;
 
-      await Api.add<AddDataType>({
+      await Api.post<AddDataType>({
         path: 'houses/add',
         data,
       });
 
       dispatch(getHouses());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };
 
@@ -57,7 +58,7 @@ export const removeHouses = (): AppThunk => async (dispatch, getState) => {
       houses: { selectedCells },
     } = getState();
 
-    await Api.remove({
+    await Api.delete({
       path: 'houses/remove',
       data: { ids: selectedCells },
     });
@@ -65,7 +66,7 @@ export const removeHouses = (): AppThunk => async (dispatch, getState) => {
     dispatch(handleResetSelectedCells());
     dispatch(getHouses());
   } catch (e) {
-    console.log(e);
+    handleAxiosError(e as AxiosError);
   }
 };
 
@@ -75,7 +76,7 @@ export const updateHouses =
     try {
       if (!data.houses.length) return;
 
-      await Api.update<UpdateDataType>({
+      await Api.put<UpdateDataType>({
         path: 'houses/update',
         data,
       });
@@ -83,6 +84,6 @@ export const updateHouses =
       dispatch(handleResetSelectedCells());
       dispatch(getHouses());
     } catch (e) {
-      console.log(e);
+      handleAxiosError(e as AxiosError);
     }
   };

@@ -1,7 +1,7 @@
 export interface CommonDialogTypes {
   open: boolean;
   title: string | JSX.Element;
-  onClose: () => void;
+  onClose?: () => void;
   withCloseButton?: boolean;
   classes?: Partial<{
     titleContainer: string;

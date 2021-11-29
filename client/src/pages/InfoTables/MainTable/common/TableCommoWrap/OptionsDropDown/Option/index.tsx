@@ -1,6 +1,6 @@
 import ListItem from '@material-ui/core/ListItem';
 import React, { memo, useCallback, useMemo } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import { useStyles } from './styles';
 import type { OptionType } from './types';
@@ -14,7 +14,7 @@ const Option: React.FC<OptionType> = memo(props => {
     value,
   } = props;
 
-  const { listItem, label, root } = useStyles();
+  const { listItem, label } = useStyles();
 
   const handleChange = useCallback(
     () =>
@@ -40,17 +40,9 @@ const Option: React.FC<OptionType> = memo(props => {
         checked={!hiddenColumns[pathForHiddenColumnsState][value]}
         onChange={handleChange}
         disabled={!hiddenColumns[pathForHiddenColumnsState][value] && disabled}
-        classes={{ root }}
       />
     ),
-    [
-      disabled,
-      handleChange,
-      hiddenColumns,
-      pathForHiddenColumnsState,
-      root,
-      value,
-    ]
+    [disabled, handleChange, hiddenColumns, pathForHiddenColumnsState, value]
   );
 
   return (

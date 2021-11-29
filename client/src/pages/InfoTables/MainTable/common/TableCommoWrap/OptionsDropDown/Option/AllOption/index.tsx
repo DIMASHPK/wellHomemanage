@@ -1,6 +1,6 @@
 import ListItem from '@material-ui/core/ListItem';
 import React, { memo, useCallback, useMemo } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import { useStyles } from '../styles';
 import type { AllOptionType } from './types';
@@ -9,7 +9,7 @@ const AllOption: React.FC<AllOptionType> = memo(props => {
   const { title, pathForHiddenColumnsState, hiddenColumns, onHideColumn } =
     props;
 
-  const { listItem, label, root } = useStyles();
+  const { listItem, label } = useStyles();
 
   const handleChange = useCallback(
     () =>
@@ -30,14 +30,9 @@ const AllOption: React.FC<AllOptionType> = memo(props => {
 
   const control = useMemo(
     () => (
-      <Checkbox
-        color="primary"
-        checked={isChecked}
-        onChange={handleChange}
-        classes={{ root }}
-      />
+      <Checkbox color="primary" checked={isChecked} onChange={handleChange} />
     ),
-    [handleChange, isChecked, root]
+    [handleChange, isChecked]
   );
 
   return (

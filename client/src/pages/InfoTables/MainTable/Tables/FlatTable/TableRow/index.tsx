@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import MuiTableRow from '@material-ui/core/TableRow';
 import { FlatType } from 'redux/flats/types';
 import {
@@ -79,7 +79,6 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     whoGaveCell,
     stateOfLidCell,
     descriptionOfClientCell,
-    checkboxRoot,
   } = useStyles({ isCheck });
 
   if (!Object.values(reformattedRowData).length) {
@@ -93,11 +92,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
       onClick={handleClick}
     >
       <TableCell>
-        <Checkbox
-          color="primary"
-          checked={isCheck}
-          classes={{ root: checkboxRoot }}
-        />
+        <Checkbox color="primary" checked={isCheck} />
       </TableCell>
       <TableCell visible={getIsCellVisible(id.keyMap)}>{id.value}</TableCell>
       <TableCell

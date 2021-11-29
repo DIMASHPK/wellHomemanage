@@ -10,3 +10,13 @@ export const handleBadRequestError = (
 ): void => {
   res.status(400).json(err);
 };
+
+export const handleUnauthorizedRequestError = (
+  res: Response,
+  err: Error = {
+    message: 'Пользователь не авторизирован',
+    name: 'Unauthorized',
+  }
+): void => {
+  res.status(401).json(err);
+};

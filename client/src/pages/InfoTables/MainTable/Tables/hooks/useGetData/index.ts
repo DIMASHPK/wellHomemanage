@@ -1,6 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import { TablePropsType } from 'pages/InfoTables/common/Table/types';
+import { AxiosError } from 'axios';
+import { handleAxiosError } from 'utils/api';
+import { useAppSelector } from 'redux/hooks';
 import { UseGetDataHookArgsType, UseGetDataHookReturnType } from './types';
 
 export const useGetData = ({
@@ -16,6 +19,14 @@ export const useGetData = ({
 }: UseGetDataHookArgsType): UseGetDataHookReturnType => {
   const [state, setState] = useState({ error: '', loading: false });
 
+  const token = useAppSelector(
+    ({
+      user: {
+        data: { accessToken },
+      },
+    }) => accessToken
+  );
+
   const handleState = useCallback(data => {
     setState(state => ({ ...state, ...data }));
   }, []);
@@ -28,23 +39,33 @@ export const useGetData = ({
 
       await dispatch(thunk());
     } catch (e) {
-      if (e instanceof Error) {
-        handleState({ error: e.message });
-      }
-
-      console.log(e);
+      handleAxiosError(e as AxiosError);
+      handleState({
+        error:
+          (e as AxiosError)?.response?.data?.message ||
+          (e as AxiosError).message,
+      });
     } finally {
       handleState({ loading: false });
     }
   }, [dispatch, handleState, thunk]);
 
   useEffect(() => {
-    if (activeTab !== myTab) return;
+    if (activeTab !== myTab || !token) return;
 
     (async () => {
       await handleLoad();
     })();
-  }, [handleLoad, page, rowsPerPage, orderBy, orderOption, activeTab, myTab]);
+  }, [
+    handleLoad,
+    page,
+    rowsPerPage,
+    orderBy,
+    orderOption,
+    activeTab,
+    myTab,
+    token,
+  ]);
 
   const onPageChange: TablePropsType['onPageChange'] = useCallback(
     (_, page) => {

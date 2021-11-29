@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import Checkbox from 'components/Checkbox';
+import Checkbox from 'components/fields/Checkbox';
 import MuiTableRow from '@material-ui/core/TableRow';
 import { ExclusiveType } from 'redux/exclusives/types';
 import {
@@ -78,7 +78,6 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
     descriptionCell,
     descriptionOfClientCell,
     watchingDayCell,
-    checkboxRoot,
     depositCell,
     dealCell,
   } = useStyles({ isCheck });
@@ -94,11 +93,7 @@ const TableRow: React.FC<TableRowTypes> = memo(props => {
       onClick={handleClick}
     >
       <TableCell>
-        <Checkbox
-          color="primary"
-          checked={isCheck}
-          classes={{ root: checkboxRoot }}
-        />
+        <Checkbox color="primary" checked={isCheck} />
       </TableCell>
       <TableCell visible={getIsCellVisible(id.keyMap)}>{id.value}</TableCell>
       <TableCell

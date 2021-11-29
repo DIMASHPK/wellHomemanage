@@ -1,17 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import copy from 'copy-to-clipboard';
-import {
-  FILTER_COND_ITEMS,
-  INPUT_FILTERS_MAPPING,
-} from 'pages/InfoTables/MainTable/TabsPanel/Filters/constants';
-import { UnionToIntersectionType } from 'constants/types';
-import {
-  FilterNameType,
-  GetNotEmptyFiltersArgsType,
-  GetTransformFilterDatesType,
-} from '../types';
-import { formatDateToSqlDate, sortDatesByAscending } from '../dates';
 
 export const handleCopy =
   (content: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,63 +14,40 @@ export const handleCopy =
     });
   };
 
-const getTransformedFilterDates: GetTransformFilterDatesType = dates =>
-  sortDatesByAscending(dates.map(formatDateToSqlDate));
+const isLocalStorageExists = () => {
+  const test = 'test';
+  try {
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
-export const transformFiltersForApi = ({
-  filters,
-  selectedTabName,
-}: GetNotEmptyFiltersArgsType) => {
-  const currentTableFiltersData = INPUT_FILTERS_MAPPING[selectedTabName];
+export const setLocalStorageValue = <V>(key: string, value: V) => {
+  if (!isLocalStorageExists()) {
+    return null;
+  }
 
-  const intersectedCurrentTableFiltersData = INPUT_FILTERS_MAPPING[
-    selectedTabName
-  ] as UnionToIntersectionType<typeof currentTableFiltersData>;
+  localStorage.setItem(key, JSON.stringify(value));
+  return value;
+};
 
-  const handleFilter = ({ name, value }: typeof filters[number]) => {
-    if (!name || name === 'id') {
-      return false;
-    }
+export const getLocalStorageValue = <V>(key: string) => {
+  if (!isLocalStorageExists()) {
+    return null;
+  }
 
-    const { filter } = intersectedCurrentTableFiltersData[name];
+  const currentValue = localStorage.getItem(key);
 
-    return !!(
-      filter === 'iLike' ||
-      ((filter === 'eq' || filter === 'between' || filter === 'rangeBetween') &&
-        value.length)
-    );
-  };
+  return currentValue ? (JSON.parse(currentValue) as V) : null;
+};
 
-  const handleMap = ({ name, value }: typeof filters[number]) => {
-    const excludedName = name as Exclude<typeof name, '' | 'id'>;
+export const removeLocalStorageValue = (key: string): null => {
+  if (isLocalStorageExists()) {
+    localStorage.removeItem(key);
+  }
 
-    const { filter } = intersectedCurrentTableFiltersData[excludedName];
-
-    const filterName: FilterNameType = `filter.${excludedName}.${filter}`;
-
-    const getMapValue = () => {
-      if (Array.isArray(value)) {
-        return `${getTransformedFilterDates(value)}`;
-      }
-
-      return value;
-    };
-
-    return {
-      name: filterName,
-      value: getMapValue(),
-    };
-  };
-
-  const resFilters = filters.filter(handleFilter).map(handleMap);
-
-  return resFilters.length
-    ? [
-        ...resFilters,
-        {
-          name: 'filter.cond',
-          value: filters[filters.length - 1]?.cond || FILTER_COND_ITEMS.AND,
-        },
-      ]
-    : [...resFilters];
+  return null;
 };

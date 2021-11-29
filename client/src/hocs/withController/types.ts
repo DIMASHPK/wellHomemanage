@@ -1,21 +1,16 @@
-import { TextFieldPropsType } from 'components/fields/Input/types';
-import { SelectPropsType } from 'components/fields/Select/types';
 import { ControllerProps, FieldError } from 'react-hook-form';
-import { DatePickerProps } from '@material-ui/pickers';
 
-export type ComponentPropsType<T> = {
+export interface ComponentPropsType {
   onChange?: (...args: any[]) => void;
-  value?: T;
+  value?: unknown;
   error?: FieldError;
-  classes?: SelectPropsType['classes'] | TextFieldPropsType['classes'];
-  options?: SelectPropsType['options'];
-  className?: SelectPropsType['className'] | TextFieldPropsType['className'];
-  label?: SelectPropsType['label'] | TextFieldPropsType['label'];
-  disabled?: boolean;
-  variant?: DatePickerProps['inputVariant'];
-};
+}
+
+export interface DefaultFormValues {
+  [key: string]: string;
+}
 
 export type WithControllerType<
-  T extends { [Property in keyof T]: T[Property] },
-  V
-> = ControllerProps<T> & ComponentPropsType<V>;
+  FV extends { [Property in keyof FV]: FV[Property] },
+  FP extends ComponentPropsType
+> = Pick<ControllerProps<FV>, 'name' | 'rules' | 'control'> & FP;

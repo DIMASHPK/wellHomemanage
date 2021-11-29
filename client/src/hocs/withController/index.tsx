@@ -2,30 +2,38 @@ import React, { memo } from 'react';
 import { Controller, ControllerProps } from 'react-hook-form';
 import { ComponentPropsType, WithControllerType } from './types';
 
-const WithController = <F extends { [Property in keyof F]: F[Property] }, V>(
-  Component: React.FC<ComponentPropsType<V>>
-): React.FC<Omit<WithControllerType<F, V>, 'render'>> => {
-  const WithControllerComponent: React.FC<
-    Omit<WithControllerType<F, V>, 'render'>
-  > = memo(props => {
-    const { name, control, rules, ...rest } = props;
+const WithController = <
+  FV extends { [Property in keyof FV]: FV[Property] },
+  FP extends ComponentPropsType
+>(
+  Component: React.FC<FP>
+) => {
+  const WithControllerComponent: React.FC<WithControllerType<FV, FP>> = memo(
+    props => {
+      const { name, control, rules, ...rest } = props;
 
-    const renderInput: ControllerProps<F>['render'] = ({
-      field: { onChange, value },
-      fieldState: { error },
-    }) => (
-      <Component {...rest} onChange={onChange} value={value} error={error} />
-    );
+      const renderInput: ControllerProps<FV>['render'] = ({
+        field: { onChange, value },
+        fieldState: { error },
+      }) => (
+        <Component
+          {...(rest as FP)}
+          onChange={onChange}
+          value={value}
+          error={error}
+        />
+      );
 
-    return (
-      <Controller
-        render={renderInput}
-        name={name}
-        control={control}
-        rules={rules}
-      />
-    );
-  });
+      return (
+        <Controller
+          render={renderInput}
+          name={name}
+          control={control}
+          rules={rules}
+        />
+      );
+    }
+  );
 
   WithControllerComponent.displayName = 'WithControllerComponent';
 

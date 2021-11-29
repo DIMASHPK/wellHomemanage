@@ -27,6 +27,7 @@ export type GetDefaultValuesReturnType = FormInput;
 
 export interface DialogType extends CommonDialogTypes, DialogProps {
   edit: boolean;
+  onClose: () => void;
 }
 
 export interface UseSubmitReturnType {

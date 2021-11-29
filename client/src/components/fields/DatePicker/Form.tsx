@@ -1,6 +1,6 @@
-import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 import WithController from 'hocs/withController';
 import { FormInput } from 'pages/InfoTables/MainTable/Dialog/types';
 import DatePicker from './index';
+import { DatePickerPropsType } from './types';
 
-export default WithController<FormInput, ParsableDate>(DatePicker);
+export default WithController<FormInput, DatePickerPropsType>(DatePicker);

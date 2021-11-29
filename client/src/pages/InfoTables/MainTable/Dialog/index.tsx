@@ -71,6 +71,7 @@ const Dialog: React.FC<DialogType> = memo(props => {
                     name={`${VALUES_ARRAY_NAME}.${i}`}
                     remove={remove}
                     index={i}
+                    isRemovable={fields.length === 1}
                   />
                 </div>
               );

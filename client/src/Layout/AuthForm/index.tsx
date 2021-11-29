@@ -32,7 +32,7 @@ const AuthForm = () => {
       control,
       className: input,
       rules: {
-        required: true,
+        required: 'Заполните поле',
       },
       ...data,
     } as const);
@@ -43,13 +43,13 @@ const AuthForm = () => {
     <form className={form} onSubmit={handleSubmit(onSubmit)}>
       <AuthInput {...getInputProps({ name: 'username', label: 'Логин' })} />
       <AuthInput {...getInputProps({ name: 'password', label: 'Пароль' })} />
-      <FormControlLabel
+      {/* <FormControlLabel
         control={
           <AuthCheckbox name="rememberMe" control={control} color="primary" />
         }
         label="Запомнить меня"
         className={checkbox}
-      />
+      /> */}
       <LoadableButton
         className={submitButton}
         isSubmitting={isSubmitting}

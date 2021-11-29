@@ -6,13 +6,10 @@ import {
 import { RequestWithTypedBody } from 'constants/types';
 import User from 'models/Users';
 import bcrypt from 'bcryptjs';
-import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
-import { addMinutes } from 'utils/dates';
-import { RefreshTokenBodyType, TokenListType, UserBodyType } from './types';
+import jwt from 'jsonwebtoken';
+import { UserBodyType } from './types';
 
 const { JWT_ACCESS_SECRET, JWT_ACCESS_EXPIRED_TIME } = process.env;
-
-const tokenList: TokenListType = {};
 
 export default class UsersController {
   public signUp = async (
@@ -96,59 +93,11 @@ export default class UsersController {
       const response = {
         accessToken,
         username: currentUser?.username,
-        expiresIn: addMinutes(
-          new Date(),
-          parseInt(JWT_ACCESS_EXPIRED_TIME as string)
-        ).toString(),
       };
 
       res.send(response);
     } catch (err) {
       console.log(err);
-      handleInternalServerError(res, err as Error);
-    }
-  };
-
-  public refreshToken = async (
-    req: RequestWithTypedBody<RefreshTokenBodyType>,
-    res: Response
-  ): Promise<void> => {
-    const { accessToken } = req.body;
-
-    if (!Object.keys(tokenList).includes(accessToken)) {
-      handleBadRequestError(res, {
-        message: 'Нету такого токена',
-        name: 'badRequest',
-      });
-    }
-
-    try {
-      const decodedToken = jwt.verify(
-        accessToken,
-        JWT_ACCESS_SECRET as string
-      ) as JwtPayload;
-
-      const newAccessToken = jwt.sign(
-        { userId: decodedToken?.userId },
-        JWT_ACCESS_SECRET as string,
-        {
-          expiresIn: JWT_ACCESS_EXPIRED_TIME,
-        }
-      );
-
-      tokenList[accessToken].accessToken = newAccessToken;
-
-      res.send({ newAccessToken });
-    } catch (err) {
-      console.log(err);
-      if (err instanceof TokenExpiredError) {
-        res.status(401).send({
-          message: 'Ваш токен истек, нужна повторная авторизация!',
-        });
-
-        return;
-      }
-
       handleInternalServerError(res, err as Error);
     }
   };

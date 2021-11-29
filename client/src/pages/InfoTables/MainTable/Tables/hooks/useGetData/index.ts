@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import { TablePropsType } from 'pages/InfoTables/common/Table/types';
 import { AxiosError } from 'axios';
-import { handleAxiosError } from 'utils/helpers';
+import { handleAxiosError } from 'utils/api';
 import { useAppSelector } from 'redux/hooks';
 import { UseGetDataHookArgsType, UseGetDataHookReturnType } from './types';
 

@@ -5,7 +5,6 @@ export interface UserStateType {
   data: {
     username: string | null;
     accessToken: string | null;
-    expiresIn: string | null;
   };
 }
 

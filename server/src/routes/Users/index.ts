@@ -17,6 +17,5 @@ export default class Houses {
   public routes = (): void => {
     this.router.post('/signup', this.controller.signUp);
     this.router.post('/signin', this.controller.signIn);
-    this.router.post('/refreshtoken', this.controller.refreshToken);
   };
 }

@@ -4,7 +4,7 @@ import { AppThunk } from 'redux/types';
 import { GetAllDataType } from 'api/types';
 import { getDataWithCreatedData } from 'utils/objects';
 import { CamelToSnakeKeys } from 'constants/types';
-import { handleAxiosError, transformFiltersForApi } from 'utils/helpers';
+import { handleAxiosError, transformFiltersForApi } from 'utils/api';
 import { AxiosError } from 'axios';
 import { handleResetSelectedCells, setData } from './reducer';
 import { AddDataType, FlatType, UpdateDataType, GetFlatsType } from './types';
@@ -32,7 +32,7 @@ export const getFlats: GetFlatsType =
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-    dispatch(setData({ count: parseInt(data.count), data: reformattedData }));
+    dispatch(setData({ count: parseInt(data?.count), data: reformattedData }));
   };
 
 export const addFlats =

@@ -25,5 +25,6 @@ export const useStyles = makeStyles(theme => ({
   },
   submitButton: {
     alignSelf: 'end',
+    marginTop: 5,
   },
 }));

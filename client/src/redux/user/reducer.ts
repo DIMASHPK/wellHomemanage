@@ -6,7 +6,6 @@ export const initialState: UserStateType = {
   data: {
     username: null,
     accessToken: getLocalStorageValue<string>('accessToken'),
-    expiresIn: getLocalStorageValue<string>('expiresIn'),
   },
 };
 
@@ -17,9 +16,12 @@ export const userSlice = createSlice({
     setUserData: (state, { payload }) => {
       state.data = { ...state.data, ...payload };
     },
+    removeUserData: state => {
+      state.data = { username: null, accessToken: null };
+    },
   },
 });
 
-export const { setUserData } = userSlice.actions;
+export const { setUserData, removeUserData } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -2,7 +2,7 @@ import { SORT_OPTIONS } from 'constants/apiFilters';
 import { GetOptionalType } from 'constants/types';
 import { TAB_NAMES } from 'constants/tabs';
 import { USER_PATHS } from 'constants/user';
-import { transformFiltersForApi } from '../utils/helpers';
+import { transformFiltersForApi } from 'utils/api';
 
 export type OrderOptionType = GetOptionalType<typeof SORT_OPTIONS>;
 

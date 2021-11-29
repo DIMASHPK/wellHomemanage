@@ -5,7 +5,7 @@ import { addFlats, updateFlats } from 'redux/flats/thunks';
 import { addHouses, updateHouses } from 'redux/houses/thunks';
 import { addExclusives, updateExclusives } from 'redux/exclusives/thunks';
 import { TAB_NAMES } from 'constants/tabs';
-import { handleAxiosError } from 'utils/helpers';
+import { handleAxiosError } from 'utils/api';
 import { AxiosError } from 'axios';
 import {
   getSubmitKey,

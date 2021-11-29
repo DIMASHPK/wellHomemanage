@@ -1,11 +1,14 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
+import { handleUnauthorizedIntersect } from 'utils/api';
+import { getLocalStorageValue } from 'utils/helpers';
 import {
   AddArgsType,
   GetAllArgs,
   RemoveArgsType,
   UpdateArgsType,
 } from './types';
-import { getLocalStorageValue } from '../utils/helpers';
+import { SERVER_ERROR_STATUSES } from './constants';
 
 class Api {
   private readonly baseUrl: string;
@@ -29,11 +32,29 @@ class Api {
     if (this.currentToken) {
       this.addNewHeaders({ authorization: `Bearer ${this.currentToken}` });
     }
+
+    this.handleInterceptors();
   }
 
   get axios() {
     return this._axios;
   }
+
+  private handleInterceptors = () => {
+    this.axios.interceptors.response.use(
+      response => response,
+      error => {
+        const { status, data } = error.response;
+
+        if (status === SERVER_ERROR_STATUSES.UNAUTHORIZED) {
+          handleUnauthorizedIntersect();
+        }
+
+        toast.error(data?.message);
+        return error;
+      }
+    );
+  };
 
   addNewHeaders = (headers: { [key: string]: string }) => {
     Object.entries(headers).forEach(

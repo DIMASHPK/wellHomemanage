@@ -1,6 +1,7 @@
 import Api from 'api';
 import { AxiosError } from 'axios';
-import { handleAxiosError, setLocalStorageValue } from 'utils/helpers';
+import { setLocalStorageValue } from 'utils/helpers';
+import { handleAxiosError } from 'utils/api';
 import { AuthFormValues } from 'Layout/AuthForm/types';
 import { SignInThunkType, UserStateType } from './types';
 import { setUserData } from './reducer';
@@ -17,9 +18,8 @@ export const signInThunk: SignInThunkType =
         data: { username, password },
       });
 
-      setLocalStorageValue('rememberMe', rememberMe);
+      /* setLocalStorageValue('rememberMe', rememberMe); */
       setLocalStorageValue('accessToken', data.accessToken);
-      setLocalStorageValue('expiresIn', data.expiresIn);
 
       Api.addNewHeaders({ authorization: `Bearer ${data.accessToken}` });
 

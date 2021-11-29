@@ -13,4 +13,5 @@ export interface CommonFormTypes {
   index: number;
   title: string;
   formInputs: GetOptionalType<typeof INPUTS_MAPPING>;
+  isRemovable: boolean;
 }

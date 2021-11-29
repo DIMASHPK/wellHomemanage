@@ -1,17 +1,12 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import { IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { useFormContext } from 'react-hook-form';
-import { VALUES_ARRAY_NAME } from 'pages/InfoTables/MainTable/Dialog/constants';
 import { CommonFormTypes } from './types';
 import { useStyles } from './styles';
 
 const CommonForm: React.FC<CommonFormTypes> = memo(props => {
-  const { control, name, remove, index, formInputs, title } = props;
-
-  const { watch } = useFormContext();
-
-  const currentForm = watch(VALUES_ARRAY_NAME);
+  const { control, name, remove, index, formInputs, title, isRemovable } =
+    props;
 
   const {
     formItemWrapper,
@@ -25,11 +20,6 @@ const CommonForm: React.FC<CommonFormTypes> = memo(props => {
     remove(index);
   };
 
-  const isDisabled = useMemo(
-    () => currentForm?.length < 2,
-    [currentForm.length]
-  );
-
   return (
     <div className={formItemWrapper}>
       <div className={titleContainer}>
@@ -37,7 +27,7 @@ const CommonForm: React.FC<CommonFormTypes> = memo(props => {
         <IconButton
           className={closeButton}
           onClick={handleClose}
-          disabled={isDisabled}
+          disabled={isRemovable}
           color="primary"
         >
           <CloseIcon />

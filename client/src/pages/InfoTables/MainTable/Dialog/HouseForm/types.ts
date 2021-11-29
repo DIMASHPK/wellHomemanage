@@ -7,4 +7,5 @@ export interface FlatFormTypes {
   name: `${typeof VALUES_ARRAY_NAME}.${number}`;
   remove: UseFieldArrayReturn<FormInput>['remove'];
   index: number;
+  isRemovable: boolean;
 }

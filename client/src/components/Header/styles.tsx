@@ -5,4 +5,8 @@ export const useStyles = makeStyles(theme => ({
   title: {
     color: theme.palette.common.white,
   },
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }));

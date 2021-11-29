@@ -86,8 +86,6 @@ export const handleAxiosError = (err: AxiosError) => {
   }
 
   console.log(err);
-
-  return toast.error(err?.message);
 };
 
 export const handleUnauthorizedIntersect = () => {

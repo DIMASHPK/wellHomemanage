@@ -2,11 +2,12 @@ import './configs';
 import cors from 'cors';
 import express, { Express } from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 import { sequelize } from './configs/db';
 import { CorsOptionsType } from './types/app';
 import Routes from './routes';
 
-const { PORT } = process.env;
+const { PORT, NODE_ENV } = process.env;
 
 class App {
   app: Express;
@@ -34,6 +35,21 @@ class App {
     this.app.use(express.json());
 
     this.routesList.init();
+
+    this.renderClient();
+  };
+
+  private renderClient = () => {
+    if (NODE_ENV === 'production') {
+      this.app.use(
+        '/',
+        express.static(path.join(__dirname, '/../../client/build'))
+      );
+
+      this.app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '/../../client/build/index.html'));
+      });
+    }
   };
 
   public init = () => {

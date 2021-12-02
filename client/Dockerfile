@@ -3,8 +3,9 @@
 # Build react client
 FROM node:14.18-alpine
 
-# Working directory be app
-WORKDIR /usr/src/app
+# Create App Directory
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
 COPY package*.json ./
 

@@ -3,9 +3,10 @@ version: '3.8'
 services:
   webapp-client:
     build:
-      context: client
-      dockerfile: dockerfile
+      context: ./client
+      dockerfile: Dockerfile
     container_name: my-client-container
+    restart: always
     depends_on:
       - webapp-server
     ports:
@@ -13,8 +14,8 @@ services:
 
   webapp-server:
     build:
-      context: server
-      dockerfile: dockerfile
+      context: ./server
+      dockerfile: Dockerfile
     container_name: my-server-container
     restart: always
     ports:
@@ -26,10 +27,8 @@ services:
     image: 'postgres:12'
     container_name: my-postgres-container
     restart: always
-    environment:
-      - POSTGRES_DB=$DB_DATABASE
-      - POSTGRES_USER=$DB_USERNAME
-      - POSTGRES_PASSWORD=$DB_PASSWORD
+    env_file:
+      - server/.env
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:

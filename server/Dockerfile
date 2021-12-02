@@ -3,8 +3,8 @@
 FROM node:14.18-alpine
 
 # Create App Directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
 
 # Install Dependencies
 COPY package*.json ./
@@ -15,6 +15,6 @@ RUN npm install --silent
 COPY . .
 
 # Exports
-EXPOSE 5000
+EXPOSE 7777
 
 CMD ["npm","run","start:dev"]

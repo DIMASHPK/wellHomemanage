@@ -41,13 +41,12 @@ class App {
 
   private renderClient = () => {
     if (NODE_ENV === 'production') {
-      this.app.use(
-        '/',
-        express.static(path.join(__dirname, '/../../client/build'))
-      );
+      const clientBuiltPath = '/../../client/build';
 
-      this.app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '/../../client/build/index.html'));
+      this.app.use('/', express.static(path.join(__dirname, clientBuiltPath)));
+
+      this.app.get('*', (reqs, res) => {
+        res.sendFile(path.join(__dirname, clientBuiltPath, 'index.html'));
       });
     }
   };

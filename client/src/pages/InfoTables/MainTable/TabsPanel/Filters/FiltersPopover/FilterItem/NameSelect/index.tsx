@@ -8,7 +8,7 @@ import { useStyles } from './styles';
 import { getValueForInput, getNameOptions } from './helpers';
 
 const NameSelect: React.FC<NameSelectPropsType> = memo(
-  React.forwardRef((props, ref: SelectPropsType['ref']) => {
+  React.forwardRef((props, ref) => {
     const { currentFilter, index, filters, selectedTabName } = props;
 
     const { setValue, register } = useFormContext();
@@ -55,7 +55,7 @@ const NameSelect: React.FC<NameSelectPropsType> = memo(
         labelClasses={{ root: labelRoot }}
         {...register(`${VALUES_ARRAY_NAME}.${index}.name`)}
         onChange={handleChange}
-        ref={ref}
+        ref={ref as SelectPropsType['ref']}
       />
     );
   })

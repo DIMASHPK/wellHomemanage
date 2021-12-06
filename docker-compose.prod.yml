@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  webapp-server:
+    build:
+      context:  .
+      dockerfile: Dockerfile.prod
+    container_name: my-app-container
+    restart: always
+    ports:
+      - "7777:7777"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: 'postgres:12'
+    container_name: my-postgres-container
+    restart: always
+    env_file:
+      - server/.env
+    volumes:
+      - ./pgdata-prod:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+

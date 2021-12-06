@@ -30,5 +30,14 @@ module.exports = {
   },
   externals: [nodeExternals()],
   watch: NODE_ENV === 'development',
-  plugins: [new NodemonPlugin()],
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 300,
+    poll: 500,
+  },
+  plugins: [
+    new NodemonPlugin({
+      legacyWatch: true,
+    }),
+  ],
 };

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  webapp-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: my-client-container
+    restart: always
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./client/src:/usr/app/src
+    depends_on:
+      - webapp-server
+    ports:
+      - "3000:3000"
+
+  webapp-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: my-server-container
+    volumes:
+      - ./server/src:/usr/app/src
+      - ./server/build:/usr/app/build
+    restart: always
+    ports:
+      - "7777:7777"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: 'postgres:12'
+    container_name: my-postgres-container
+    restart: always
+    env_file:
+      - server/.env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+

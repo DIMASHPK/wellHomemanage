@@ -32,7 +32,12 @@ export const getHouses: GetHousesType =
 
     const reformattedData = data?.data?.map(getDataWithCreatedData);
 
-    dispatch(setData({ count: parseInt(data?.count), data: reformattedData }));
+    dispatch(
+      setData({
+        count: parseInt(data?.count) || 0,
+        data: reformattedData || [],
+      })
+    );
   };
 
 export const addHouses =

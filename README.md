@@ -38,8 +38,8 @@ I have created ui to manage backend data with simple auth and CRUD operations fo
     - `cd client => yarn => yarn start ` to run client
     - `cd server => yarn` => change .env file `POSTGRES_HOST` variable to `POSTGRES_HOST = localhost` => `yarn start:dev` to run server
  - With Docker
-  - Open main folder of project
-  - open one terminal window => `docker-compose -f docker-compose.dev.yml up --build`
+   - Open main folder of project
+   - open one terminal window => `docker-compose -f docker-compose.dev.yml up --build`
   
   After these steps you can you can open `localhost:3000` for client and `localhost:777` for server
   

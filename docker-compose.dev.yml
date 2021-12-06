@@ -7,6 +7,10 @@ services:
       dockerfile: Dockerfile
     container_name: my-client-container
     restart: always
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./client/src:/usr/app/src
     depends_on:
       - webapp-server
     ports:
@@ -17,6 +21,9 @@ services:
       context: ./server
       dockerfile: Dockerfile
     container_name: my-server-container
+    volumes:
+      - ./server/src:/usr/app/src
+      - ./server/build:/usr/app/build
     restart: always
     ports:
       - "7777:7777"
